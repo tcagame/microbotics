@@ -68,9 +68,21 @@ public class PlayerManager : MonoBehaviour {
 			_gauge += GaugeChargeSpeed;
 			_animator.playCharging ( true );
 		}
-		if (col.gameObject.tag == "DisCharger" && ( _operation.getHitRaycastTag( ) == "DisCharger" )) {
-			_animator.playDisCharge (true);
+	}
+
+	void OnCollisionStay( Collision col ) {
+		if (col.gameObject.tag == "Jack" && ( _operation.getHitRaycastTag( ) == "Jack" )) {
+			//_animator.playDisCharge (true);
 			_gauge -= GaugeDischargeSpeed;
+			col.collider.GetComponent<JackManager> ().giveGauge (GaugeDischargeSpeed);
+			col.collider.GetComponent<JackManager> ().playJack();
+			//_animator.playDisCharge (false);
+		}
+		if (col.gameObject.tag == "Fan" && ( _operation.getHitRaycastTag( ) == "Fan" )) {
+			if (!col.collider.GetComponent<FanManager> ().getFlag ()) {
+				_gauge -= GaugeDischargeSpeed;
+				col.collider.GetComponent<FanManager> ().isPlay ();
+			}
 		}
 	}
 
