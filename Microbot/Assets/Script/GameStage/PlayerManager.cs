@@ -15,19 +15,18 @@ public class PlayerManager : MonoBehaviour {
 	[SerializeField]private float FullStairGaugeDrop = 300.0f;
 	[SerializeField]private float HalfStairGaugeDrop = 300.0f;
 	[SerializeField]private float SmallStairGaugeDrop = 100.0f;
-	private Touch _touch;
-
+	//private Touch _touch;
+	private Operation _operation;
 	[SerializeField]private float _move_max_time = 1;
 	private float _move_time = 0;
 	private AnimatorController _animator;
-
+	private Vector3 _target_pos = new Vector3 ( );
 	void Awake(){
 		_animator = GetComponent<AnimatorController> ();
 	}
 	// Use this for initialization
 	void Start () {
-		_touch = GameObject.Find ( "Touch" ).GetComponent< Touch >();
-
+		_operation = GameObject.Find( "Operation" ).GetComponent< Operation >( );
 		_gauge = GAUGE_MAX;
 		_gauge_speed = StandGaugeDrop;
 	}
@@ -41,24 +40,24 @@ public class PlayerManager : MonoBehaviour {
 		if (_gauge > 0.0f) {
 			_gauge -= Time.deltaTime * _gauge_speed;
 		}
-		Vector3 touch_traget_pos = _touch.getTargetPos ();
-
-		Vector3 traget_touch = new Vector3 ( touch_traget_pos.x, transform.position.y, touch_traget_pos.z );
-
-		if ( touch_traget_pos != new Vector3( ) ){
+			
+		Vector3 rayhit_pos = _operation.getHitRaycastPos ();
+		if ( rayhit_pos != new Vector3( ) ) {
+			_target_pos = new Vector3 ( rayhit_pos.x, transform.position.y, rayhit_pos.z );
+		}
+		if ( _target_pos != new Vector3( ) ){
 			_gauge_speed = WalkGaugeDrop;
-			move ( traget_touch );
-			//move ( traget_click );
+			move ( _target_pos );
 			_animator.setRunning (true);
 			_move_time++;
 		} else {
 			_gauge_speed = StandGaugeDrop;
 			_animator.setRunning (false);
 		}
-		if ( ( transform.position == traget_touch ) || _move_time / 60 >= _move_max_time ) {
+		if ( ( transform.position == _target_pos ) || _move_time / 60 >= _move_max_time ) {
 			_move_time = 0;
-			_touch.resetTargetPos ( );
-			//_click.resetTargetPos ( );
+			_operation.resetTargetPos ( );
+			_target_pos = new Vector3 ();
 			_animator.setRunning (false);
 		}
 			
@@ -69,7 +68,7 @@ public class PlayerManager : MonoBehaviour {
 			_gauge += GaugeChargeSpeed;
 			_animator.playCharging ( true );
 		}
-		if (col.gameObject.tag == "DisCharger" && ( _touch.getTouchTag( ) == "DisCharger" )) {
+		if (col.gameObject.tag == "DisCharger" && ( _operation.getHitRaycastTag( ) == "DisCharger" )) {
 			_animator.playDisCharge (true);
 			_gauge -= GaugeDischargeSpeed;
 		}
