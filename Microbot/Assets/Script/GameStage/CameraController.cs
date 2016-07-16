@@ -18,13 +18,13 @@ public class CameraController : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Start( ){
 		_camera_vec = transform.position - _player.transform.position;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		tracking ();
+	void Update( ) {
+		tracking( );
 		turn( );
 	}
 

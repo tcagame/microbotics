@@ -17,48 +17,48 @@ public class PlayerManager : MonoBehaviour {
 	[SerializeField]private float SmallStairGaugeDrop = 100.0f;
 	//private Touch _touch;
 	private Operation _operation;
-	[SerializeField]private float _move_max_time = 1;
+	[SerializeField]private float MoveMaxTime = 1;
 	private float _move_time = 0;
 	private AnimatorController _animator;
-	private Vector3 _target_pos = new Vector3 ( );
-	void Awake(){
-		_animator = GetComponent<AnimatorController> ();
+	private Vector3 _target_pos = new Vector3( );
+
+	void Awake( ) {
+		_animator = GetComponent< AnimatorController >( );
 	}
-	// Use this for initialization
-	void Start () {
+
+	void Start( ) {
 		_operation = GameObject.Find( "Operation" ).GetComponent< Operation >( );
 		_gauge = GAUGE_MAX;
 		_gauge_speed = StandGaugeDrop;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		if (_gauge > GAUGE_MAX) {
+	void Update( ) {
+		if ( _gauge > GAUGE_MAX ) {
 			_gauge = GAUGE_MAX;
 			//_animator.playCharging (false);
 		}
-		if (_gauge > 0.0f) {
+		if ( _gauge > 0.0f ) {
 			_gauge -= Time.deltaTime * _gauge_speed;
 		}
 			
-		Vector3 rayhit_pos = _operation.getHitRaycastPos ();
+		Vector3 rayhit_pos = _operation.getHitRaycastPos( );
 		if ( rayhit_pos != new Vector3( ) ) {
 			_target_pos = new Vector3 ( rayhit_pos.x, transform.position.y, rayhit_pos.z );
 		}
 		if ( _target_pos != new Vector3( ) ){
 			_gauge_speed = WalkGaugeDrop;
 			move ( _target_pos );
-			_animator.setRunning (true);
+			_animator.setRunning( true );
 			_move_time++;
 		} else {
 			_gauge_speed = StandGaugeDrop;
-			_animator.setRunning (false);
+			_animator.setRunning( false );
 		}
-		if ( ( transform.position == _target_pos ) || _move_time / 60 >= _move_max_time ) {
+		if ( ( transform.position == _target_pos ) || _move_time / 60 >= MoveMaxTime ) {
 			_move_time = 0;
 			_operation.resetTargetPos ( );
-			_target_pos = new Vector3 ();
-			_animator.setRunning (false);
+			_target_pos = new Vector3( );
+			_animator.setRunning( false );
 		}
 			
 	}
@@ -71,49 +71,49 @@ public class PlayerManager : MonoBehaviour {
 	}
 
 	void OnCollisionStay( Collision col ) {
-		if (col.gameObject.tag == "Jack" && ( _operation.getHitRaycastTag( ) == "Jack" )) {
+		if ( col.gameObject.tag == "Jack" && ( _operation.getHitRaycastTag( ) == "Jack" ) ) {
 			//_animator.playDisCharge (true);
 			_gauge -= GaugeDischargeSpeed;
-			col.collider.GetComponent<JackManager> ().giveGauge (GaugeDischargeSpeed);
-			col.collider.GetComponent<JackManager> ().playJack();
+			col.collider.GetComponent< JackManager >( ).giveGauge( GaugeDischargeSpeed );
+			col.collider.GetComponent< JackManager >( ).playJack( );
 			//_animator.playDisCharge (false);
 		}
-		if (col.gameObject.tag == "Fan" && ( _operation.getHitRaycastTag( ) == "Fan" )) {
-			if (!col.collider.GetComponent<FanManager> ().getFlag ()) {
+		if ( col.gameObject.tag == "Fan" && ( _operation.getHitRaycastTag( ) == "Fan" ) ) {
+			if (!col.collider.GetComponent< FanManager >( ).getFlag( ) ) {
 				_gauge -= GaugeDischargeSpeed;
-				col.collider.GetComponent<FanManager> ().isPlay ();
+				col.collider.GetComponent< FanManager >( ).isPlay( );
 			}
 		}
 	}
 
 	void OnCollisionEnter( Collision col ) {
 		Vector3 pos = transform.position;
-		Vector3 col_pos = col.gameObject.GetComponent<Transform> ().position;
+		Vector3 col_pos = col.gameObject.GetComponent< Transform >( ).position;
 		if (col.gameObject.tag == "StairFull") {
 			if (col_pos.y >= pos.y) {
 				_gauge -= FullStairGaugeDrop;
 			}
-			if ( getStair (col_pos) - ( getStair (pos) - 0.5F ) <= 1.0f) {
+			if ( getStair( col_pos ) - ( getStair( pos ) - 0.5F ) <= 1.0f ) {
 				pos.y = col_pos.y + col.transform.localScale.y - 0.5f;
 			}
 			transform.position = pos;
 		}
 
-		if (col.gameObject.tag == "StairHalf") {
-			if (col_pos.y + 0.5f >= pos.y) {
+		if ( col.gameObject.tag == "StairHalf" ) {
+			if ( col_pos.y + 0.5f >= pos.y ) {
 				_gauge -= HalfStairGaugeDrop;
 			}
-			if ( getStair (col_pos) - ( getStair (pos) ) <= 1.0f) {
+			if ( getStair( col_pos ) - ( getStair( pos ) ) <= 1.0f ) {
 				pos.y = col_pos.y ;
 			}
 			transform.position = pos;
 		}
 
-		if (col.gameObject.tag == "StairSmall") {
-			if (col_pos.y + 0.4f >= pos.y) {
+		if ( col.gameObject.tag == "StairSmall" ) {
+			if ( col_pos.y + 0.4f >= pos.y ) {
 				_gauge -= SmallStairGaugeDrop;
 			}
-			if ( getStair (col_pos) - ( getStair (pos) ) <= 1.0f) {
+			if ( getStair( col_pos ) - ( getStair( pos ) ) <= 1.0f ) {
 				pos.y = col_pos.y;
 			}
 			transform.position = pos;
@@ -122,7 +122,7 @@ public class PlayerManager : MonoBehaviour {
 		
 	int getStair( Vector3 pos ) {
 		int i = 0;
-		while (pos.y > 0.0f) {
+		while ( pos.y > 0.0f ) {
 			pos.y -= 1.0f;
 			i++;
 		}
@@ -132,7 +132,8 @@ public class PlayerManager : MonoBehaviour {
 	public float getGauge( ) {
 		return _gauge;
 	}
-	public void move ( Vector3 pos ) {
+
+	public void move( Vector3 pos ) {
 		transform.position = Vector3.MoveTowards ( transform.position, pos, WalkSpeed );
 		transform.LookAt ( pos );
 	}
