@@ -23,20 +23,17 @@ public class Operation : MonoBehaviour {
 		}
 	}
 
-	void Start () {
-	}
-
-	void Update () {
+	void Update( ) {
 		if ( _mode == MODE.MOED_ERROR ) {
 			return;
 		}
 		//基本的に入力された位置をプレイヤーに重ならないように取得している。
-		if ( isSingleInput( ) && getTouchPhase(0) == TouchPhase.Ended ) {
+		if ( isSingleInput( ) && getTouchPhase( 0 ) == TouchPhase.Ended ) {
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay( getInputPosition( 0 ) );
-			if (Physics.Raycast (ray, out hit)) {
+			if ( Physics.Raycast( ray, out hit) ) {
 				_target_object_tag = hit.collider.gameObject.tag;
-				if (_target_object_tag != null && _target_object_tag != "Player") {
+				if ( _target_object_tag != null && _target_object_tag != "Player" ) {
 					_raycast_pos = hit.point;	
 				}
 			}
@@ -118,7 +115,7 @@ public class Operation : MonoBehaviour {
 
 	//マルチインプットの判定
 	public bool isMultiInput( ) {
-		if ( getInputCount () > 1 ) {
+		if ( getInputCount( ) > 1 ) {
 			return true;
 		}
 		return false;

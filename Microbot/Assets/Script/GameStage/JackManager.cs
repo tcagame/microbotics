@@ -9,14 +9,12 @@ public class JackManager : MonoBehaviour {
 	private GameObject _set;
 	public string TrapName = "JackSet";
 
-	// Use this for initialization
-	void Start () {
+	void Start( ) {
 		_gauge = 100;
-		_set = GameObject.Find (TrapName).gameObject;
+		_set = GameObject.Find( TrapName ).gameObject;
 	}
 
-	// Update is called once per frame
-	void Update () {
+	void Update( ) {
 		_scale_y = _gauge * 1.0f / 50.0f;
 	}
 
