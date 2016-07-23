@@ -10,11 +10,11 @@ public class PlayerManager : MonoBehaviour {
 	private float _gauge_speed;
 	[SerializeField]private float GaugeChargeSpeed = 100.0f;
 	[SerializeField]private float GaugeDischargeSpeed = 500.0f;
-	[SerializeField]private float StandGaugeDrop = 50.0f;
-	[SerializeField]private float WalkGaugeDrop = 200.0f;
-	[SerializeField]private float FullStairGaugeDrop = 300.0f;
-	[SerializeField]private float HalfStairGaugeDrop = 300.0f;
-	[SerializeField]private float SmallStairGaugeDrop = 100.0f;
+	[SerializeField]private float StandGaugeDrop = 0.0f;
+	[SerializeField]private float WalkGaugeDrop = 0.0f;
+	private float FullStairGaugeDrop = 300.0f;
+	private float HalfStairGaugeDrop = 200.0f;
+	private float SmallStairGaugeDrop = 100.0f;
 	//private Touch _touch;
 	private Operation _operation;
 	[SerializeField]private float _move_max_time = 1;
@@ -89,49 +89,24 @@ public class PlayerManager : MonoBehaviour {
 	void OnCollisionEnter( Collision col ) {
 		Vector3 pos = transform.position;
 		Vector3 col_pos = col.gameObject.GetComponent<Transform> ().position;
-		if (col.gameObject.tag == "StairFull") {
-			if (col_pos.y >= pos.y) {
+		Vector3 col_scale = col.gameObject.GetComponent<Transform> ().localScale;
+		if (col.gameObject.tag == "Stair") {
+			pos.y = col_pos.y + col_scale.y / 2;
+			transform.position = pos;
+			if (col_scale.y <= transform.localScale.y / 5) {
+				_gauge -= SmallStairGaugeDrop;
+			} else if (col_scale.y <= transform.localScale.y / 2) {
+				_gauge -= HalfStairGaugeDrop;
+			} else {
 				_gauge -= FullStairGaugeDrop;
 			}
-			if ( getStair (col_pos) - ( getStair (pos) - 0.5F ) <= 1.0f) {
-				pos.y = col_pos.y + col.transform.localScale.y - 0.5f;
-			}
-			transform.position = pos;
 		}
-
-		if (col.gameObject.tag == "StairHalf") {
-			if (col_pos.y + 0.5f >= pos.y) {
-				_gauge -= HalfStairGaugeDrop;
-			}
-			if ( getStair (col_pos) - ( getStair (pos) ) <= 1.0f) {
-				pos.y = col_pos.y ;
-			}
-			transform.position = pos;
-		}
-
-		if (col.gameObject.tag == "StairSmall") {
-			if (col_pos.y + 0.4f >= pos.y) {
-				_gauge -= SmallStairGaugeDrop;
-			}
-			if ( getStair (col_pos) - ( getStair (pos) ) <= 1.0f) {
-				pos.y = col_pos.y;
-			}
-			transform.position = pos;
-		}
-	}
-		
-	int getStair( Vector3 pos ) {
-		int i = 0;
-		while (pos.y > 0.0f) {
-			pos.y -= 1.0f;
-			i++;
-		}
-		return i;
 	}
 
 	public float getGauge( ) {
 		return _gauge;
 	}
+
 	public void move ( Vector3 pos ) {
 		transform.position = Vector3.MoveTowards ( transform.position, pos, WalkSpeed );
 		transform.LookAt ( pos );
