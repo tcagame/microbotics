@@ -21,9 +21,17 @@ public class PlayerManager : MonoBehaviour {
 	private float _move_time = 0;
 	private AnimatorController _animator;
 	private Vector3 _target_pos = new Vector3 ( );
-	void Awake(){
-		_animator = GetComponent<AnimatorController> ();
+	
+    void Awake(){
+		_animator = GetComponent<AnimatorController>( );
+        point = ( GameObject )Resources.Load( "Prefab/Point" );
+        point = Instantiate( point );
+        point.SetActive( false );
 	}
+
+    //ポイント
+    GameObject point;
+
 	// Use this for initialization
 	void Start () {
 		_operation = GameObject.Find( "Operation" ).GetComponent< Operation >( );
@@ -41,23 +49,26 @@ public class PlayerManager : MonoBehaviour {
 			_gauge -= Time.deltaTime * _gauge_speed;
 		}
 			
-		Vector3 rayhit_pos = _operation.getHitRaycastPos ();
+		Vector3 rayhit_pos = _operation.getHitRaycastPos( );
 		if ( rayhit_pos != new Vector3( ) ) {
 			_target_pos = new Vector3 ( rayhit_pos.x, transform.position.y, rayhit_pos.z );
 		}
-		if ( _target_pos != new Vector3( ) ){
+		if ( _target_pos != new Vector3( ) ) {
 			_gauge_speed = WalkGaugeDrop;
 			move ( _target_pos );
 			_animator.setRunning (true);
 			_move_time++;
+            setPoint( _target_pos );
 		} else {
 			_gauge_speed = StandGaugeDrop;
 			_animator.setRunning (false);
+             deletePoint( );
 		}
+
 		if ( ( transform.position == _target_pos ) || _move_time / 60 >= _move_max_time ) {
 			_move_time = 0;
 			_operation.resetTargetPos ( );
-			_target_pos = new Vector3 ();
+			_target_pos = new Vector3( );
 			_animator.setRunning (false);
 		}
 			
@@ -111,4 +122,13 @@ public class PlayerManager : MonoBehaviour {
 		transform.position = Vector3.MoveTowards ( transform.position, pos, WalkSpeed );
 		transform.LookAt ( pos );
 	}
+
+    private void setPoint( Vector3 pos ) {
+        point.SetActive( true );
+        point.transform.position = pos + ( point.transform.up * 0.01f );
+    }
+
+	private void deletePoint( ) {
+        point.SetActive( false );
+    }
 }
