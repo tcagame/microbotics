@@ -21,6 +21,9 @@ public class PlayerManager : MonoBehaviour {
 	private float _move_time = 0;
 	private AnimatorController _animator;
 	private Vector3 _target_pos = new Vector3 ( );
+
+	  //ポイント
+    GameObject point;
 	
     void Awake(){
 		_animator = GetComponent<AnimatorController>( );
@@ -28,9 +31,6 @@ public class PlayerManager : MonoBehaviour {
         point = Instantiate( point );
         point.SetActive( false );
 	}
-
-    //ポイント
-    GameObject point;
 
 	// Use this for initialization
 	void Start () {
