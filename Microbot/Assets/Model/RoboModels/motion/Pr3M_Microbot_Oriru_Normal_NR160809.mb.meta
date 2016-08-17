@@ -1,0 +1,522 @@
+fileFormatVersion: 2
+guid: f3adb8e3e3a907343aadad7eeebc0419
+timeCreated: 1471407005
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: back
+    100002: Body
+    100004: body
+    100006: Chest
+    100008: Head
+    100010: head
+    100012: huusya
+    100014: IK
+    100016: IK_L_Arm
+    100018: IK_L_Thigh
+    100020: IK_R_Arm
+    100022: IK_R_Thigh
+    100024: Impeller
+    100026: L_Ankle
+    100028: L_Arm1
+    100030: L_Arm2
+    100032: L_Arm3
+    100034: L_Arm4
+    100036: L_Arm5
+    100038: L_Finger1
+    100040: L_Finger2
+    100042: L_Hand
+    100044: L_Knee
+    100046: L_Rucksack_Lid
+    100048: L_Shoulder
+    100050: L_Thigh
+    100052: L_Thumb1
+    100054: L_Thumb2
+    100056: L_Toe
+    100058: left
+    100060: leg
+    100062: Microbot
+    100064: //RootNode
+    100066: R_Ankle
+    100068: R_Arm1
+    100070: R_Arm2
+    100072: R_Arm3
+    100074: R_Arm4
+    100076: R_Arm5
+    100078: R_Finger1
+    100080: R_Finger2
+    100082: R_Hand
+    100084: R_Knee
+    100086: R_Rucksack_Lid
+    100088: R_Shoulder
+    100090: R_Thigh
+    100092: R_Thumb1
+    100094: R_Thumb2
+    100096: R_Toe
+    100098: Rig_All
+    100100: Rig_Head
+    100102: Rig_IK_L_Arm
+    100104: Rig_IK_L_Thigh
+    100106: Rig_IK_R_Arm
+    100108: Rig_IK_R_Thigh
+    100110: Rig_Impeller
+    100112: Rig_L_Finger
+    100114: Rig_L_Hand
+    100116: Rig_L_Rucksack_Lid
+    100118: Rig_L_Thumb
+    100120: Rig_L_Toe
+    100122: Rig_Locator_L_Arm
+    100124: Rig_Locator_L_Finger
+    100126: Rig_Locator_R_Arm
+    100128: Rig_Locator_R_Finger
+    100130: Rig_R_Finger
+    100132: Rig_R_Hand
+    100134: Rig_R_Rucksack_Lid
+    100136: Rig_R_Thumb
+    100138: Rig_R_Toe
+    100140: Rig_Rotate_Body
+    100142: Rig_Rucksack
+    100144: Rig_Translate_Body
+    100146: Rig_Vec_L_Elbow
+    100148: Rig_Vec_L_Knee
+    100150: Rig_Vec_R_Elbow
+    100152: Rig_Vec_R_Knee
+    100154: Rig_Windmill
+    100156: Rucksack
+    100158: rucksack
+    100160: rucksack_L_huta
+    100162: rucksack_R_huta
+    100164: Windmill
+    400000: back
+    400002: Body
+    400004: body
+    400006: Chest
+    400008: Head
+    400010: head
+    400012: huusya
+    400014: IK
+    400016: IK_L_Arm
+    400018: IK_L_Thigh
+    400020: IK_R_Arm
+    400022: IK_R_Thigh
+    400024: Impeller
+    400026: L_Ankle
+    400028: L_Arm1
+    400030: L_Arm2
+    400032: L_Arm3
+    400034: L_Arm4
+    400036: L_Arm5
+    400038: L_Finger1
+    400040: L_Finger2
+    400042: L_Hand
+    400044: L_Knee
+    400046: L_Rucksack_Lid
+    400048: L_Shoulder
+    400050: L_Thigh
+    400052: L_Thumb1
+    400054: L_Thumb2
+    400056: L_Toe
+    400058: left
+    400060: leg
+    400062: Microbot
+    400064: //RootNode
+    400066: R_Ankle
+    400068: R_Arm1
+    400070: R_Arm2
+    400072: R_Arm3
+    400074: R_Arm4
+    400076: R_Arm5
+    400078: R_Finger1
+    400080: R_Finger2
+    400082: R_Hand
+    400084: R_Knee
+    400086: R_Rucksack_Lid
+    400088: R_Shoulder
+    400090: R_Thigh
+    400092: R_Thumb1
+    400094: R_Thumb2
+    400096: R_Toe
+    400098: Rig_All
+    400100: Rig_Head
+    400102: Rig_IK_L_Arm
+    400104: Rig_IK_L_Thigh
+    400106: Rig_IK_R_Arm
+    400108: Rig_IK_R_Thigh
+    400110: Rig_Impeller
+    400112: Rig_L_Finger
+    400114: Rig_L_Hand
+    400116: Rig_L_Rucksack_Lid
+    400118: Rig_L_Thumb
+    400120: Rig_L_Toe
+    400122: Rig_Locator_L_Arm
+    400124: Rig_Locator_L_Finger
+    400126: Rig_Locator_R_Arm
+    400128: Rig_Locator_R_Finger
+    400130: Rig_R_Finger
+    400132: Rig_R_Hand
+    400134: Rig_R_Rucksack_Lid
+    400136: Rig_R_Thumb
+    400138: Rig_R_Toe
+    400140: Rig_Rotate_Body
+    400142: Rig_Rucksack
+    400144: Rig_Translate_Body
+    400146: Rig_Vec_L_Elbow
+    400148: Rig_Vec_L_Knee
+    400150: Rig_Vec_R_Elbow
+    400152: Rig_Vec_R_Knee
+    400154: Rig_Windmill
+    400156: Rucksack
+    400158: rucksack
+    400160: rucksack_L_huta
+    400162: rucksack_R_huta
+    400164: Windmill
+    2300000: Rig_All
+    2300002: Rig_Head
+    2300004: Rig_IK_L_Arm
+    2300006: Rig_IK_L_Thigh
+    2300008: Rig_IK_R_Arm
+    2300010: Rig_IK_R_Thigh
+    2300012: Rig_Impeller
+    2300014: Rig_L_Finger
+    2300016: Rig_L_Hand
+    2300018: Rig_L_Rucksack_Lid
+    2300020: Rig_L_Thumb
+    2300022: Rig_L_Toe
+    2300024: Rig_R_Finger
+    2300026: Rig_R_Hand
+    2300028: Rig_R_Rucksack_Lid
+    2300030: Rig_R_Thumb
+    2300032: Rig_R_Toe
+    2300034: Rig_Rotate_Body
+    2300036: Rig_Rucksack
+    2300038: Rig_Translate_Body
+    2300040: Rig_Vec_L_Elbow
+    2300042: Rig_Vec_L_Knee
+    2300044: Rig_Vec_R_Elbow
+    2300046: Rig_Vec_R_Knee
+    2300048: Rig_Windmill
+    3300000: Rig_All
+    3300002: Rig_Head
+    3300004: Rig_IK_L_Arm
+    3300006: Rig_IK_L_Thigh
+    3300008: Rig_IK_R_Arm
+    3300010: Rig_IK_R_Thigh
+    3300012: Rig_Impeller
+    3300014: Rig_L_Finger
+    3300016: Rig_L_Hand
+    3300018: Rig_L_Rucksack_Lid
+    3300020: Rig_L_Thumb
+    3300022: Rig_L_Toe
+    3300024: Rig_R_Finger
+    3300026: Rig_R_Hand
+    3300028: Rig_R_Rucksack_Lid
+    3300030: Rig_R_Thumb
+    3300032: Rig_R_Toe
+    3300034: Rig_Rotate_Body
+    3300036: Rig_Rucksack
+    3300038: Rig_Translate_Body
+    3300040: Rig_Vec_L_Elbow
+    3300042: Rig_Vec_L_Knee
+    3300044: Rig_Vec_R_Elbow
+    3300046: Rig_Vec_R_Knee
+    3300048: Rig_Windmill
+    4300000: head
+    4300002: body
+    4300004: leg
+    4300006: rucksack
+    4300008: rucksack_R_huta
+    4300010: rucksack_L_huta
+    4300012: huusya
+    4300014: Rig_All
+    4300016: Rig_IK_R_Thigh
+    4300018: Rig_Vec_R_Knee
+    4300020: Rig_R_Toe
+    4300022: Rig_IK_L_Thigh
+    4300024: Rig_Vec_L_Knee
+    4300026: Rig_L_Toe
+    4300028: Rig_Translate_Body
+    4300030: Rig_Rotate_Body
+    4300032: Rig_Head
+    4300034: Rig_IK_R_Arm
+    4300036: Rig_R_Hand
+    4300038: Rig_R_Finger
+    4300040: Rig_R_Thumb
+    4300042: Rig_Vec_R_Elbow
+    4300044: Rig_IK_L_Arm
+    4300046: Rig_L_Hand
+    4300048: Rig_L_Finger
+    4300050: Rig_L_Thumb
+    4300052: Rig_Vec_L_Elbow
+    4300054: Rig_Rucksack
+    4300056: Rig_Windmill
+    4300058: Rig_Impeller
+    4300060: Rig_L_Rucksack_Lid
+    4300062: Rig_R_Rucksack_Lid
+    7400000: descend_normal
+    9500000: //RootNode
+    13700000: body
+    13700002: head
+    13700004: huusya
+    13700006: leg
+    13700008: rucksack
+    13700010: rucksack_L_huta
+    13700012: rucksack_R_huta
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: descend_normal
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 52
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: back
+        weight: 1
+      - path: Body
+        weight: 1
+      - path: Body/Chest
+        weight: 1
+      - path: Body/Chest/Head
+        weight: 1
+      - path: Body/Chest/L_Shoulder
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3/L_Arm4
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3/L_Arm4/L_Arm5
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3/L_Arm4/L_Arm5/L_Hand
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3/L_Arm4/L_Arm5/L_Hand/L_Finger1
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3/L_Arm4/L_Arm5/L_Hand/L_Finger1/L_Finger2
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3/L_Arm4/L_Arm5/L_Hand/L_Thumb1
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3/L_Arm4/L_Arm5/L_Hand/L_Thumb1/L_Thumb2
+        weight: 1
+      - path: Body/Chest/R_Shoulder
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3/R_Arm4
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3/R_Arm4/R_Arm5
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3/R_Arm4/R_Arm5/R_Hand
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3/R_Arm4/R_Arm5/R_Hand/R_Finger1
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3/R_Arm4/R_Arm5/R_Hand/R_Finger1/R_Finger2
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3/R_Arm4/R_Arm5/R_Hand/R_Thumb1
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3/R_Arm4/R_Arm5/R_Hand/R_Thumb1/R_Thumb2
+        weight: 1
+      - path: Body/L_Thigh
+        weight: 1
+      - path: Body/L_Thigh/L_Knee
+        weight: 1
+      - path: Body/L_Thigh/L_Knee/L_Ankle
+        weight: 1
+      - path: Body/L_Thigh/L_Knee/L_Ankle/L_Toe
+        weight: 1
+      - path: Body/R_Thigh
+        weight: 1
+      - path: Body/R_Thigh/R_Knee
+        weight: 1
+      - path: Body/R_Thigh/R_Knee/R_Ankle
+        weight: 1
+      - path: Body/R_Thigh/R_Knee/R_Ankle/R_Toe
+        weight: 1
+      - path: Body/Rucksack
+        weight: 1
+      - path: Body/Rucksack/L_Rucksack_Lid
+        weight: 1
+      - path: Body/Rucksack/R_Rucksack_Lid
+        weight: 1
+      - path: Body/Rucksack/Windmill
+        weight: 1
+      - path: Body/Rucksack/Windmill/Impeller
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Microbot
+        weight: 1
+      - path: Microbot/body
+        weight: 1
+      - path: Microbot/head
+        weight: 1
+      - path: Microbot/huusya
+        weight: 1
+      - path: Microbot/leg
+        weight: 1
+      - path: Microbot/rucksack
+        weight: 1
+      - path: Microbot/rucksack_L_huta
+        weight: 1
+      - path: Microbot/rucksack_R_huta
+        weight: 1
+      - path: Rig_All
+        weight: 1
+      - path: Rig_All/IK
+        weight: 1
+      - path: Rig_All/IK/IK_L_Arm
+        weight: 1
+      - path: Rig_All/IK/IK_L_Thigh
+        weight: 1
+      - path: Rig_All/IK/IK_R_Arm
+        weight: 1
+      - path: Rig_All/IK/IK_R_Thigh
+        weight: 1
+      - path: Rig_All/Rig_IK_L_Thigh
+        weight: 1
+      - path: Rig_All/Rig_IK_L_Thigh/Rig_L_Toe
+        weight: 1
+      - path: Rig_All/Rig_IK_L_Thigh/Rig_Vec_L_Knee
+        weight: 1
+      - path: Rig_All/Rig_IK_R_Thigh
+        weight: 1
+      - path: Rig_All/Rig_IK_R_Thigh/Rig_R_Toe
+        weight: 1
+      - path: Rig_All/Rig_IK_R_Thigh/Rig_Vec_R_Knee
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_Head
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_IK_L_Arm
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_IK_L_Arm/Rig_L_Hand
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_IK_L_Arm/Rig_L_Hand/Rig_Locator_L_Arm
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_IK_L_Arm/Rig_L_Hand/Rig_Locator_L_Arm/Rig_L_Thumb
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_IK_L_Arm/Rig_L_Hand/Rig_Locator_L_Finger
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_IK_L_Arm/Rig_L_Hand/Rig_Locator_L_Finger/Rig_L_Finger
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_IK_L_Arm/Rig_Vec_L_Elbow
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_IK_R_Arm
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_IK_R_Arm/Rig_R_Hand
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_IK_R_Arm/Rig_R_Hand/Rig_Locator_R_Arm
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_IK_R_Arm/Rig_R_Hand/Rig_Locator_R_Arm/Rig_R_Thumb
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_IK_R_Arm/Rig_R_Hand/Rig_Locator_R_Finger
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_IK_R_Arm/Rig_R_Hand/Rig_Locator_R_Finger/Rig_R_Finger
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_IK_R_Arm/Rig_Vec_R_Elbow
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_Rucksack
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_Rucksack/Rig_L_Rucksack_Lid
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_Rucksack/Rig_R_Rucksack_Lid
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_Rucksack/Rig_Windmill
+        weight: 1
+      - path: Rig_All/Rig_Translate_Body/Rig_Rotate_Body/Rig_Rucksack/Rig_Windmill/Rig_Impeller
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

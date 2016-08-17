@@ -4,12 +4,14 @@ using System.Collections;
 public class JackManager : MonoBehaviour {
 
 	private float _scale_y;
+	private float _max_scale_y;
 	private float _pos_y;
 	private float _gauge;
 	private GameObject _set;
 	public string TrapName = "JackSet";
 
 	void Start( ) {
+		_max_scale_y = 10;
 		_gauge = 100;
 		_set = GameObject.Find( TrapName ).gameObject;
 	}
@@ -29,6 +31,8 @@ public class JackManager : MonoBehaviour {
 	}
 
 	public void giveGauge( float gauge ) {
-		_gauge += gauge;
+		if ( _scale_y < _max_scale_y ) {
+			_gauge += gauge;
+		}
 	}
 }
