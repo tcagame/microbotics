@@ -43,7 +43,7 @@ public class PlayerManager : MonoBehaviour {
 	void Update () {
 		if (_gauge > GAUGE_MAX) {
 			_gauge = GAUGE_MAX;
-			//_animator.playCharging (false);
+			_animator.playCharging (false);
 		}
 		if (_gauge > 0.0f) {
 			_gauge -= Time.deltaTime * _gauge_speed;
@@ -83,11 +83,11 @@ public class PlayerManager : MonoBehaviour {
 
 	void OnCollisionStay( Collision col ) {
 		if (col.gameObject.tag == "Jack" && ( _operation.getHitRaycastTag( ) == "Jack" )) {
-			//_animator.playDisCharge (true);
+			_animator.playDisCharge (true);
 			_gauge -= GaugeDischargeSpeed;
 			col.collider.GetComponent<JackManager> ().giveGauge (GaugeDischargeSpeed);
 			col.collider.GetComponent<JackManager> ().playJack();
-			//_animator.playDisCharge (false);
+			_animator.playDisCharge (false);
 		}
 		if (col.gameObject.tag == "Fan" && ( _operation.getHitRaycastTag( ) == "Fan" )) {
 			if (!col.collider.GetComponent<FanManager> ().getFlag ()) {
@@ -118,7 +118,7 @@ public class PlayerManager : MonoBehaviour {
 		return _gauge;
 	}
 
-	public void move ( Vector3 pos ) {
+	private void move ( Vector3 pos ) {
 		transform.position = Vector3.MoveTowards ( transform.position, pos, WalkSpeed );
 		transform.LookAt ( pos );
 	}
