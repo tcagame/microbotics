@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{CB0A25CB-931C-B55E-B9CA-66BDB02A12D9}") = "Microbot", "Assembly-CSharp.csproj", "{3C310C36-C005-6CF3-5BC2-86214ADB1654}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C310C36-C005-6CF3-5BC2-86214ADB1654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C310C36-C005-6CF3-5BC2-86214ADB1654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C310C36-C005-6CF3-5BC2-86214ADB1654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C310C36-C005-6CF3-5BC2-86214ADB1654}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
