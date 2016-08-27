@@ -12,6 +12,7 @@ public class Propellers : MonoBehaviour {
 	private float _length;
 
 	bool _tracking_flag;
+	bool _flying_flag;
 
 	void Start ( ) {
 		_propeller = GameObject.Find( PropellerName ).gameObject;
@@ -24,8 +25,10 @@ public class Propellers : MonoBehaviour {
 	void Update ( ) {
 		judgeTracking( );
 		if (_tracking_flag) {
-			playerOnFlying();
 			setPosition();
+		}
+		if (_flying_flag) {
+			playerOnFlying ();
 		}
 	}
 
@@ -51,10 +54,20 @@ public class Propellers : MonoBehaviour {
 	private void playerOnFlying( ) {
 		Vector3 player_pos = _player.transform.position;
 		player_pos.y += 1.0f * Time.deltaTime;
+		if (isFanRange ()) {
+			player_pos.x += 1.0f * Time.deltaTime;
+		}
 		_player.transform.position = player_pos;
 	}
 
 	private bool isFanRange( ) {
+		Vector3 fan_pos = _fan.transform.position;
+		Vector3 player_pos = _player.transform.position;
+
+		if ( (player_pos.x > fan_pos.x ) && ( player_pos.x < fan_pos.x + 3.0f ) &&
+			( player_pos.y > fan_pos.y ) && ( player_pos.y < fan_pos.y + 3.0f ) ) {
+			return true;
+		}
 		return false;
 	}
 }

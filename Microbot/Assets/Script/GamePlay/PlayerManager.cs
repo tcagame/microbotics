@@ -103,6 +103,12 @@ public class PlayerManager : MonoBehaviour {
 				col.collider.GetComponent<FanManager> ().isPlay ();
 			}
 		}
+        if (col.gameObject.tag == "Propeller" && ( _operation.getHitRaycastTag( ) == "Propeller" )) {
+			if (!col.collider.GetComponent<FanManager> ().getFlag ()) {
+				_gauge -= GaugeDischargeSpeed;
+				col.collider.GetComponent<FanManager> ().isPlay ();
+			}
+		}
 	}
 
 	void OnCollisionEnter( Collision col ) {
