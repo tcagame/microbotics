@@ -4,23 +4,27 @@ using System.Collections;
 public class Propeller : MonoBehaviour {
 
 	private GameObject _propeller;
-	public string ObjectName;
+	private GameObject _fan;
+	public string PropellerName;
+	public string FanName;
 	private GameObject _player;
 
 	bool _tracking_flag;
-
+	bool _flying_flag;
     private const float CONNECT_RANGE = 2.0f;
 
 	void Start ( ) {
-		_propeller = GameObject.Find( ObjectName ).gameObject;
+		_propeller = GameObject.Find( PropellerName ).gameObject;
+		_fan = GameObject.Find( FanName ).gameObject;
 		_player = GameObject.Find ( "Player" ).gameObject;
 		_tracking_flag = false;
+		_flying_flag = false;
 	}
 
 	void Update ( ) {
 		judgeTracking( );
 		if ( _tracking_flag ) {
-			setPosition ( );
+			setPosition( );
 		}
 	}
 
