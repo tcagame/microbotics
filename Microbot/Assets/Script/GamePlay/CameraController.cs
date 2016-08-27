@@ -62,7 +62,7 @@ public class CameraController : MonoBehaviour {
 	}
 
 	void tracking( ) {
-		transform.position = _player.transform.position + _camera_vec + new Vector3( 0, -1, 0 );
+		transform.position = new Vector3 ( _player.transform.position.x, _player.transform.position.y - 1, _player.transform.position.z ) + _camera_vec;
 		transform.LookAt(_player.transform.position + ( _player.transform.up * ( _player.transform.localScale.y / 2 + _angle ) ) );
 	}
 }
