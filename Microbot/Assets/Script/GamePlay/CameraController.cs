@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour {
 
 	private GameObject _player;
 	private Vector3 _camera_vec;
+	private float _angle = 0;
 
 	void Awake( ) {
 		if ( _player == null ) {
@@ -61,7 +62,7 @@ public class CameraController : MonoBehaviour {
 	}
 
 	void tracking( ) {
-		transform.position = _player.transform.position + _camera_vec;
-		transform.LookAt(_player.transform.position + ( _player.transform.up * _player.transform.localScale.y / 2) );
+		transform.position = _player.transform.position + _camera_vec + new Vector3( 0, -1, 0 );
+		transform.LookAt(_player.transform.position + ( _player.transform.up * ( _player.transform.localScale.y / 2 + _angle ) ) );
 	}
 }
