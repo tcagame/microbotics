@@ -5,7 +5,9 @@ public class PlayerManager : MonoBehaviour {
 	
 	public float WalkSpeed = 0.1f;
 
-	private const float GAUGE_MAX = 100000.0f;
+	private const float GAUGE_MAX = 1000.0f;
+	private const int CHARING_TIME = 300;
+	private const int DIS_CHARGE_TIME = 400;
 	private float _gauge;
 	private float _gauge_speed;
 	[SerializeField]private float GaugeChargeSpeed = 100.0f;
@@ -21,6 +23,7 @@ public class PlayerManager : MonoBehaviour {
 	private float _move_time = 0;
 	private float _walk_speed = 0.0f;
 	private AnimatorController _animator;
+	private int _animation_time = 0;
 	private Vector3 _target_pos = new Vector3 ( );
 	private int _check_first_touch = 0;
 	  //ポイント
@@ -42,6 +45,13 @@ public class PlayerManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		_animation_time -= 1;
+		if ( _animation_time > 0 ) {
+			return;
+		}
+		_animation_time = 0;
+		_animator.playDisCharge (false);
+
 		if (_gauge > GAUGE_MAX) {
 			_gauge = GAUGE_MAX;
 			_animator.playCharging (false);
@@ -79,7 +89,8 @@ public class PlayerManager : MonoBehaviour {
 			_target_pos = new Vector3( );
 			_animator.setRunning (false);
 		}
-			
+
+
 	}
 
 	void OnTriggerStay( Collider col ) {
@@ -91,24 +102,33 @@ public class PlayerManager : MonoBehaviour {
 
 	void OnCollisionStay( Collision col ) {
 		if (col.gameObject.tag == "Jack" && ( _operation.getHitRaycastTag( ) == "Jack" )) {
-			_animator.playDisCharge (true);
-			_gauge -= GaugeDischargeSpeed;
-			col.collider.GetComponent<JackManager> ().giveGauge (GaugeDischargeSpeed);
-			col.collider.GetComponent<JackManager> ().playJack();
-			_animator.playDisCharge (false);
-		}
-		if (col.gameObject.tag == "Fan" && ( _operation.getHitRaycastTag( ) == "Fan" )) {
-			if (!col.collider.GetComponent<FanManager> ().getFlag ()) {
+			if ( !col.collider.GetComponent<JackManager>( ).getPlay( ) ) {
+				_animator.setRunning (false);
+				_animator.playDisCharge (true);
 				_gauge -= GaugeDischargeSpeed;
-				col.collider.GetComponent<FanManager> ().isPlay ();
+				_animation_time += DIS_CHARGE_TIME;
+				col.collider.GetComponent< JackManager > ().play ();
+			}
+		}
+		if (col.gameObject.tag == "FanSwitch" && ( _operation.getHitRaycastTag( ) == "FanSwitch" )) {
+			if (!col.collider.GetComponent<FanSwitch> ().getFlag ( )) {
+				_gauge -= GaugeDischargeSpeed;
+				_animation_time += DIS_CHARGE_TIME;
+				_animator.setRunning (false);
+				_animator.playDisCharge(true);
+				col.collider.GetComponent<FanSwitch> ().isPlay ();
 			}
 		}
         if (col.gameObject.tag == "Propeller" && ( _operation.getHitRaycastTag( ) == "Propeller" )) {
-			if (!col.collider.GetComponent<FanManager> ().getFlag ()) {
+			if (!col.collider.GetComponent<Propellers> ().getFlag ( )) {
 				_gauge -= GaugeDischargeSpeed;
-				col.collider.GetComponent<FanManager> ().isPlay ();
+				_animation_time += DIS_CHARGE_TIME;
+				_animator.setRunning (false);
+				_animator.playDisCharge(true);
+				col.collider.GetComponent<Propellers> ().isPlay ( );
 			}
 		}
+
 	}
 
 	void OnCollisionEnter( Collision col ) {
@@ -116,7 +136,7 @@ public class PlayerManager : MonoBehaviour {
 		Vector3 col_pos = col.gameObject.GetComponent<Transform> ().position;
 		Vector3 col_scale = col.gameObject.GetComponent<Transform> ().localScale;
 		if (col.gameObject.tag == "Stair") {
-			pos.y = col_pos.y + col_scale.y / 2;
+			pos.y = col_pos.y + col_scale.y / 2 + transform.localScale.y / 2;
 			transform.position = pos;
 			if (col_scale.y <= transform.localScale.y / 5) {
 				_gauge -= SmallStairGaugeDrop;
