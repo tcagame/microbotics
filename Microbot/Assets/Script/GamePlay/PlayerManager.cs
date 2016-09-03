@@ -136,7 +136,7 @@ public class PlayerManager : MonoBehaviour {
 		Vector3 col_pos = col.gameObject.GetComponent<Transform> ().position;
 		Vector3 col_scale = col.gameObject.GetComponent<Transform> ().localScale;
 		if (col.gameObject.tag == "Stair") {
-			pos.y = col_pos.y + col_scale.y / 2;
+			pos.y = col_pos.y + col_scale.y / 2 + transform.localScale.y / 2;
 			transform.position = pos;
 			if (col_scale.y <= transform.localScale.y / 5) {
 				_gauge -= SmallStairGaugeDrop;
