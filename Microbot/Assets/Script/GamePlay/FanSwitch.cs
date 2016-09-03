@@ -17,7 +17,6 @@ public class FanSwitch : MonoBehaviour {
 			_fan.GetComponent< FanManager > ().action ();
 		}
 	}
-
 	public void isPlay( ) {
 		_flag = true;
 	}
