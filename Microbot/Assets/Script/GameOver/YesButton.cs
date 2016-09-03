@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class YesButton : MonoBehaviour {
 	public void GoToGame( ) {
-		Application.LoadLevel( "GamePlay" );
+		SceneManager.LoadScene( "GamePlay" );
 	}
 }
