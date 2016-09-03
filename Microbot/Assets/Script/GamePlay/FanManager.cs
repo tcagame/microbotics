@@ -23,7 +23,7 @@ public class FanManager : MonoBehaviour {
 		}
 	}
 
-	public void isPlay( ) {
+	public void action( ) {
 		_flag = true;
 	}
 
