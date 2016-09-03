@@ -46,14 +46,15 @@ public class EventCamera : MonoBehaviour {
 			vec = vec.normalized * _move_speed;
 			event_camera.transform.position += vec;
 			if (length < ( target_list[ _target_key ] - target_list[ _target_key - 1 ] ).magnitude  * 1 / 10 ) {
-				if (_target_key + 1 != target_list.Count) {
-					vec = target_list [_target_key + 1] - event_camera.transform.position;
+				if (_target_key + 1 < target_list.Count) {
+					vec = target_list [ _target_key + 1 ] - event_camera.transform.position;
 				}
 			}
 			if ( length < 1.0f ) {
 				_target_key++;
 				if (target_list.Count == _target_key) {
 					StartMainCamera ();
+					return;
 				}
 				_move_speed = ( event_camera.transform.position - target_list[ _target_key + 1 ] ).magnitude;
 				_move_speed = _move_speed / MOVE_SPEED;
