@@ -5,9 +5,9 @@ public class PlayerManager : MonoBehaviour {
 	
 	public float WalkSpeed = 0.1f;
 
-	private const float GAUGE_MAX = 100000.0f;
+	private const float GAUGE_MAX = 1000.0f;
 	private const int CHARING_TIME = 300;
-	private const int DIS_CHARGE_TIME = 313;
+	private const int DIS_CHARGE_TIME = 400;
 	private float _gauge;
 	private float _gauge_speed;
 	[SerializeField]private float GaugeChargeSpeed = 100.0f;
@@ -138,7 +138,7 @@ public class PlayerManager : MonoBehaviour {
 		Vector3 col_pos = col.gameObject.GetComponent<Transform> ().position;
 		Vector3 col_scale = col.gameObject.GetComponent<Transform> ().localScale;
 		if (col.gameObject.tag == "Stair") {
-			pos.y = col_pos.y + col_scale.y / 2;
+			pos.y = col_pos.y + col_scale.y / 2 + transform.localScale.y / 2;
 			transform.position = pos;
 			if (col_scale.y <= transform.localScale.y / 5) {
 				_gauge -= SmallStairGaugeDrop;
