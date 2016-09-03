@@ -5,9 +5,9 @@ public class PlayerManager : MonoBehaviour {
 	
 	public float WalkSpeed = 0.1f;
 
-	private const float GAUGE_MAX = 100000.0f;
+	private const float GAUGE_MAX = 1000.0f;
 	private const int CHARING_TIME = 300;
-	private const int DIS_CHARGE_TIME = 313;
+	private const int DIS_CHARGE_TIME = 400;
 	private float _gauge;
 	private float _gauge_speed;
 	[SerializeField]private float GaugeChargeSpeed = 100.0f;
