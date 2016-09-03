@@ -16,6 +16,8 @@ public class Propellers : MonoBehaviour {
 
     private const float CONNECT_RANGE = 2.0f;
 	private const float FLY_SPEED = 1.5f;
+	public float POWER = 10;
+
 
 
 	void Start ( ) {
@@ -84,5 +86,10 @@ public class Propellers : MonoBehaviour {
 
 	public bool getFlag( ) {
 		return _flying_flag;
+	}
+
+	public void isOff( ) {
+		_tracking_flag = false;
+		_flying_flag = false;
 	}
 }

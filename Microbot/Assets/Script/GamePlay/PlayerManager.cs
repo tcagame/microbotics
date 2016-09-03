@@ -120,12 +120,14 @@ public class PlayerManager : MonoBehaviour {
 			}
 		}
         if (col.gameObject.tag == "Propeller" && ( _operation.getHitRaycastTag( ) == "Propeller" )) {
-			if (!col.collider.GetComponent<Propellers> ().getFlag ( )) {
+			if (!col.collider.GetComponent<Propellers> ().getFlag ()) {
 				_gauge -= GaugeDischargeSpeed;
 				_animation_time += DIS_CHARGE_TIME;
 				_animator.setRunning (false);
-				_animator.playDisCharge(true);
-				col.collider.GetComponent<Propellers> ().isPlay ( );
+				_animator.playDisCharge (true);
+				col.collider.GetComponent<Propellers> ().isPlay ();
+			} else {
+				col.collider.GetComponent<Propellers> ().isOff ();
 			}
 		}
 
