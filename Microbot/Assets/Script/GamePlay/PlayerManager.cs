@@ -97,16 +97,16 @@ public class PlayerManager : MonoBehaviour {
 			col.collider.GetComponent<JackManager> ().playJack();
 			_animator.playDisCharge (false);
 		}
-		if (col.gameObject.tag == "Fan" && ( _operation.getHitRaycastTag( ) == "Fan" )) {
-			if (!col.collider.GetComponent<FanManager> ().getFlag ()) {
+		if (col.gameObject.tag == "FanSwitch" && ( _operation.getHitRaycastTag( ) == "FanSwitch" )) {
+			if (!col.collider.GetComponent<FanSwitch> ().getFlag ( )) {
 				_gauge -= GaugeDischargeSpeed;
-				col.collider.GetComponent<FanManager> ().isPlay ();
+				col.collider.GetComponent<FanSwitch> ().isPlay ();
 			}
 		}
         if (col.gameObject.tag == "Propeller" && ( _operation.getHitRaycastTag( ) == "Propeller" )) {
-			if (!col.collider.GetComponent<FanManager> ().getFlag ()) {
+			if (!col.collider.GetComponent<FanSwitch> ().getFlag ( )) {
 				_gauge -= GaugeDischargeSpeed;
-				col.collider.GetComponent<FanManager> ().isPlay ();
+				col.collider.GetComponent<FanSwitch> ().isPlay ( );
 			}
 		}
 	}
