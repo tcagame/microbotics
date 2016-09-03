@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	void Update( ) {
+		if ( Time.timeSinceLevelLoad == 0.0 ) {
+			EventCamera camera = gameObject.GetComponent< EventCamera >( );
+			camera.CallEventCamera (_player.transform.position + _player.transform.up * 10, _player.transform.position);
+		}
 		_gauge = _player.GetComponent< PlayerManager >( ).getGauge( );
 		if ( _gauge < 0 ) {
 			SceneManager.LoadScene( "GameOver" );
