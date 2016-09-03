@@ -1,12 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/GamePlay/FanManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/GamePlay/EventCamera.cs">
     <Files>
-      <File FileName="Assets/Script/GamePlay/FanManager.cs" Line="33" Column="2" />
-      <File FileName="Assets/Script/GameStage/Propeller.cs" Line="15" Column="20" />
-      <File FileName="Assets/Script/Title/StartBotton.cs" Line="5" Column="40" />
-      <File FileName="Assets/Script/GameOver/NoButton.cs" Line="4" Column="1" />
-      <File FileName="Assets/Script/GameOver/YesButton.cs" Line="5" Column="41" />
+      <File FileName="Assets/Script/GamePlay/Propellers.cs" Line="7" Column="1" />
+      <File FileName="Assets/Script/GamePlay/EventCamera.cs" Line="2" Column="1" />
+      <File FileName="Assets/Script/GamePlay/GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/GamePlay/CameraController.cs" Line="25" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
