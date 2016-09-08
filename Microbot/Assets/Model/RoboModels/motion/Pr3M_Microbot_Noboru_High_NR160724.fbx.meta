@@ -107,6 +107,8 @@ ModelImporter:
     4300010: rucksack_L_huta
     4300012: huusya
     7400000: climp_high
+    7400002: jump
+    7400004: climb
     9500000: //RootNode
     13700000: body
     13700002: head
@@ -137,9 +139,131 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: climp_high
+      name: jump
       takeName: Take 001
       firstFrame: 0
+      lastFrame: 70
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Body
+        weight: 1
+      - path: Body/Chest
+        weight: 1
+      - path: Body/Chest/Head
+        weight: 1
+      - path: Body/Chest/L_Shoulder
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3/L_Arm4
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3/L_Arm4/L_Arm5
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3/L_Arm4/L_Arm5/L_Hand
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3/L_Arm4/L_Arm5/L_Hand/L_Finger1
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3/L_Arm4/L_Arm5/L_Hand/L_Finger1/L_Finger2
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3/L_Arm4/L_Arm5/L_Hand/L_Thumb1
+        weight: 1
+      - path: Body/Chest/L_Shoulder/L_Arm1/L_Arm2/L_Arm3/L_Arm4/L_Arm5/L_Hand/L_Thumb1/L_Thumb2
+        weight: 1
+      - path: Body/Chest/R_Shoulder
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3/R_Arm4
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3/R_Arm4/R_Arm5
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3/R_Arm4/R_Arm5/R_Hand
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3/R_Arm4/R_Arm5/R_Hand/R_Finger1
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3/R_Arm4/R_Arm5/R_Hand/R_Finger1/R_Finger2
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3/R_Arm4/R_Arm5/R_Hand/R_Thumb1
+        weight: 1
+      - path: Body/Chest/R_Shoulder/R_Arm1/R_Arm2/R_Arm3/R_Arm4/R_Arm5/R_Hand/R_Thumb1/R_Thumb2
+        weight: 1
+      - path: Body/L_Thigh
+        weight: 1
+      - path: Body/L_Thigh/L_Knee
+        weight: 1
+      - path: Body/L_Thigh/L_Knee/L_Ankle
+        weight: 1
+      - path: Body/L_Thigh/L_Knee/L_Ankle/L_Toe
+        weight: 1
+      - path: Body/R_Thigh
+        weight: 1
+      - path: Body/R_Thigh/R_Knee
+        weight: 1
+      - path: Body/R_Thigh/R_Knee/R_Ankle
+        weight: 1
+      - path: Body/R_Thigh/R_Knee/R_Ankle/R_Toe
+        weight: 1
+      - path: Body/Rucksack
+        weight: 1
+      - path: Body/Rucksack/L_Rucksack_Lid
+        weight: 1
+      - path: Body/Rucksack/R_Rucksack_Lid
+        weight: 1
+      - path: Body/Rucksack/Windmill
+        weight: 1
+      - path: Body/Rucksack/Windmill/Impeller
+        weight: 1
+      - path: Microbot
+        weight: 1
+      - path: Microbot/body
+        weight: 1
+      - path: Microbot/head
+        weight: 1
+      - path: Microbot/huusya
+        weight: 1
+      - path: Microbot/leg
+        weight: 1
+      - path: Microbot/rucksack
+        weight: 1
+      - path: Microbot/rucksack_L_huta
+        weight: 1
+      - path: Microbot/rucksack_R_huta
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: climb
+      takeName: Take 001
+      firstFrame: 70
       lastFrame: 348
       wrapMode: 0
       orientationOffsetY: 0

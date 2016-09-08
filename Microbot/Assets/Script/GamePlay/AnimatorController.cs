@@ -20,4 +20,8 @@ public class AnimatorController : MonoBehaviour {
 	public void playDisCharge( bool discharge_flag ) {
 		_playerAnimator.SetBool( "_is_discharging", discharge_flag );
 	}
+
+	public void playClimbHigh( bool climb_high_flag ) {
+		_playerAnimator.SetBool( "_is_climbing_high", climb_high_flag );
+	}
 }

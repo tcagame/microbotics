@@ -134,19 +134,9 @@ public class PlayerManager : MonoBehaviour {
 	}
 
 	void OnCollisionEnter( Collision col ) {
-		Vector3 pos = transform.position;
-		Vector3 col_pos = col.gameObject.GetComponent<Transform> ().position;
-		Vector3 col_scale = col.gameObject.GetComponent<Transform> ().localScale;
 		if (col.gameObject.tag == "Stair") {
-			pos.y = col_pos.y + col_scale.y / 2 + transform.localScale.y / 2;
-			transform.position = pos;
-			if (col_scale.y <= transform.localScale.y / 5) {
-				_gauge -= SmallStairGaugeDrop;
-			} else if (col_scale.y <= transform.localScale.y / 2) {
-				_gauge -= HalfStairGaugeDrop;
-			} else {
-				_gauge -= FullStairGaugeDrop;
-			}
+			_animator.setRunning (false);
+			_animator.playClimbHigh(true);
 		}
 	}
 
