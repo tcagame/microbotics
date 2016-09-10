@@ -39,27 +39,30 @@ public class EventCamera : MonoBehaviour {
 			}
 		}
 		if ( _event_mode == EVENT_MODE.EVENT_MODE_STAGE ) {
-			Vector3 vec;
-			float length = 0.0f;
-			vec = target_list[ _target_key ] - event_camera.transform.position;
-			length = vec.magnitude;
-			vec = vec.normalized * _move_speed;
-			event_camera.transform.position += vec;
-			if (length < ( target_list[ _target_key ] - target_list[ _target_key - 1 ] ).magnitude  * 1 / 10 ) {
-				if (_target_key + 1 < target_list.Count) {
-					vec = target_list [ _target_key + 1 ] - event_camera.transform.position;
+			if ( target_list.Count > _target_key ) {
+				Vector3 vec;
+				float length = 0.0f;
+				vec = target_list[ _target_key ] - event_camera.transform.position;
+				length = vec.magnitude;
+				vec = vec.normalized * _move_speed;
+				event_camera.transform.position += vec;
+				if (length < ( target_list[ _target_key ] - target_list[ _target_key - 1 ] ).magnitude * 1 / 10) {
+					if ( ( _target_key + 1 ) < target_list.Count ) {
+						vec = target_list[ _target_key + 1 ] - event_camera.transform.position;
+					}
 				}
-			}
-			if ( length < 1.0f ) {
-				_target_key++;
-				if (target_list.Count == _target_key) {
-					StartMainCamera ();
-					return;
+				if (length < 1.0f) {
+					_target_key++;
+					if (target_list.Count == _target_key) {
+						StartCoroutine ("endViewStage");
+					} 
+					if ( ( _target_key + 1 ) < target_list.Count ) {
+						_move_speed = (event_camera.transform.position - target_list[ _target_key + 1 ] ).magnitude;
+						_move_speed = _move_speed / MOVE_SPEED;
+					}
 				}
-				_move_speed = ( event_camera.transform.position - target_list[ _target_key + 1 ] ).magnitude;
-				_move_speed = _move_speed / MOVE_SPEED;
+				event_camera.transform.LookAt (event_camera.transform.position + vec.normalized * _move_speed);
 			}
-			event_camera.transform.LookAt( event_camera.transform.position + vec.normalized * _move_speed );
 		}
 	}
 
@@ -74,6 +77,7 @@ public class EventCamera : MonoBehaviour {
     }
 
 	public void StageView( ) {
+		_target_key = 0;
 		event_camera.transform.position = target_list[ _target_key ];
 		event_camera.transform.LookAt( target_list[ _target_key ] );
 		_target_key++;
@@ -97,5 +101,12 @@ public class EventCamera : MonoBehaviour {
 		event_camera.gameObject.SetActive( false );
 		main_camera.gameObject.SetActive( true );
 		_event_mode = EVENT_MODE.EVENT_MODE_NONE;
+	}
+
+	IEnumerator endViewStage(){
+		Debug.Log( "開始" );
+		yield return new WaitForSeconds( 1 );
+		Debug.Log( "2秒経ちました" );
+		StartMainCamera( );
 	}
 }

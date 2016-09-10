@@ -29,10 +29,10 @@ public class Operation : MonoBehaviour {
 		}
 		if ( isSingleInput( ) ) {
 			Vector3 pos = getInputPosition (0);
-			if ( pos.x < 50 ) {
+			if ( pos.y < 100 ) {
 				return;
 			}
-			if ( pos.x > 400 ) {
+			if ( pos.x > 900 ) {
 				return;
 			}
 		}

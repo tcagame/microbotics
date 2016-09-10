@@ -5,7 +5,7 @@ public class PlayerManager : MonoBehaviour {
 	
 	public float WalkSpeed = 0.1f;
 
-	private const float GAUGE_MAX = 1000.0f;
+	private const float GAUGE_MAX = 1000000.0f;
 	private const int CHARING_TIME = 300;
 	private const int DIS_CHARGE_TIME = 400;
 	private float _gauge;
@@ -26,14 +26,20 @@ public class PlayerManager : MonoBehaviour {
 	private int _animation_time = 0;
 	private Vector3 _target_pos = new Vector3 ( );
 	private int _check_first_touch = 0;
+	private bool _climbing_normal_flag = false;
+	private bool _climbing_high_flag = false;
 	  //ポイント
     GameObject point;
-	
+	//イベントカメラ
+	EventCamera event_camera;
+
     void Awake(){
 		_animator = GetComponent<AnimatorController>( );
         point = ( GameObject )Resources.Load( "Prefab/Point" );
         point = Instantiate( point );
         point.SetActive( false );
+		_climbing_normal_flag = false;
+		_climbing_high_flag = false;
 	}
 
 	// Use this for initialization
@@ -41,10 +47,31 @@ public class PlayerManager : MonoBehaviour {
 		_operation = GameObject.Find( "Operation" ).GetComponent< Operation >( );
 		_gauge = GAUGE_MAX;
 		_gauge_speed = StandGaugeDrop;
+		event_camera = GameObject.Find ("GameManager").GetComponent< EventCamera >( );
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		//kaidan nobori
+		if ( _climbing_high_flag) {
+			Vector3 pos = transform.position;
+			pos.y += 0.022f;
+			transform.position = pos;
+			if (pos.y > 5.6f) {
+				_climbing_high_flag = false;
+				_animator.playClimbHigh( false );
+			}
+		};
+		if ( _climbing_normal_flag) {
+			Vector3 pos = transform.position;
+			pos.y += 0.01f;
+			transform.position = pos;
+			if (pos.y > 2.0f) {
+				_climbing_normal_flag = false;
+				_animator.playClimbNormal( false );
+			}
+		};
+
 		_animation_time -= 1;
 		if ( _animation_time > 0 ) {
 			return;
@@ -89,8 +116,6 @@ public class PlayerManager : MonoBehaviour {
 			_target_pos = new Vector3( );
 			_animator.setRunning (false);
 		}
-
-
 	}
 
 	void OnTriggerStay( Collider col ) {
@@ -108,6 +133,7 @@ public class PlayerManager : MonoBehaviour {
 				_gauge -= GaugeDischargeSpeed;
 				_animation_time += DIS_CHARGE_TIME;
 				col.collider.GetComponent< JackManager > ().play ();
+				event_camera.CallEventCamera( col.transform.position + new Vector3( -4, 0.5f, 0 ), new Vector3( 1, 4, 1 ) );
 			}
 		}
 		if (col.gameObject.tag == "FanSwitch" && ( _operation.getHitRaycastTag( ) == "FanSwitch" )) {
@@ -117,6 +143,8 @@ public class PlayerManager : MonoBehaviour {
 				_animator.setRunning (false);
 				_animator.playDisCharge(true);
 				col.collider.GetComponent<FanSwitch> ().isPlay ();
+				Vector3 pos = col.transform.position + new Vector3 (0, 2, 5);
+				event_camera.CallEventCamera( pos, pos + new Vector3( -5, 0.5f, -5 ) );
 			}
 		}
         if (col.gameObject.tag == "Propeller" && ( _operation.getHitRaycastTag( ) == "Propeller" )) {
@@ -134,9 +162,17 @@ public class PlayerManager : MonoBehaviour {
 	}
 
 	void OnCollisionEnter( Collision col ) {
-		if (col.gameObject.tag == "Stair") {
+		if (col.gameObject.tag == "StairHigh") {
+			_climbing_high_flag = true;
 			_animator.setRunning (false);
-			_animator.playClimbHigh(true);
+			_animator.playClimbNormal( false );
+			_animator.playClimbHigh( true );
+		}
+		if (col.gameObject.tag == "StairNormal") {
+			_climbing_normal_flag = true;
+			_animator.setRunning (false);
+			_animator.playClimbHigh( false );
+			_animator.playClimbNormal( true );
 		}
 	}
 
