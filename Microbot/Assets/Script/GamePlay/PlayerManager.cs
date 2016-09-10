@@ -33,6 +33,8 @@ public class PlayerManager : MonoBehaviour {
 	//イベントカメラ
 	EventCamera event_camera;
 
+	RaycastHit hit;
+
     void Awake(){
 		_animator = GetComponent<AnimatorController>( );
         point = ( GameObject )Resources.Load( "Prefab/Point" );
@@ -52,25 +54,33 @@ public class PlayerManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
 		//kaidan nobori
 		if ( _climbing_high_flag) {
+			gameObject.GetComponent<Rigidbody> ().useGravity = false;
 			Vector3 pos = transform.position;
-			pos.y += 0.022f;
+			pos.y += 0.021f;
+			pos.x -= 0.01f;
 			transform.position = pos;
-			if (pos.y > 5.6f) {
+			if (pos.y > 5.55f) {
 				_climbing_high_flag = false;
 				_animator.playClimbHigh( false );
+				gameObject.GetComponent<Rigidbody> ().useGravity = true;
 			}
 		};
 		if ( _climbing_normal_flag) {
+			gameObject.GetComponent<Rigidbody> ().useGravity = false;
 			Vector3 pos = transform.position;
 			pos.y += 0.01f;
+			pos.z -= 0.01f;
 			transform.position = pos;
-			if (pos.y > 2.0f) {
+			if (pos.y > 2.05f) {
 				_climbing_normal_flag = false;
 				_animator.playClimbNormal( false );
+				gameObject.GetComponent<Rigidbody> ().useGravity = true;
 			}
 		};
+		//
 
 		_animation_time -= 1;
 		if ( _animation_time > 0 ) {
@@ -158,7 +168,6 @@ public class PlayerManager : MonoBehaviour {
 				col.collider.GetComponent<Propellers> ().isOff ();
 			}
 		}
-
 	}
 
 	void OnCollisionEnter( Collision col ) {
