@@ -26,6 +26,8 @@ public class PlayerManager : MonoBehaviour {
 	private int _animation_time = 0;
 	private Vector3 _target_pos = new Vector3 ( );
 	private int _check_first_touch = 0;
+	private bool _climbing_normal_flag = false;
+	private bool _climbing_high_flag = false;
 	  //ポイント
     GameObject point;
 	//イベントカメラ
@@ -36,6 +38,8 @@ public class PlayerManager : MonoBehaviour {
         point = ( GameObject )Resources.Load( "Prefab/Point" );
         point = Instantiate( point );
         point.SetActive( false );
+		_climbing_normal_flag = false;
+		_climbing_high_flag = false;
 	}
 
 	// Use this for initialization
@@ -48,6 +52,26 @@ public class PlayerManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//kaidan nobori
+		if ( _climbing_high_flag) {
+			Vector3 pos = transform.position;
+			pos.y += 0.022f;
+			transform.position = pos;
+			if (pos.y > 5.6f) {
+				_climbing_high_flag = false;
+				_animator.playClimbHigh( false );
+			}
+		};
+		if ( _climbing_normal_flag) {
+			Vector3 pos = transform.position;
+			pos.y += 0.01f;
+			transform.position = pos;
+			if (pos.y > 2.0f) {
+				_climbing_normal_flag = false;
+				_animator.playClimbNormal( false );
+			}
+		};
+
 		_animation_time -= 1;
 		if ( _animation_time > 0 ) {
 			return;
@@ -92,8 +116,6 @@ public class PlayerManager : MonoBehaviour {
 			_target_pos = new Vector3( );
 			_animator.setRunning (false);
 		}
-
-
 	}
 
 	void OnTriggerStay( Collider col ) {
@@ -139,9 +161,17 @@ public class PlayerManager : MonoBehaviour {
 	}
 
 	void OnCollisionEnter( Collision col ) {
-		if (col.gameObject.tag == "Stair") {
+		if (col.gameObject.tag == "StairHigh") {
+			_climbing_high_flag = true;
 			_animator.setRunning (false);
-			_animator.playClimbHigh(true);
+			_animator.playClimbNormal( false );
+			_animator.playClimbHigh( true );
+		}
+		if (col.gameObject.tag == "StairNormal") {
+			_climbing_normal_flag = true;
+			_animator.setRunning (false);
+			_animator.playClimbHigh( false );
+			_animator.playClimbNormal( true );
 		}
 	}
 
