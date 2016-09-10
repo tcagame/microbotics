@@ -164,8 +164,7 @@ public class PlayerManager : MonoBehaviour {
 				_animator.setRunning (false);
 				_animator.playDisCharge (true);
 				col.collider.GetComponent<Propellers> ().isPlay ();
-			} else {
-				col.collider.GetComponent<Propellers> ().isOff ();
+				_operation.resetTargetTag( );
 			}
 		}
 	}

@@ -134,6 +134,10 @@ public class Operation : MonoBehaviour {
 		_raycast_pos = new Vector3( );
 	}
 
+	public void resetTargetTag( ) {
+		_target_object_tag = null;
+	}
+
 	//シングルインプットの判定
 	public bool isSingleInput( ) {
 		if ( getInputCount( ) == 1 ) {

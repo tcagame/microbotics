@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FanSwitch : MonoBehaviour {
-
+public class SmallFanManager : MonoBehaviour {
 	private bool _flag;
-	private GameObject _fan;
-	public string FanName = "Fan";
+	private Animator _animetor;
 
 	void Start( ) {
 		_flag = false;
-		_fan = GameObject.Find (FanName);
+		_animetor = GetComponent< Animator >( );
 	}
-
+	
 	void Update( ) {
 		if ( _flag ) {
-			_fan.GetComponent< SmallFanManager > ().action ();
+			_animetor.SetBool( "Start", true );
 		}
 	}
-	public void isPlay( ) {
+
+	public void action( ) {
 		_flag = true;
 	}
 
