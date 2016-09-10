@@ -26,6 +26,8 @@ public class PlayerManager : MonoBehaviour {
 	private int _animation_time = 0;
 	private Vector3 _target_pos = new Vector3 ( );
 	private int _check_first_touch = 0;
+	private bool _propeller_flag;
+	private string _before_tag;
 	  //ポイント
     GameObject point;
 	
@@ -34,6 +36,7 @@ public class PlayerManager : MonoBehaviour {
         point = ( GameObject )Resources.Load( "Prefab/Point" );
         point = Instantiate( point );
         point.SetActive( false );
+		_propeller_flag = false;
 	}
 
 	// Use this for initialization
@@ -119,18 +122,18 @@ public class PlayerManager : MonoBehaviour {
 				col.collider.GetComponent<FanSwitch> ().isPlay ();
 			}
 		}
-        if (col.gameObject.tag == "Propeller" && ( _operation.getHitRaycastTag( ) == "Propeller" )) {
+		if (col.gameObject.tag == "Propeller" && ( _operation.getHitRaycastTag( ) == "Propeller") ) {
 			if (!col.collider.GetComponent<Propellers> ().getFlag ()) {
 				_gauge -= GaugeDischargeSpeed;
 				_animation_time += DIS_CHARGE_TIME;
-				_animator.setRunning (false);
+				_animator.setRunning(false);
 				_animator.playDisCharge (true);
-				col.collider.GetComponent<Propellers> ().isPlay ();
-			} else {
-				col.collider.GetComponent<Propellers> ().isOff ();
-			}
+				col.collider.GetComponent<Propellers>().isPlay();
+			} 
 		}
-
+		if (_operation.getHitRaycastTag () != "Propeller") {
+			_propeller_flag = false;
+		}
 	}
 
 	void OnCollisionEnter( Collision col ) {
