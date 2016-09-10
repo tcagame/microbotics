@@ -1,34 +1,17 @@
 fileFormatVersion: 2
-guid: d365ae2bd4ec848af9454f7a9f1f598d
-timeCreated: 1472881712
+guid: 0ab24ab8721604828983efcde16a12a5
+timeCreated: 1473487354
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: group
-    100002: pCylinder1
-    100004: pCylinder2
-    100006: //RootNode
-    100008: SmartCombine_0
-    100010: SmartDuplicate_1
-    400000: group
-    400002: pCylinder1
-    400004: pCylinder2
-    400006: //RootNode
-    400008: SmartCombine_0
-    400010: SmartDuplicate_1
-    2300000: pCylinder1
-    2300002: pCylinder2
-    2300004: SmartCombine_0
-    2300006: SmartDuplicate_1
-    3300000: pCylinder1
-    3300002: pCylinder2
-    3300004: SmartCombine_0
-    3300006: SmartDuplicate_1
-    4300000: SmartCombine_0
-    4300002: SmartDuplicate_1
-    4300004: pCylinder1
-    4300006: pCylinder2
+    100000: marker
+    100002: //RootNode
+    400000: marker
+    400002: //RootNode
+    2300000: marker
+    3300000: marker
+    4300000: marker
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -54,12 +37,12 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 50
+    globalScale: 10
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
@@ -72,7 +55,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 3
+    tangentImportMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:

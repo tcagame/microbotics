@@ -1,33 +1,52 @@
 fileFormatVersion: 2
-guid: 51441dc6ea43acd4d8e69558803620c3
-timeCreated: 1471676618
-licenseType: Pro
+guid: eea3d0f9d84574493b6d8a26b144a728
+timeCreated: 1473487320
+licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: body
-    100002: key
-    100004: polySurface1
-    100006: polySurface2
-    100008: //RootNode
-    100010: transform1
+    100002: cluster1Handle
+    100004: cluster2Handle
+    100006: group1
+    100008: group2
+    100010: ikHandle1
+    100012: joint11
+    100014: joint12
+    100016: joint13
+    100018: key
+    100020: nurbsCircle1
+    100022: polySurface1
+    100024: polySurface2
+    100026: Pr3_Jack_group
+    100028: //RootNode
+    100030: transform1
     400000: body
-    400002: key
-    400004: polySurface1
-    400006: polySurface2
-    400008: //RootNode
-    400010: transform1
-    2300000: key
-    2300002: polySurface1
-    2300004: polySurface2
-    3300000: key
-    3300002: polySurface1
-    3300004: polySurface2
+    400002: cluster1Handle
+    400004: cluster2Handle
+    400006: group1
+    400008: group2
+    400010: ikHandle1
+    400012: joint11
+    400014: joint12
+    400016: joint13
+    400018: key
+    400020: nurbsCircle1
+    400022: polySurface1
+    400024: polySurface2
+    400026: Pr3_Jack_group
+    400028: //RootNode
+    400030: transform1
+    2300000: polySurface1
+    2300002: polySurface2
+    3300000: polySurface1
+    3300002: polySurface2
     4300000: polySurface1
     4300002: polySurface2
     4300004: key
     7400000: Take 001
     9500000: //RootNode
+    13700000: key
   materials:
     importMaterials: 1
     materialName: 0
@@ -52,7 +71,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 50
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
