@@ -5,7 +5,7 @@ public class PlayerManager : MonoBehaviour {
 	
 	public float WalkSpeed = 0.1f;
 
-	private const float GAUGE_MAX = 1000.0f;
+	private const float GAUGE_MAX = 1000000.0f;
 	private const int CHARING_TIME = 300;
 	private const int DIS_CHARGE_TIME = 400;
 	private float _gauge;
@@ -26,17 +26,22 @@ public class PlayerManager : MonoBehaviour {
 	private int _animation_time = 0;
 	private Vector3 _target_pos = new Vector3 ( );
 	private int _check_first_touch = 0;
-	private bool _propeller_flag;
-	private string _before_tag;
+	private bool _climbing_normal_flag = false;
+	private bool _climbing_high_flag = false;
 	  //ポイント
     GameObject point;
-	
+	//イベントカメラ
+	EventCamera event_camera;
+
+	RaycastHit hit;
+
     void Awake(){
 		_animator = GetComponent<AnimatorController>( );
         point = ( GameObject )Resources.Load( "Prefab/Point" );
         point = Instantiate( point );
         point.SetActive( false );
-		_propeller_flag = false;
+		_climbing_normal_flag = false;
+		_climbing_high_flag = false;
 	}
 
 	// Use this for initialization
@@ -44,10 +49,39 @@ public class PlayerManager : MonoBehaviour {
 		_operation = GameObject.Find( "Operation" ).GetComponent< Operation >( );
 		_gauge = GAUGE_MAX;
 		_gauge_speed = StandGaugeDrop;
+		event_camera = GameObject.Find ("GameManager").GetComponent< EventCamera >( );
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		//kaidan nobori
+		if ( _climbing_high_flag) {
+			gameObject.GetComponent<Rigidbody> ().useGravity = false;
+			Vector3 pos = transform.position;
+			pos.y += 0.021f;
+			pos.x -= 0.01f;
+			transform.position = pos;
+			if (pos.y > 5.55f) {
+				_climbing_high_flag = false;
+				_animator.playClimbHigh( false );
+				gameObject.GetComponent<Rigidbody> ().useGravity = true;
+			}
+		};
+		if ( _climbing_normal_flag) {
+			gameObject.GetComponent<Rigidbody> ().useGravity = false;
+			Vector3 pos = transform.position;
+			pos.y += 0.01f;
+			pos.z -= 0.01f;
+			transform.position = pos;
+			if (pos.y > 2.05f) {
+				_climbing_normal_flag = false;
+				_animator.playClimbNormal( false );
+				gameObject.GetComponent<Rigidbody> ().useGravity = true;
+			}
+		};
+		//
+
 		_animation_time -= 1;
 		if ( _animation_time > 0 ) {
 			return;
@@ -92,8 +126,6 @@ public class PlayerManager : MonoBehaviour {
 			_target_pos = new Vector3( );
 			_animator.setRunning (false);
 		}
-
-
 	}
 
 	void OnTriggerStay( Collider col ) {
@@ -111,6 +143,7 @@ public class PlayerManager : MonoBehaviour {
 				_gauge -= GaugeDischargeSpeed;
 				_animation_time += DIS_CHARGE_TIME;
 				col.collider.GetComponent< JackManager > ().play ();
+				event_camera.CallEventCamera( col.transform.position + new Vector3( -4, 0.5f, 0 ), new Vector3( 1, 4, 1 ) );
 			}
 		}
 		if (col.gameObject.tag == "FanSwitch" && ( _operation.getHitRaycastTag( ) == "FanSwitch" )) {
@@ -120,26 +153,35 @@ public class PlayerManager : MonoBehaviour {
 				_animator.setRunning (false);
 				_animator.playDisCharge(true);
 				col.collider.GetComponent<FanSwitch> ().isPlay ();
+				Vector3 pos = col.transform.position + new Vector3 (0, 2, 5);
+				event_camera.CallEventCamera( pos, pos + new Vector3( -5, 0.5f, -5 ) );
 			}
 		}
-		if (col.gameObject.tag == "Propeller" && ( _operation.getHitRaycastTag( ) == "Propeller") ) {
+        if (col.gameObject.tag == "Propeller" && ( _operation.getHitRaycastTag( ) == "Propeller" )) {
 			if (!col.collider.GetComponent<Propellers> ().getFlag ()) {
 				_gauge -= GaugeDischargeSpeed;
 				_animation_time += DIS_CHARGE_TIME;
-				_animator.setRunning(false);
+				_animator.setRunning (false);
 				_animator.playDisCharge (true);
-				col.collider.GetComponent<Propellers>().isPlay();
-			} 
-		}
-		if (_operation.getHitRaycastTag () != "Propeller") {
-			_propeller_flag = false;
+				col.collider.GetComponent<Propellers> ().isPlay ();
+			} else {
+				col.collider.GetComponent<Propellers> ().isOff ();
+			}
 		}
 	}
 
 	void OnCollisionEnter( Collision col ) {
-		if (col.gameObject.tag == "Stair") {
+		if (col.gameObject.tag == "StairHigh") {
+			_climbing_high_flag = true;
 			_animator.setRunning (false);
-			_animator.playClimbHigh(true);
+			_animator.playClimbNormal( false );
+			_animator.playClimbHigh( true );
+		}
+		if (col.gameObject.tag == "StairNormal") {
+			_climbing_normal_flag = true;
+			_animator.setRunning (false);
+			_animator.playClimbHigh( false );
+			_animator.playClimbNormal( true );
 		}
 	}
 

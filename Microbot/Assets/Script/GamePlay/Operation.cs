@@ -27,6 +27,15 @@ public class Operation : MonoBehaviour {
 		if ( _mode == MODE.MOED_ERROR ) {
 			return;
 		}
+		if ( isSingleInput( ) ) {
+			Vector3 pos = getInputPosition (0);
+			if ( pos.y < 100 ) {
+				return;
+			}
+			if ( pos.x > 900 ) {
+				return;
+			}
+		}
 		//基本的に入力された位置をプレイヤーに重ならないように取得している。
 		if ( isSingleInput( ) && getTouchPhase( 0 ) == TouchPhase.Ended ) {
 			RaycastHit hit;

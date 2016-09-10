@@ -24,4 +24,12 @@ public class AnimatorController : MonoBehaviour {
 	public void playClimbHigh( bool climb_high_flag ) {
 		_playerAnimator.SetBool( "_is_climbing_high", climb_high_flag );
 	}
+
+	public void playClimbNormal( bool climb_normal_flag ) {
+		_playerAnimator.SetBool( "_is_climbing_normal", climb_normal_flag );
+	}
+
+	public void playFall( bool fall_flag ) {
+		_playerAnimator.SetBool( "_is_falling", fall_flag );
+	}
 }
