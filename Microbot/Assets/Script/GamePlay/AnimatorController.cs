@@ -28,4 +28,8 @@ public class AnimatorController : MonoBehaviour {
 	public void playClimbNormal( bool climb_normal_flag ) {
 		_playerAnimator.SetBool( "_is_climbing_normal", climb_normal_flag );
 	}
+
+	public void playFall( bool fall_flag ) {
+		_playerAnimator.SetBool( "_is_falling", fall_flag );
+	}
 }
