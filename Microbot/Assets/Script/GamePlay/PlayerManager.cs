@@ -28,7 +28,9 @@ public class PlayerManager : MonoBehaviour {
 	private int _check_first_touch = 0;
 	  //ポイント
     GameObject point;
-	
+	//イベントカメラ
+	EventCamera event_camera;
+
     void Awake(){
 		_animator = GetComponent<AnimatorController>( );
         point = ( GameObject )Resources.Load( "Prefab/Point" );
@@ -41,6 +43,7 @@ public class PlayerManager : MonoBehaviour {
 		_operation = GameObject.Find( "Operation" ).GetComponent< Operation >( );
 		_gauge = GAUGE_MAX;
 		_gauge_speed = StandGaugeDrop;
+		event_camera = GameObject.Find ("GameManager").GetComponent< EventCamera >( );
 	}
 	
 	// Update is called once per frame
@@ -108,6 +111,7 @@ public class PlayerManager : MonoBehaviour {
 				_gauge -= GaugeDischargeSpeed;
 				_animation_time += DIS_CHARGE_TIME;
 				col.collider.GetComponent< JackManager > ().play ();
+				event_camera.CallEventCamera( col.transform.position + new Vector3( -4, 0.5f, 0 ), new Vector3( 1, 4, 1 ) );
 			}
 		}
 		if (col.gameObject.tag == "FanSwitch" && ( _operation.getHitRaycastTag( ) == "FanSwitch" )) {
@@ -117,6 +121,7 @@ public class PlayerManager : MonoBehaviour {
 				_animator.setRunning (false);
 				_animator.playDisCharge(true);
 				col.collider.GetComponent<FanSwitch> ().isPlay ();
+				event_camera.CallEventCamera( col.transform.position + new Vector3( 0, 0.5f, -5 ), new Vector3( 1, 1, 0 ) );
 			}
 		}
         if (col.gameObject.tag == "Propeller" && ( _operation.getHitRaycastTag( ) == "Propeller" )) {
