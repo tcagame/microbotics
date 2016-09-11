@@ -166,8 +166,8 @@ public class PlayerManager : MonoBehaviour {
                 _animator.setRunning(false);
                 _animator.playDisCharge(true);
                 col.collider.GetComponent<BigFanSwitch>().isPlay();
-                //Vector3 pos = col.transform.position + new Vector3(0, 2, 5);
-                //event_camera.CallEventCamera(pos, pos + new Vector3(-5, 0.5f, -5));
+                Vector3 pos = col.transform.position + new Vector3(0, 2, 5);
+                event_camera.CallEventCamera(pos, pos + new Vector3(-5, 0.5f, -10));
             }
         }
         if (col.gameObject.tag == "Propeller" && ( _operation.getHitRaycastTag( ) == "Propeller" )) {
