@@ -18,7 +18,7 @@ public class FanManager : MonoBehaviour {
 	void Update( ) {
 		if ( _flag ) {
 			Vector3 pos = transform.position - _trap.transform.position ;
-			_trap.GetComponent< Rigidbody >( ).AddForce( pos.x * Power, pos.y * Power, pos.z * Power );
+			_trap.GetComponent< Rigidbody >( ).AddForce( -pos.x * Power, -pos.y * Power, -pos.z * Power );
 			_animetor.SetBool( "Start", true );
 		}
 	}

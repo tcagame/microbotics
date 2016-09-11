@@ -7,7 +7,7 @@ public class PlayerManager : MonoBehaviour {
 
 	private const float GAUGE_MAX = 1000000.0f;
 	private const int CHARING_TIME = 300;
-	private const int DIS_CHARGE_TIME = 400;
+	private const int DIS_CHARGE_TIME = 300;
 	private float _gauge;
 	private float _gauge_speed;
 	[SerializeField]private float GaugeChargeSpeed = 100.0f;
@@ -62,7 +62,7 @@ public class PlayerManager : MonoBehaviour {
 			pos.y += 0.021f;
 			pos.x -= 0.01f;
 			transform.position = pos;
-			if (pos.y > 5.55f) {
+			if (pos.y > 9.55f) {
 				_climbing_high_flag = false;
 				_animator.playClimbHigh( false );
 				gameObject.GetComponent<Rigidbody> ().useGravity = true;
@@ -74,7 +74,7 @@ public class PlayerManager : MonoBehaviour {
 			pos.y += 0.01f;
 			pos.z -= 0.01f;
 			transform.position = pos;
-			if (pos.y > 2.05f) {
+			if (pos.y > 6.05f) {
 				_climbing_normal_flag = false;
 				_animator.playClimbNormal( false );
 				gameObject.GetComponent<Rigidbody> ().useGravity = true;
@@ -157,6 +157,19 @@ public class PlayerManager : MonoBehaviour {
 				event_camera.CallEventCamera( pos, pos + new Vector3( -5, 0.5f, -5 ) );
 			}
 		}
+        if (col.gameObject.tag == "BigFanSwitch" && (_operation.getHitRaycastTag() == "BigFanSwitch"))
+        {
+            if (!col.collider.GetComponent<BigFanSwitch>().getFlag())
+            {
+                _gauge -= GaugeDischargeSpeed;
+                _animation_time += DIS_CHARGE_TIME;
+                _animator.setRunning(false);
+                _animator.playDisCharge(true);
+                col.collider.GetComponent<BigFanSwitch>().isPlay();
+                //Vector3 pos = col.transform.position + new Vector3(0, 2, 5);
+                //event_camera.CallEventCamera(pos, pos + new Vector3(-5, 0.5f, -5));
+            }
+        }
         if (col.gameObject.tag == "Propeller" && ( _operation.getHitRaycastTag( ) == "Propeller" )) {
 			if (!col.collider.GetComponent<Propellers> ().getFlag ()) {
 				_gauge -= GaugeDischargeSpeed;
