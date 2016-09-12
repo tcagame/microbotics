@@ -8,7 +8,7 @@ public class FanManager : MonoBehaviour {
 	private GameObject _trap;
 	private Animator _animetor;
 	public string TrapName = "SEKITAN";
-    private int timer;
+    //private int timer;
 
 	void Start( ) {
 		_flag = false;
@@ -19,8 +19,7 @@ public class FanManager : MonoBehaviour {
 	void Update( ) {
 		if ( _flag ) {
 			_animetor.SetBool( "Start", true );
-            timer++;
-            if (timer > 100)
+			if ( _trap != null )
             {
                 Vector3 pos = transform.position - _trap.transform.position;
                 _trap.GetComponent<Rigidbody>().AddForce(-pos.x * Power, -pos.y * Power, -pos.z * Power);

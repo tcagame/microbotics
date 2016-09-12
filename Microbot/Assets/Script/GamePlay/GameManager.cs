@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviour {
 		if ( _gauge < 0 ) {
 			SceneManager.LoadScene( "GameOver" );
 		}
-		if ( Vector3.Distance( _player.transform.position, _goal.transform.position ) < 2.0f ) {
+		/*if ( Vector3.Distance( _player.transform.position, _goal.transform.position ) < 2.0f ) {
 			SceneManager.LoadScene( "GameClear" );
-		}
+		}*/
 	}
 }

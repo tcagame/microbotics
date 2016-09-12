@@ -34,6 +34,8 @@ public class JackManager : MonoBehaviour {
 		Vector3 s_pos = _set.transform.position;
         s_pos.y += (Mathf.Abs( _scale_y ) ) / 2;
 		_set.transform.position = s_pos;
+
+		gameObject.GetComponent<Animator> ().SetTrigger ("_jack_play");
 	}
 
 	public void play( ) {

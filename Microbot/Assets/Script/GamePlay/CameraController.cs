@@ -43,21 +43,26 @@ public class CameraController : MonoBehaviour {
 	void turn( ) {
 
 		Vector3 move_pos1 = new Vector3 ();
-		if ( _operation.getInputCount( ) == 1 ) {
-			Vector3 pos = _operation.getInputPosition( 0 );
-			if ( _operation.getTouchPhase( ) == TouchPhase.Began ) {
+		if (_operation.getInputCount () >= 1) {
+			Vector3 pos = _operation.getInputPosition (0);
+			if (_operation.getTouchPhase () == TouchPhase.Began) {
 				_start_pos1 = pos;
 			}
-			if ( _operation.getTouchPhase( ) == TouchPhase.Moved ) {
+			if (_operation.getTouchPhase () == TouchPhase.Moved) {
 				move_pos1 = pos - _start_pos1;
 			}
-			if ( pos.x > 900 && pos.y > 100 ) {
-				_angle += move_pos1.y / 100;
+			if (pos.x > 900 && pos.y > 100) {
+				if (_angle > 10 || _angle < 0) {
+					return;
+				}
+				_angle += move_pos1.y / 200;
 			}
-			if ( pos.y < 100 ) {
-				_angle_2 = move_pos1.x / 10;
-				transform.RotateAround (_player.transform.position , Vector3.up, _angle_2);
+			if (pos.y < 100) {
+				_angle_2 = move_pos1.x / 20;
+				transform.RotateAround (_player.transform.position, Vector3.up, _angle_2);
 			}
+		} else {
+			_angle = 0;
 		}
 
 

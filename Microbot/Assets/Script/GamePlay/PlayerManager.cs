@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour {
 	
 	public float WalkSpeed = 0.1f;
 
 	private const float GAUGE_MAX = 1000000.0f;
-	private const int CHARING_TIME = 300;
-	private const int DIS_CHARGE_TIME = 300;
+	private const int CHARING_TIME = 200;
+	private const int DIS_CHARGE_TIME = 200;
 	private float _gauge;
 	private float _gauge_speed;
 	[SerializeField]private float GaugeChargeSpeed = 100.0f;
@@ -62,7 +63,7 @@ public class PlayerManager : MonoBehaviour {
 			pos.y += 0.021f;
 			pos.x -= 0.01f;
 			transform.position = pos;
-			if (pos.y > 9.55f) {
+			if (pos.y > 9.75f) {
 				_climbing_high_flag = false;
 				_animator.playClimbHigh( false );
 				gameObject.GetComponent<Rigidbody> ().useGravity = true;
@@ -74,7 +75,7 @@ public class PlayerManager : MonoBehaviour {
 			pos.y += 0.01f;
 			pos.z -= 0.01f;
 			transform.position = pos;
-			if (pos.y > 6.05f) {
+			if (pos.y > 6.2f) {
 				_climbing_normal_flag = false;
 				_animator.playClimbNormal( false );
 				gameObject.GetComponent<Rigidbody> ().useGravity = true;
@@ -153,8 +154,8 @@ public class PlayerManager : MonoBehaviour {
 				_animator.setRunning (false);
 				_animator.playDisCharge(true);
 				col.collider.GetComponent<FanSwitch> ().isPlay ();
-				Vector3 pos = col.transform.position + new Vector3 (0, 2, 5);
-				event_camera.CallEventCamera( pos, pos + new Vector3( -5, 0.5f, -5 ) );
+				Vector3 pos = new Vector3 (-12, 7, 3);
+				event_camera.CallEventCamera( pos, pos + new Vector3( 0, 0, 5 ) );
 			}
 		}
         if (col.gameObject.tag == "BigFanSwitch" && (_operation.getHitRaycastTag() == "BigFanSwitch"))
@@ -166,8 +167,8 @@ public class PlayerManager : MonoBehaviour {
                 _animator.setRunning(false);
                 _animator.playDisCharge(true);
                 col.collider.GetComponent<BigFanSwitch>().isPlay();
-                Vector3 pos = col.transform.position + new Vector3(0, 2, 5);
-                event_camera.CallEventCamera(pos, pos + new Vector3(-5, 0.5f, -10));
+                Vector3 pos = new Vector3(10, 30,0);
+                event_camera.CallEventCamera(pos, pos + new Vector3(-5, -20, -10));
             }
         }
         if (col.gameObject.tag == "Propeller" && ( _operation.getHitRaycastTag( ) == "Propeller" )) {
@@ -194,6 +195,9 @@ public class PlayerManager : MonoBehaviour {
 			_animator.setRunning (false);
 			_animator.playClimbHigh( false );
 			_animator.playClimbNormal( true );
+		}
+		if (col.gameObject.tag == "Goal") {
+			SceneManager.LoadScene( "GameClear" );
 		}
 	}
 
