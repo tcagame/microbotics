@@ -138,6 +138,12 @@ public class PlayerManager : MonoBehaviour {
 		}
 	}
 
+	void OnTriggerEnter( Collider col ) {
+		if (col.gameObject.tag == "Goal") {
+			SceneManager.LoadScene( "GameClear" );
+		}
+	}
+
 	void OnCollisionStay( Collision col ) {
 		if (col.gameObject.tag == "Jack" && ( _operation.getHitRaycastTag( ) == "Jack" )) {
 			if ( !col.collider.GetComponent<JackManager>( ).getPlay( ) ) {
@@ -203,9 +209,6 @@ public class PlayerManager : MonoBehaviour {
 			_animator.playClimbHigh( false );
 			_animator.playClimbNormal( true );
 			_nevy.transform.position = new Vector3(-20.64f, 6.18f, -18.34f);
-		}
-		if (col.gameObject.tag == "Goal") {
-			SceneManager.LoadScene( "GameClear" );
 		}
 	}
 

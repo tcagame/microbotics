@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FanManager : MonoBehaviour {
 
-	public float Power = 10;
+	public float Power = 1000;
 	private bool _flag;
 	private GameObject _trap;
 	private Animator _animetor;
@@ -21,8 +21,9 @@ public class FanManager : MonoBehaviour {
 			_animetor.SetBool( "Start", true );
 			if ( _trap != null )
             {
-                Vector3 pos = transform.position - _trap.transform.position;
-                _trap.GetComponent<Rigidbody>().AddForce(-pos.x * Power, -pos.y * Power, -pos.z * Power);
+                Vector3 pos = _trap.transform.position;
+				pos.x++;
+				_trap.transform.position = pos;
             }
 		}
 	}
