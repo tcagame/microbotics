@@ -147,7 +147,7 @@ public class PlayerManager : MonoBehaviour {
 				_animation_time += DIS_CHARGE_TIME;
 				col.collider.GetComponent< JackManager > ().play ();
 				event_camera.CallEventCamera( col.transform.position + new Vector3( -4, 0.5f, 0 ), new Vector3( 1, 4, 1 ) );
-                _nevy.transform.position = new Vector3(-10.8f, 3.8f, 10.3f);
+				_nevy.transform.position = new Vector3(-10.85f, 0.45f, 9.56f);
 			}
 		}
 		if (col.gameObject.tag == "FanSwitch" && ( _operation.getHitRaycastTag( ) == "FanSwitch" )) {
@@ -159,7 +159,7 @@ public class PlayerManager : MonoBehaviour {
 				col.collider.GetComponent<FanSwitch> ().isPlay ();
 				Vector3 pos = new Vector3 (-12, 7, 3);
 				event_camera.CallEventCamera( pos, pos + new Vector3( 0, 0, 5 ) );
-                _nevy.transform.position = new Vector3(-14.98f, 3.38f, 0.15f);
+				_nevy.transform.position = new Vector3(-14.93f, 0.53f, 1.03f);
 			}
 		}
         if (col.gameObject.tag == "BigFanSwitch" && (_operation.getHitRaycastTag() == "BigFanSwitch"))
@@ -184,7 +184,7 @@ public class PlayerManager : MonoBehaviour {
 				_animator.playDisCharge (true);
 				col.collider.GetComponent<Propellers> ().isPlay ();
 				_operation.resetTargetTag( );
-                _nevy.transform.position = new Vector3(-28.38f, 16.83f, -14.32f);
+				_nevy.transform.position = new Vector3(-17.12f, 6.66f, -18.01f);
 			}
 		}
 	}
@@ -195,12 +195,14 @@ public class PlayerManager : MonoBehaviour {
 			_animator.setRunning (false);
 			_animator.playClimbNormal( false );
 			_animator.playClimbHigh( true );
+			_nevy.transform.position = new Vector3(-26.9f, 8.07f, -14.02f);
 		}
 		if (col.gameObject.tag == "StairNormal") {
 			_climbing_normal_flag = true;
 			_animator.setRunning (false);
 			_animator.playClimbHigh( false );
 			_animator.playClimbNormal( true );
+			_nevy.transform.position = new Vector3(-20.64f, 6.18f, -18.34f);
 		}
 		if (col.gameObject.tag == "Goal") {
 			SceneManager.LoadScene( "GameClear" );
