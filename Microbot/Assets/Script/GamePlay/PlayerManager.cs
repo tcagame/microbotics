@@ -171,8 +171,8 @@ public class PlayerManager : MonoBehaviour {
                 _animator.setRunning(false);
                 _animator.playDisCharge(true);
                 col.collider.GetComponent<BigFanSwitch>().isPlay();
-                Vector3 pos = new Vector3(10, 30,0);
-                event_camera.CallEventCamera(pos, pos + new Vector3(-5, -20, -10));
+                Vector3 pos = new Vector3(10, 40,0);
+                event_camera.CallEventCamera(pos, pos + new Vector3(-5, -30, -10));
                 _nevy.transform.position = new Vector3(31.12f, 1.51f, -8.94f);
             }
         }
