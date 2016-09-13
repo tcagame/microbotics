@@ -31,6 +31,7 @@ public class PlayerManager : MonoBehaviour {
 	private bool _climbing_high_flag = false;
 	  //ポイント
     GameObject point;
+    GameObject _nevy;
 	//イベントカメラ
 	EventCamera event_camera;
 
@@ -38,6 +39,7 @@ public class PlayerManager : MonoBehaviour {
 
     void Awake(){
 		_animator = GetComponent<AnimatorController>( );
+        _nevy = GameObject.Find("Nevy").gameObject;
         point = ( GameObject )Resources.Load( "Prefab/Point" );
         point = Instantiate( point );
         point.SetActive( false );
@@ -145,6 +147,7 @@ public class PlayerManager : MonoBehaviour {
 				_animation_time += DIS_CHARGE_TIME;
 				col.collider.GetComponent< JackManager > ().play ();
 				event_camera.CallEventCamera( col.transform.position + new Vector3( -4, 0.5f, 0 ), new Vector3( 1, 4, 1 ) );
+                _nevy.transform.position = new Vector3(-10.8f, 3.8f, 10.3f);
 			}
 		}
 		if (col.gameObject.tag == "FanSwitch" && ( _operation.getHitRaycastTag( ) == "FanSwitch" )) {
@@ -156,6 +159,7 @@ public class PlayerManager : MonoBehaviour {
 				col.collider.GetComponent<FanSwitch> ().isPlay ();
 				Vector3 pos = new Vector3 (-12, 7, 3);
 				event_camera.CallEventCamera( pos, pos + new Vector3( 0, 0, 5 ) );
+                _nevy.transform.position = new Vector3(-14.98f, 3.38f, 0.15f);
 			}
 		}
         if (col.gameObject.tag == "BigFanSwitch" && (_operation.getHitRaycastTag() == "BigFanSwitch"))
@@ -169,6 +173,7 @@ public class PlayerManager : MonoBehaviour {
                 col.collider.GetComponent<BigFanSwitch>().isPlay();
                 Vector3 pos = new Vector3(10, 30,0);
                 event_camera.CallEventCamera(pos, pos + new Vector3(-5, -20, -10));
+                _nevy.transform.position = new Vector3(31.12f, 1.51f, -8.94f);
             }
         }
         if (col.gameObject.tag == "Propeller" && ( _operation.getHitRaycastTag( ) == "Propeller" )) {
@@ -179,6 +184,7 @@ public class PlayerManager : MonoBehaviour {
 				_animator.playDisCharge (true);
 				col.collider.GetComponent<Propellers> ().isPlay ();
 				_operation.resetTargetTag( );
+                _nevy.transform.position = new Vector3(-28.38f, 16.83f, -14.32f);
 			}
 		}
 	}
