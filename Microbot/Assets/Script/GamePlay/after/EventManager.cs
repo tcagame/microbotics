@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AnimaterController : MonoBehaviour {
-
+public class EventManager : MonoBehaviour {
+	
 	// Use this for initialization
 	void Start () {
 	

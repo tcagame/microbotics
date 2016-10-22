@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BigFanSwitch : MonoBehaviour {
+public class FanSwitchManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
