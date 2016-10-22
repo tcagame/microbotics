@@ -27,6 +27,7 @@ public class Operation : MonoBehaviour {
 		if ( _mode == MODE.MOED_ERROR ) {
 			return;
 		}
+		//タッチしている部分が画面内である
 		if ( isSingleInput( ) ) {
 			Vector3 pos = getInputPosition (0);
 			if ( pos.y < 100 ) {

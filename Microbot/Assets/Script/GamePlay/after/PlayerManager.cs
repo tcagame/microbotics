@@ -3,13 +3,168 @@ using System.Collections;
 
 public class PlayerManager : MonoBehaviour {
 
+	public float WalkSpeed = 0.1f;
+
+	private const float GAUGE_MAX = 1000000.0f;
+	private const int CHARING_TIME = 200;
+	private const int DIS_CHARGE_TIME = 200;
+	private float _gauge;
+	private float _gauge_speed;
+	[SerializeField]private float GaugeChargeSpeed = 100.0f;
+	[SerializeField]private float GaugeDischargeSpeed = 500.0f;
+	[SerializeField]private float StandGaugeDrop = 0.0f;
+	[SerializeField]private float WalkGaugeDrop = 0.0f;
+	[SerializeField]private float _move_max_time = 2;
+	private float FullStairGaugeDrop = 300.0f;
+	private float HalfStairGaugeDrop = 200.0f;
+	private float SmallStairGaugeDrop = 100.0f;
+	//private Touch _touch;
+	private Operation _operation;
+	private float _move_time = 0;
+	private float _walk_speed = 0.0f;
+	private Vector3 _target_pos = new Vector3 ( );
+	private int _check_first_touch = 0;
+	private bool _climbing_normal_flag = false;
+	private bool _climbing_high_flag = false;
+	[SerializeField]private string _hit_object_tag;
+	//ポイント
+	GameObject point;
+	GameObject _nevy;
+	//イベントカメラ
+	EventCamera event_camera;
+
+	RaycastHit hit;
+
+	void Awake(){
+		_animator = GetComponent<AnimatorController>( );
+		_nevy = GameObject.Find("Nevy").gameObject;
+		point = ( GameObject )Resources.Load( "Prefab/Point" );
+		point = Instantiate( point );
+		point.SetActive( false );
+		_climbing_normal_flag = false;
+		_climbing_high_flag = false;
+	}
+
 	// Use this for initialization
 	void Start () {
-	
+		_hit_object_tag = "";
+		_operation = GameObject.Find( "Operation" ).GetComponent< Operation >( );
+		_gauge = GAUGE_MAX;
+		_gauge_speed = StandGaugeDrop;
+		event_camera = GameObject.Find ("GameManager").GetComponent< EventCamera >( );
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-	
+		//kaidan nobori
+		if ( _climbing_high_flag) {
+			gameObject.GetComponent<Rigidbody> ().useGravity = false;
+			Vector3 pos = transform.position;
+			pos.y += 0.021f;
+			pos.x -= 0.01f;
+			transform.position = pos;
+			if (pos.y > 9.75f) {
+				_climbing_high_flag = false;
+				_animator.playClimbHigh( false );
+				gameObject.GetComponent<Rigidbody> ().useGravity = true;
+			}
+		};
+		if ( _climbing_normal_flag) {
+			gameObject.GetComponent<Rigidbody> ().useGravity = false;
+			Vector3 pos = transform.position;
+			pos.y += 0.01f;
+			pos.z -= 0.01f;
+			transform.position = pos;
+			if (pos.y > 6.2f) {
+				_climbing_normal_flag = false;
+				_animator.playClimbNormal( false );
+				gameObject.GetComponent<Rigidbody> ().useGravity = true;
+			}
+		};
+		//
+
+		_animation_time -= 1;
+		if ( _animation_time > 0 ) {
+			return;
+		}
+		_animation_time = 0;
+		_animator.playDisCharge (false);
+
+		if (_gauge > GAUGE_MAX) {
+			_gauge = GAUGE_MAX;
+			_animator.playCharging (false);
+		}
+		if (_gauge > 0.0f) {
+			_gauge -= Time.deltaTime * _gauge_speed;
+		}
+
+		Vector3 rayhit_pos = _operation.getHitRaycastPos( );
+		if ( rayhit_pos != new Vector3( ) ) {
+			_target_pos = new Vector3 ( rayhit_pos.x, transform.position.y, rayhit_pos.z );
+			if ( _check_first_touch == 0 ) {
+				_walk_speed = Vector3.Distance( _target_pos, transform.position ) / ( _move_max_time * 60 ) ;	
+			}
+			_check_first_touch++;
+		} else {
+			_check_first_touch = 0;	
+		}
+
+		if ( _target_pos != new Vector3( ) ) {
+			_gauge_speed = WalkGaugeDrop;
+			move ( _target_pos, _walk_speed );
+			_animator.setRunning (true);
+			_move_time++;
+			setPoint( _target_pos );
+		} else {
+			_gauge_speed = StandGaugeDrop;
+			_animator.setRunning (false);
+			deletePoint( );
+		}
+
+		if ( transform.position == _target_pos || _move_time / 60 == _move_max_time ) {
+			_move_time = 0;
+			_operation.resetTargetPos ( );
+			_target_pos = new Vector3( );
+			_animator.setRunning (false);
+		}
+	}
+
+	void OnTriggerStay( Collider col ) {
+		if (col.gameObject.tag == "Charger" ) {
+			_gauge += GaugeChargeSpeed;
+			_animator.playCharging ( true );
+		}
+	}
+
+	void OnTriggerEnter( Collider col ) {
+		if (col.gameObject.tag == "Goal") {
+			SceneManager.LoadScene( "GameClear" );
+		}
+	}
+
+	void OnCollisionEnter( Collision col ) {
+		_hit_object_tag = col.gameObject.tag;
+	}
+
+	public void getTouchObjectTag( ){
+		return _hit_object_tag;
+	}
+
+	public float getGauge( ) {
+		return _gauge;
+	}
+
+	private void move ( Vector3 pos, float walk_speed ) {
+		transform.position = Vector3.MoveTowards ( transform.position, pos, walk_speed );
+		transform.LookAt ( pos );
+	}
+
+	private void setPoint( Vector3 pos ) {
+		point.SetActive( true );
+		point.transform.position = pos + ( point.transform.up * 0.01f );
+	}
+
+	private void deletePoint( ) {
+		point.SetActive( false );
 	}
 }
