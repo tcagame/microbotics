@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour {
 
@@ -34,9 +35,11 @@ public class PlayerManager : MonoBehaviour {
 	EventCamera event_camera;
 
 	RaycastHit hit;
+	private Animator _animator;
+	[SerializeField]private int _animation_time;
 
 	void Awake(){
-		_animator = GetComponent<AnimatorController>( );
+		_animator = gameObject.GetComponent<Animator>( );
 		_nevy = GameObject.Find("Nevy").gameObject;
 		point = ( GameObject )Resources.Load( "Prefab/Point" );
 		point = Instantiate( point );
@@ -65,7 +68,7 @@ public class PlayerManager : MonoBehaviour {
 			transform.position = pos;
 			if (pos.y > 9.75f) {
 				_climbing_high_flag = false;
-				_animator.playClimbHigh( false );
+				_animator.SetBool( "_is_climbing_high", _climbing_high_flag );
 				gameObject.GetComponent<Rigidbody> ().useGravity = true;
 			}
 		};
@@ -77,7 +80,7 @@ public class PlayerManager : MonoBehaviour {
 			transform.position = pos;
 			if (pos.y > 6.2f) {
 				_climbing_normal_flag = false;
-				_animator.playClimbNormal( false );
+				_animator.SetBool( "_is_climbing_normal", _climbing_normal_flag );
 				gameObject.GetComponent<Rigidbody> ().useGravity = true;
 			}
 		};
@@ -88,11 +91,11 @@ public class PlayerManager : MonoBehaviour {
 			return;
 		}
 		_animation_time = 0;
-		_animator.playDisCharge (false);
+		_animator.SetBool( "_is_discharging", false );
 
 		if (_gauge > GAUGE_MAX) {
 			_gauge = GAUGE_MAX;
-			_animator.playCharging (false);
+			_animator.SetBool( "_is_charging", false );
 		}
 		if (_gauge > 0.0f) {
 			_gauge -= Time.deltaTime * _gauge_speed;
@@ -112,12 +115,12 @@ public class PlayerManager : MonoBehaviour {
 		if ( _target_pos != new Vector3( ) ) {
 			_gauge_speed = WalkGaugeDrop;
 			move ( _target_pos, _walk_speed );
-			_animator.setRunning (true);
+			_animator.SetBool( "_is_running", true );
 			_move_time++;
 			setPoint( _target_pos );
 		} else {
 			_gauge_speed = StandGaugeDrop;
-			_animator.setRunning (false);
+			_animator.SetBool( "_is_running", false );
 			deletePoint( );
 		}
 
@@ -125,14 +128,14 @@ public class PlayerManager : MonoBehaviour {
 			_move_time = 0;
 			_operation.resetTargetPos ( );
 			_target_pos = new Vector3( );
-			_animator.setRunning (false);
+			_animator.SetBool( "_is_running", false );
 		}
 	}
 
 	void OnTriggerStay( Collider col ) {
 		if (col.gameObject.tag == "Charger" ) {
 			_gauge += GaugeChargeSpeed;
-			_animator.playCharging ( true );
+			_animator.SetBool( "_is_charging", true );
 		}
 	}
 
@@ -146,7 +149,7 @@ public class PlayerManager : MonoBehaviour {
 		_hit_object_tag = col.gameObject.tag;
 	}
 
-	public void getTouchObjectTag( ){
+	public string getTouchObjectTag( ){
 		return _hit_object_tag;
 	}
 

@@ -27,7 +27,7 @@ public class EventManager : MonoBehaviour {
 		string player_touch_tag = _player_mgr.getTouchObjectTag( );
 		Vector3 camera_pos = new Vector3 (0, 0, 0);
 		Vector3 camera_vie_pos = new Vector3 (1, 1, 1);
-		if ( !_camara_mgr.isStageViewCamera( ) ) {
+		if ( !_camara_mgr.isPlayCamera( ) ) {
 			return;
 		}
 		if ( tag == _propeller_fan_switch_tag && 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EventCamera {
+public class EventCamera{
 	private double WAIT_TIME = 5 * 60;
 	private double _time;
 	private GameObject _mine;
