@@ -8,6 +8,7 @@ public class CameraManager : MonoBehaviour {
 		EVENT,
 		STAGE_VIEW
 	};
+
 	private PlayCamera _play_camera;
 	private EventCamera _event_camera;
 	private StageViewCamera _stage_view_camera;
@@ -26,32 +27,31 @@ public class CameraManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		//カメラ切替
 		switch ( _camera_mode ) {
 		case CAMERA_MODE.PLAY:
-			_play_camera.update( );
 			break;
 		case CAMERA_MODE.EVENT:
 			_event_camera.update( );
-			if ( _event_camera.finish( ) ) {
+			if ( _event_camera.isfinish( ) ) {
 				_camera_mode = CAMERA_MODE.PLAY;
 			}
 			break;
 		case CAMERA_MODE.STAGE_VIEW:
-			_stage_view_camera.update( );
-			if ( _stage_view_camera.finish( ) ) {
+			/*if ( _stage_view_camera.isfinish( ) ) {
 				_camera_mode = CAMERA_MODE.PLAY;
-			}
+			}*/
 			break;
 		}
 	}
 
 	public void callEventCamera( Vector3 target, Vector3 pos ) {
-		_event_camera.callEnventCamera( target, pos );
+		_event_camera.callEventCamera( target, pos );
 		_camera_mode = CAMERA_MODE.EVENT;
 	}
 
 	public void callStageViewCamera( ) {
-		_stage_view_camera.initialize( );
+		//_stage_view_camera.initialize( );
 		_camera_mode = CAMERA_MODE.STAGE_VIEW;
 	}
 }
