@@ -3,6 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class StageViewCamera {
+
+	// Use this for initialization
+	void Start( ) {
+		
+	}
+	// Update is called once per frame
+	void Update( ) {
+		
+	}
+}
+
+/*
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+public class StageViewCamera {
 	public double EVENT_TIME;
 	private double _event_time;
 	public Camera main_camera;
@@ -103,3 +120,4 @@ public class StageViewCamera {
 		StartMainCamera( );
 	}
 }
+*/
