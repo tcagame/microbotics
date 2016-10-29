@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CameraManager : MonoBehaviour {
 
@@ -8,6 +9,9 @@ public class CameraManager : MonoBehaviour {
 		EVENT,
 		STAGE_VIEW
 	};
+
+	private Vector3 STAGE_VIEW_START = new Vector3( 0, 0, 0 );
+	public List<Vector3> STAGE_VIEW_LIST;
 
 	private PlayCamera _play_camera;
 	private EventCamera _event_camera;
@@ -38,9 +42,9 @@ public class CameraManager : MonoBehaviour {
 			}
 			break;
 		case CAMERA_MODE.STAGE_VIEW:
-			/*if ( _stage_view_camera.isfinish( ) ) {
+			if ( _stage_view_camera.isfinish( ) ) {
 				_camera_mode = CAMERA_MODE.PLAY;
-			}*/
+			}
 			break;
 		}
 	}
@@ -51,7 +55,7 @@ public class CameraManager : MonoBehaviour {
 	}
 
 	public void callStageViewCamera( ) {
-		//_stage_view_camera.initialize( );
+		_stage_view_camera.callStageViewCamera( STAGE_VIEW_START, STAGE_VIEW_LIST );
 		_camera_mode = CAMERA_MODE.STAGE_VIEW;
 	}
 }

@@ -23,6 +23,7 @@ public class EventCamera {
 			_time = WAIT_TIME;
 			return;
 		}
+		_time = 0;
 		_mine.transform.position = pos;
 		_mine.transform.LookAt( target );
 	}
