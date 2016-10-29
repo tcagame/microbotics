@@ -19,7 +19,10 @@ public class CoalManager : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
-	void action( ) {
+	public void action( ) {
 		_action_flag = true;
+	}
+	public bool isActive( ) {
+		return _action_flag;
 	}
 }

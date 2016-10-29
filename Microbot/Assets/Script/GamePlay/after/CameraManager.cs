@@ -45,7 +45,7 @@ public class CameraManager : MonoBehaviour {
 		}
 	}
 
-	public void callEventCamera( Vector3 target, Vector3 pos ) {
+	public void useEventCamera( Vector3 target, Vector3 pos ) {
 		_event_camera.callEventCamera( target, pos );
 		_camera_mode = CAMERA_MODE.EVENT;
 	}
@@ -53,5 +53,9 @@ public class CameraManager : MonoBehaviour {
 	public void callStageViewCamera( ) {
 		//_stage_view_camera.initialize( );
 		_camera_mode = CAMERA_MODE.STAGE_VIEW;
+	}
+
+	public bool isPlayCamera( ) {
+		return _camera_mode == CAMERA_MODE.PLAY;
 	}
 }

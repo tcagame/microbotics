@@ -146,7 +146,7 @@ public class PlayerManager : MonoBehaviour {
 		_hit_object_tag = col.gameObject.tag;
 	}
 
-	public void getTouchObjectTag( ){
+	public string getTouchObjectTag( ){
 		return _hit_object_tag;
 	}
 

@@ -16,7 +16,7 @@ public class PropellerFanManager : MonoBehaviour {
 		_active = true;
 		_animetor.SetBool( "Start", true );
 	}
-	public void isActive( ) {
+	public bool isActive( ) {
 		return _active;
 	}
 }
