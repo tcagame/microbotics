@@ -7,6 +7,7 @@ public class EventCamera{
 	private GameObject _mine;
 
 	public EventCamera( ) {
+		_mine = GameObject.FindGameObjectWithTag( "MainCamera" );//カメラの取得
 		_time = 0;
 	}
 

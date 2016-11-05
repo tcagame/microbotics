@@ -12,7 +12,7 @@ public class StageViewCamera {
 	private int _count;
 
 	public StageViewCamera( ) {
-		
+		_mine = GameObject.FindGameObjectWithTag( "MainCamera" );//カメラの取得
 	}
 
 	public void initialize( ) {
@@ -28,7 +28,6 @@ public class StageViewCamera {
 	}
 
 	public void callStageViewCamera( Vector3 start_pos, List< Vector3 > list ) {
-		_mine = GameObject.FindGameObjectWithTag( "MainCamera" );//カメラの取得
 		//リストの設定
 		_target_list = list;
 		_target_key = 0;
