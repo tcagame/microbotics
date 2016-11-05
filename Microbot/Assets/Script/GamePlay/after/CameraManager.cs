@@ -34,6 +34,7 @@ public class CameraManager : MonoBehaviour {
 		//カメラ切替
 		switch ( _camera_mode ) {
 		case CAMERA_MODE.PLAY:
+			_play_camera.update( );
 			break;
 		case CAMERA_MODE.EVENT:
 			_event_camera.update( );
@@ -54,7 +55,7 @@ public class CameraManager : MonoBehaviour {
 		_camera_mode = CAMERA_MODE.EVENT;
 	}
 
-	public void callStageViewCamera( ) {
+	public void useStageViewCamera( ) {
 		_stage_view_camera.callStageViewCamera( STAGE_VIEW_START, STAGE_VIEW_LIST );
 		_camera_mode = CAMERA_MODE.STAGE_VIEW;
 	}

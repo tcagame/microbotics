@@ -63,13 +63,11 @@
      <Compile Include="Assets\Script\GamePlay\after\StageViewCamera.cs" />
      <Compile Include="Assets\Script\GamePlay\before\AnimatorController.cs" />
      <Compile Include="Assets\Script\GamePlay\before\BigFanSwitch.cs" />
-     <Compile Include="Assets\Script\GamePlay\before\CameraController.cs" />
      <Compile Include="Assets\Script\GamePlay\before\FanManager.cs" />
      <Compile Include="Assets\Script\GamePlay\before\FanSwitch.cs" />
      <Compile Include="Assets\Script\GamePlay\before\GameManager.cs" />
      <Compile Include="Assets\Script\GamePlay\before\GaugeManager.cs" />
      <Compile Include="Assets\Script\GamePlay\before\NevyManager.cs" />
-     <Compile Include="Assets\Script\GamePlay\before\Propellers.cs" />
      <Compile Include="Assets\Script\GamePlay\before\SekitanManager.cs" />
      <Compile Include="Assets\Script\GamePlay\before\SmallFanManager.cs" />
      <Compile Include="Assets\Script\Title\CreditBotton.cs" />
