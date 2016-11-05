@@ -32,7 +32,6 @@ public class PlayerManager : MonoBehaviour {
 	GameObject point;
 	GameObject _nevy;
 	//イベントカメラ
-	EventCamera event_camera;
 
 	RaycastHit hit;
 	private Animator _animator;
@@ -54,7 +53,6 @@ public class PlayerManager : MonoBehaviour {
 		_operation = GameObject.Find( "Operation" ).GetComponent< Operation >( );
 		_gauge = GAUGE_MAX;
 		_gauge_speed = StandGaugeDrop;
-		event_camera = GameObject.Find ("GameManager").GetComponent< EventCamera >( );
 	}
 
 	// Update is called once per frame

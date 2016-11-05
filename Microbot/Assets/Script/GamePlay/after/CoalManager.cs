@@ -14,7 +14,8 @@ public class CoalManager : MonoBehaviour {
 		if ( !_action_flag ) {
 			return;
 		}
-		transform.position.x++;
+		//石炭飛ぶ
+		transform.position += Vector3.right;
 		if (transform.position.x > 100) {
 			Destroy(gameObject);
 		}
