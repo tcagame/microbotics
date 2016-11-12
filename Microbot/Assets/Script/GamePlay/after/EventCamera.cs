@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class EventCamera{
-	private double WAIT_TIME = 5 * 60;
+	private double WAIT_TIME = 5;
 	private double _time;
 	private GameObject _mine;
 
