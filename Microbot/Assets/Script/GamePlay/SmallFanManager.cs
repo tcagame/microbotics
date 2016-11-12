@@ -11,12 +11,13 @@ public class SmallFanManager : MonoBehaviour {
 	}
 	
 	void Update( ) {
-		if ( _flag ) {
-			_animetor.SetBool( "Start", true );
-		}
+		
 	}
 
 	public void action( ) {
+		if ( !_flag ) {
+			_animetor.SetBool( "Start", true );
+		}
 		_flag = true;
 	}
 

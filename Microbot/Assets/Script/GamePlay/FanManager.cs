@@ -18,7 +18,7 @@ public class FanManager : MonoBehaviour {
 	
 	void Update( ) {
 		if ( _flag ) {
-			_animetor.SetBool( "Start", true );
+			
 			if ( _trap != null )
             {
                 Vector3 pos = _trap.transform.position;
@@ -29,7 +29,12 @@ public class FanManager : MonoBehaviour {
 	}
 
 	public void action( ) {
+		if ( !_flag ) {
+			_animetor.SetBool( "Start", true );
+
+		}
 		_flag = true;
+
 	}
 
 	public bool getFlag( ) {

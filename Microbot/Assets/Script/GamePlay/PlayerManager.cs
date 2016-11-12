@@ -70,7 +70,7 @@ public class PlayerManager : MonoBehaviour {
 				_animator.playClimbHigh( false );
 				gameObject.GetComponent<Rigidbody> ().useGravity = true;
 			}
-		};
+		} 
 		if ( _climbing_normal_flag) {
 			gameObject.GetComponent<Rigidbody> ().useGravity = false;
 			Vector3 pos = transform.position;
@@ -83,6 +83,9 @@ public class PlayerManager : MonoBehaviour {
 				gameObject.GetComponent<Rigidbody> ().useGravity = true;
 			}
 		};
+		if ( _climbing_high_flag || _climbing_normal_flag ) {
+			return;
+		}
 		//
 		_animator.playDisCharge (false);
 
@@ -176,7 +179,7 @@ public class PlayerManager : MonoBehaviour {
 				_animator.setRunning (false);
 				col.collider.GetComponent<Propellers> ().isPlay ();
 				_operation.resetTargetTag( );
-				_nevy.transform.position = new Vector3(-17.12f, 6.66f, -18.01f);
+				_nevy.transform.position = new Vector3(-16.12f, 6.66f, -18.01f);
 			}
 		}
 	}
@@ -194,7 +197,7 @@ public class PlayerManager : MonoBehaviour {
 			_animator.setRunning (false);
 			_animator.playClimbHigh( false );
 			_animator.playClimbNormal( true );
-			_nevy.transform.position = new Vector3(-20.64f, 6.18f, -18.34f);
+			_nevy.transform.position = new Vector3(-18.64f, 6.6f, -18.34f);
 		}
 	}
 
