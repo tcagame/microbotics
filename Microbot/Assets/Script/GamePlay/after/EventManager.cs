@@ -26,7 +26,6 @@ public class EventManager : MonoBehaviour {
 		_propeller_mgr = GameObject.Find( "Propera" ).GetComponent< PropellerManager >( );
 		_propeller_fan_mgr = GameObject.Find( "FabSwitch" ).GetComponent< PropellerFanManager >( );
 		_jack_mgr = GameObject.Find( "Jack" ).GetComponent< JackManager >( );
-
 	}
 	
 	// Update is called once per frame

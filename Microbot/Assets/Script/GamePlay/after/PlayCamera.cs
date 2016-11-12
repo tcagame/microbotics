@@ -16,8 +16,9 @@ public class PlayCamera {
 	}
 
 	public void update( ) {
-		_player.transform.position = _pos;
+		_mine.transform.position = _pos;
 		_mine.transform.position = _player.transform.position + _vec;
+		_mine.transform.LookAt (_player.transform.position);
 		_pos = _player.transform.position;
 	}
 
