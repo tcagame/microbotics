@@ -32,7 +32,7 @@ public class Operation : MonoBehaviour {
 			if ( pos.y < 100 ) {
 				return;
 			}
-			if ( pos.x > 900 ) {
+			if ( pos.x > 1900 ) {
 				return;
 			}
 		}

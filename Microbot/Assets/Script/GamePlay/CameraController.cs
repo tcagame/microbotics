@@ -51,7 +51,7 @@ public class CameraController : MonoBehaviour {
 			if (_operation.getTouchPhase () == TouchPhase.Moved) {
 				move_pos1 = pos - _start_pos1;
 			}
-			if (pos.x > 900 && pos.y > 100) {
+			if (pos.x > 1900 && pos.y > 100) {
 				if (_angle > 10 || _angle < 0) {
 					return;
 				}

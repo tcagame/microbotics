@@ -84,12 +84,6 @@ public class PlayerManager : MonoBehaviour {
 			}
 		};
 		//
-
-		_animation_time -= 1;
-		if ( _animation_time > 0 ) {
-			return;
-		}
-		_animation_time = 0;
 		_animator.playDisCharge (false);
 
 		if (_gauge > GAUGE_MAX) {
@@ -148,9 +142,7 @@ public class PlayerManager : MonoBehaviour {
 		if (col.gameObject.tag == "Jack" && ( _operation.getHitRaycastTag( ) == "Jack" )) {
 			if ( !col.collider.GetComponent<JackManager>( ).getPlay( ) ) {
 				_animator.setRunning (false);
-				_animator.playDisCharge (true);
 				_gauge -= GaugeDischargeSpeed;
-				_animation_time += DIS_CHARGE_TIME;
 				col.collider.GetComponent< JackManager > ().play ();
 				event_camera.CallEventCamera( col.transform.position + new Vector3( -4, 0.5f, 0 ), new Vector3( 1, 4, 1 ) );
 				_nevy.transform.position = new Vector3(-10.85f, 0.45f, 9.56f);
@@ -159,9 +151,7 @@ public class PlayerManager : MonoBehaviour {
 		if (col.gameObject.tag == "FanSwitch" && ( _operation.getHitRaycastTag( ) == "FanSwitch" )) {
 			if (!col.collider.GetComponent<FanSwitch> ().getFlag ( )) {
 				_gauge -= GaugeDischargeSpeed;
-				_animation_time += DIS_CHARGE_TIME;
 				_animator.setRunning (false);
-				_animator.playDisCharge(true);
 				col.collider.GetComponent<FanSwitch> ().isPlay ();
 				Vector3 pos = new Vector3 (-12, 7, 3);
 				event_camera.CallEventCamera( pos, pos + new Vector3( 0, 0, 5 ) );
@@ -173,9 +163,7 @@ public class PlayerManager : MonoBehaviour {
             if (!col.collider.GetComponent<BigFanSwitch>().getFlag())
             {
                 _gauge -= GaugeDischargeSpeed;
-                _animation_time += DIS_CHARGE_TIME;
                 _animator.setRunning(false);
-                _animator.playDisCharge(true);
                 col.collider.GetComponent<BigFanSwitch>().isPlay();
                 Vector3 pos = new Vector3(10, 40,0);
                 event_camera.CallEventCamera(pos, pos + new Vector3(-5, -30, -10));
@@ -185,9 +173,7 @@ public class PlayerManager : MonoBehaviour {
         if (col.gameObject.tag == "Propeller" && ( _operation.getHitRaycastTag( ) == "Propeller" )) {
 			if (!col.collider.GetComponent<Propellers> ().getFlag ()) {
 				_gauge -= GaugeDischargeSpeed;
-				_animation_time += DIS_CHARGE_TIME;
 				_animator.setRunning (false);
-				_animator.playDisCharge (true);
 				col.collider.GetComponent<Propellers> ().isPlay ();
 				_operation.resetTargetTag( );
 				_nevy.transform.position = new Vector3(-17.12f, 6.66f, -18.01f);

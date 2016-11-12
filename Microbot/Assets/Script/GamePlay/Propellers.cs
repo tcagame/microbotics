@@ -36,8 +36,8 @@ public class Propellers : MonoBehaviour {
 
 	void Update ( ) {
 		if ( _flying_flag ) {
-			flying( );
 			setPosition( );
+			flying( );
 		}
 	}
 
@@ -141,6 +141,7 @@ public class Propellers : MonoBehaviour {
 			_on_down = false;
 			_propeller.transform.position = PROPELLER_GOAL_POS;
 			_player.transform.position = _propeller.transform.position + Vector3.left;
+			_propeller.transform.position = PROPELLER_START_POS;
 			return;
 		}
 	}
