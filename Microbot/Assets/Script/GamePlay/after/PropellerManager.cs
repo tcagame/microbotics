@@ -3,8 +3,10 @@ using System.Collections;
 
 public class PropellerManager : MonoBehaviour {
 	private enum STATE {
-		STATE_HIGH,
-		STATE_LOW
+		STATE_NONE,
+		STATE_UP,
+		STATE_DOWN,
+		STATE_LEAVE
 	}
 
 	private GameObject _propeller;
@@ -15,9 +17,9 @@ public class PropellerManager : MonoBehaviour {
 	public const float FLY_SPEED = 0.05f;
 
 	public Vector3 PROPELLER_LOW_POS = new Vector3( -15.0f, 1.8f, 0.0f );
-	public Vector3 PROPELLER_HIGH_POS = new Vector3 ( -15.0f, 6.0f, -13.0f);
-	private float MAX_HEIGHT = 9.0f;
-
+	public Vector3 PROPELLER_HIGH_POS = new Vector3 ( -15.0f, 6.0f, -13.0f );
+	private float MAX_HIGH = 8.0f;
+		
 	private bool _flag;
 	private STATE _state;
 
@@ -30,6 +32,7 @@ public class PropellerManager : MonoBehaviour {
 	// Use this for initialization
 	void Start( ) {
 		_player = GameObject.Find( PlayerName ).gameObject;
+		_state = STATE.STATE_NONE;
 	}
 	
 	// Update is called once per frame
@@ -44,27 +47,45 @@ public class PropellerManager : MonoBehaviour {
 
 	private void setPosition( ) {
 		Vector3 player_pos = _player.transform.position;
-		Vector3 p_pos = _propeller.transform.position;
-		player_pos = new Vector3( p_pos.x, p_pos.y - 1.3f, p_pos.z );
+		Vector3 propeller_pos = _propeller.transform.position;
+		player_pos = new Vector3( propeller_pos.x, propeller_pos.y - 1.3f, propeller_pos.z );
 		_player.transform.position = player_pos;
 	}
 
 	private void flying( ) {
+		//方向決め
+		Vector3 dir;
+		Vector3 mid_pos = ( PROPELLER_HIGH_POS - PROPELLER_LOW_POS ) / 2;
+		mid_pos.y = MAX_HIGH;
 		switch ( _state ) {
-		case STATE.STATE_LOW:
-			//下から上に
+		case STATE.STATE_UP:
+			dir = mid_pos - PROPELLER_LOW_POS;
+			moveOnDir( dir );
 			break;
-		case STATE.STATE_HIGH:
-			//上から下に
+		case STATE.STATE_DOWN:
+			dir = PROPELLER_HIGH_POS - mid_pos;
+			moveOnDir( dir );
+			break;
+		case STATE.STATE_LEAVE:
+			leavePropeller( );
 			break;
 		}
 	}
 
+	private void moveOnDir( Vector3 dir ) {
+		Vector3 propeller_pos = _propeller.transform.position;
+		propeller_pos += dir.normalized * FLY_SPEED;
+		_propeller.transform.position = propeller_pos;
+	}
 
+	private void leavePropeller( ) {
+
+	}
 
 	//イベントマネージャーから操作
 	public void action( ) {
 		_flag = true;
+		_state = STATE.STATE_UP;
 	}
 	public bool isActive( ) {
 		return _flag;
