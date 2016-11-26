@@ -19,7 +19,7 @@ public class PropellerManager : MonoBehaviour {
 	public Vector3 PROPELLER_LOW_POS = new Vector3( -15.0f, 1.8f, 0.0f );
 	public Vector3 PROPELLER_HIGH_POS = new Vector3 ( -15.0f, 6.0f, -13.0f );
 	private float MAX_HIGH = 8.0f;
-		
+
 	private bool _flag;
 	private STATE _state;
 
@@ -61,10 +61,12 @@ public class PropellerManager : MonoBehaviour {
 		case STATE.STATE_UP:
 			dir = mid_pos - PROPELLER_LOW_POS;
 			moveOnDir( dir );
+			switchDir( mid_pos );
 			break;
 		case STATE.STATE_DOWN:
 			dir = PROPELLER_HIGH_POS - mid_pos;
 			moveOnDir( dir );
+			switchDir( PROPELLER_HIGH_POS );
 			break;
 		case STATE.STATE_LEAVE:
 			leavePropeller( );
@@ -78,8 +80,19 @@ public class PropellerManager : MonoBehaviour {
 		_propeller.transform.position = propeller_pos;
 	}
 
-	private void leavePropeller( ) {
+	private void switchDir( Vector3 target_pos ) {
+		Vector3 mid_pos = target_pos;
+		Vector3 propeller_pos = _propeller.transform.position;
+		float dist = Vector3.Distance( mid_pos, propeller_pos );
+		if (dist < 1) {
+			_state++;
+		}
+	}
 
+	private void leavePropeller( ) {
+		_propeller.transform.position = PROPELLER_LOW_POS;
+		_player.transform.position = PROPELLER_LOW_POS;
+		_flag = false;
 	}
 
 	//イベントマネージャーから操作
