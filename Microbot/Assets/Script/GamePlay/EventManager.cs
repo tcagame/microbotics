@@ -46,6 +46,7 @@ public class EventManager : MonoBehaviour {
 			 player_touch_tag == _propeller_fan_switch_tag &&
 			 !_propeller_fan_mgr.isActive( ) ){
 			_propeller_fan_mgr.action ( );
+
 			_camara_mgr.useEventCamera( camera_pos, camera_vie_pos );
 			return;
 		}
