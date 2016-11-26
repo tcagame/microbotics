@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayCamera {
 
@@ -7,23 +8,30 @@ public class PlayCamera {
 	private Vector3 _pos;
 	private Vector3 _vec;
 	private GameObject _mine;
+	private Slider _camera_slider;
 
 	public PlayCamera( ) {
 		_mine = GameObject.FindGameObjectWithTag( "MainCamera" );//カメラの取得
 		_player = GameObject.FindGameObjectWithTag( "Player" );
+		//_camera_slider = ( Slider )GameObject.FindGameObjectWithTag( "CameraSlider" );
 		_pos = _player.transform.position;
 		_vec = _mine.transform.position - _player.transform.position;
 	}
 
 	public void update( ) {
-		_mine.transform.position = _pos;
-		_mine.transform.position = _player.transform.position + _vec;
-		_mine.transform.LookAt (_player.transform.position);
+		{//カメラ移動
+			_mine.transform.position = _pos;
+			_mine.transform.position = _player.transform.position + _vec;
+			_mine.transform.LookAt (_player.transform.position);
+		}
+		/*
+		{//カメラ回転
+			float value = _camera_slider.value;
+			value -= 0.5f;
+			float rotate_angle = 180 * value / 0.5f;
+			_mine.transform.RotateAround( _player.transform.position, _player.transform.up, rotate_angle);
+		}
+		*/
 		_pos = _player.transform.position;
-	}
-
-	public void rotatePlayerCamera( float angle ) {
-		_mine.transform.RotateAround( _player.transform.position, _player.transform.up, angle );
-		_pos = _mine.transform.position;
 	}
 }

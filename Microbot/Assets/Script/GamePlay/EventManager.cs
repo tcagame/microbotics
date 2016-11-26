@@ -25,7 +25,7 @@ public class EventManager : MonoBehaviour {
 		_coal_mgr = GameObject.Find( "SEKITAN" ).GetComponent< CoalManager >( );
 		_coal_fan_mgr = GameObject.Find( "BigFanSwitch" ).GetComponent< CoalFanManager >( );
 		_propeller_mgr = GameObject.Find( "Propera" ).GetComponent< PropellerManager >( );
-		_propeller_fan_mgr = GameObject.Find( "FabSwitch" ).GetComponent< PropellerFanManager >( );
+		_propeller_fan_mgr = GameObject.Find( "FanSwitch" ).GetComponent< PropellerFanManager >( );
 		_jack_mgr = GameObject.Find( "Jack" ).GetComponent< JackManager >( );
 	}
 
