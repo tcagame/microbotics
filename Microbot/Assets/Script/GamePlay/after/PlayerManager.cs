@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour {
 
-	public float WalkSpeed = 0.1f;
+	const float POS_DIFF = 0.9f;
+	public float WalkMaxSpeed = 1.0f;
 
 	private const float GAUGE_MAX = 1000000.0f;
 	private const int CHARING_TIME = 200;
@@ -12,13 +13,9 @@ public class PlayerManager : MonoBehaviour {
 	private float _gauge;
 	private float _gauge_speed;
 	[SerializeField]private float GaugeChargeSpeed = 100.0f;
-	[SerializeField]private float GaugeDischargeSpeed = 500.0f;
 	[SerializeField]private float StandGaugeDrop = 0.0f;
 	[SerializeField]private float WalkGaugeDrop = 0.0f;
 	[SerializeField]private float _move_max_time = 2;
-	private float FullStairGaugeDrop = 300.0f;
-	private float HalfStairGaugeDrop = 200.0f;
-	private float SmallStairGaugeDrop = 100.0f;
 	//private Touch _touch;
 	private Operation _operation;
 	private float _move_time = 0;
@@ -107,6 +104,9 @@ public class PlayerManager : MonoBehaviour {
 			_check_first_touch = 0;	
 		}
 
+		if ( _walk_speed > WalkMaxSpeed ) {
+			_walk_speed = WalkMaxSpeed;
+		}
 		if ( _target_pos != new Vector3( ) ) {
 			_gauge_speed = WalkGaugeDrop;
 			move ( _target_pos, _walk_speed );
@@ -118,8 +118,9 @@ public class PlayerManager : MonoBehaviour {
 			_animator.SetBool( "_is_running", false );
 			deletePoint( );
 		}
-
-		if ( transform.position == _target_pos || _move_time / 60 == _move_max_time ) {
+		Vector3 diff_pos = transform.position - _target_pos;
+		diff_pos.y = 0;
+		if ( diff_pos.magnitude < POS_DIFF  ) {
 			_move_time = 0;
 			_operation.resetTargetPos ( );
 			_target_pos = new Vector3( );
