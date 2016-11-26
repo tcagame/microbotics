@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -17,12 +18,15 @@ public class CameraManager : MonoBehaviour {
 	private EventCamera _event_camera;
 	private StageViewCamera _stage_view_camera;
 	private CAMERA_MODE _camera_mode; 
+	[SerializeField]
+	private GameObject _play_camera_slider;
 
 	void Awake( ) {
 		_play_camera = new PlayCamera( );
 		_event_camera = new EventCamera( );
 		_stage_view_camera = new StageViewCamera( );
 		_camera_mode = CAMERA_MODE.PLAY;
+		_play_camera_slider = GameObject.Find ("CameraSlider");
 	}
 
 	// Use this for initialization
@@ -48,6 +52,11 @@ public class CameraManager : MonoBehaviour {
 			}
 			break;
 		}
+		//カメラスライダーをもどにし、カメラを制御する
+		float value = _play_camera_slider.GetComponent<Slider>( ).value;
+		value -= 0.5f;
+		float rotate_angle = 180 * value / 0.5f;
+		_play_camera.rotatePlayerCamera (rotate_angle);
 	}
 
 	public void useEventCamera( Vector3 target, Vector3 pos ) {

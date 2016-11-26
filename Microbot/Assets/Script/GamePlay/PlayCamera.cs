@@ -22,7 +22,7 @@ public class PlayCamera {
 		_pos = _player.transform.position;
 	}
 
-	public void ratatePlayerCamera( float angle ) {
+	public void rotatePlayerCamera( float angle ) {
 		_mine.transform.RotateAround( _player.transform.position, _player.transform.up, angle );
 		_pos = _mine.transform.position;
 	}
