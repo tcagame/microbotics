@@ -16,9 +16,6 @@ public class EventCamera{
 	}
 
 	public void callEventCamera( Vector3 pos, Vector3 target ) {
-		if ( _time != 0 ) {
-			return;
-		}
 		_mine = GameObject.FindGameObjectWithTag( "MainCamera" );
 		if ( _mine == null ) {
 			_time = WAIT_TIME;
