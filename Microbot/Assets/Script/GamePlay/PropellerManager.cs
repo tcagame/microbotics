@@ -5,7 +5,6 @@ public class PropellerManager : MonoBehaviour {
 	private enum STATE {
 		STATE_NONE,
 		STATE_UP,
-		STATE_DOWN,
 		STATE_LEAVE
 	}
 
@@ -14,11 +13,10 @@ public class PropellerManager : MonoBehaviour {
 	private GameObject _player;
 	public string PlayerName;
 
-	public const float FLY_SPEED = 0.05f;
+	public const float FLY_SPEED = 0.1f;
 
 	public Vector3 PROPELLER_LOW_POS = new Vector3( -15.0f, 1.8f, 0.0f );
-	public Vector3 PROPELLER_HIGH_POS = new Vector3 ( -15.0f, 6.0f, -13.0f );
-	private float MAX_HIGH = 8.0f;
+	public Vector3 PROPELLER_HIGH_POS = new Vector3 ( -15.0f, 25.0f, -7.0f );
 
 	private bool _flag;
 	private STATE _state;
@@ -38,35 +36,28 @@ public class PropellerManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update( ) {
 		if ( _flag ) {
-			//ロボットの頭上にプロペラ設置
-			setPosition( );
+			
 			//飛ぶ操作
 			flying( );
+
 		}
 	}
 
 	private void setPosition( ) {
 		Vector3 player_pos = _player.transform.position;
 		Vector3 propeller_pos = _propeller.transform.position;
-		player_pos = new Vector3( propeller_pos.x, propeller_pos.y - 1.3f, propeller_pos.z );
+		player_pos = new Vector3( propeller_pos.x, propeller_pos.y - 1.0f, propeller_pos.z );
 		_player.transform.position = player_pos;
 	}
 
 	private void flying( ) {
 		//方向決め
-		Vector3 dir;
-		Vector3 mid_pos = ( PROPELLER_HIGH_POS - PROPELLER_LOW_POS ) / 2;
-		mid_pos.y = MAX_HIGH;
 		switch ( _state ) {
 		case STATE.STATE_UP:
-			dir = mid_pos - PROPELLER_LOW_POS;
-			moveOnDir( dir );
-			switchDir( mid_pos );
-			break;
-		case STATE.STATE_DOWN:
-			dir = PROPELLER_HIGH_POS - mid_pos;
-			moveOnDir( dir );
-			switchDir( PROPELLER_HIGH_POS );
+			setPosition ();
+			Vector3 dir = (PROPELLER_HIGH_POS - PROPELLER_LOW_POS);
+			moveOnDir ( dir );
+			switchDir ( PROPELLER_HIGH_POS );
 			break;
 		case STATE.STATE_LEAVE:
 			leavePropeller( );
@@ -84,14 +75,14 @@ public class PropellerManager : MonoBehaviour {
 		Vector3 mid_pos = target_pos;
 		Vector3 propeller_pos = _propeller.transform.position;
 		float dist = Vector3.Distance( mid_pos, propeller_pos );
-		if (dist < 1) {
-			_state++;
+		if (dist < 3 ) {
+			_state = STATE.STATE_LEAVE;
 		}
 	}
 
 	private void leavePropeller( ) {
 		_propeller.transform.position = PROPELLER_LOW_POS;
-		_player.transform.position = PROPELLER_LOW_POS;
+		_player.transform.position = PROPELLER_HIGH_POS;
 		_flag = false;
 	}
 
