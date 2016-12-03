@@ -44,7 +44,7 @@ public class PlayerManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		_hit_object_tag = "";
-		_operation = GameObject.Find( "Operation" ).GetComponent< Operation >( );
+		_operation = GameObject.Find( "GameManager" ).GetComponent< Operation >( );
 		_gauge = GAUGE_MAX;
 		_gauge_speed = StandGaugeDrop;
 	}

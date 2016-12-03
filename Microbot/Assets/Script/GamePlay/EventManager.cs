@@ -3,29 +3,29 @@ using System.Collections;
 
 public class EventManager : MonoBehaviour {
 	//ギミックのマネージャーをかく
-	string _propeller_fan_switch_tag;
-	string _coal_fan_switch_tag;
-	CameraManager _camara_mgr;
-	CoalManager _coal_mgr;
-	CoalFanManager _coal_fan_mgr;
-	PlayerManager _player_mgr;
-	PropellerManager _propeller_mgr;
-	PropellerFanManager _propeller_fan_mgr;
-	JackManager _jack_mgr;
-	Operation _operation;
+	private string _propeller_fan_switch_tag = "ProperaFunSwitch" ;
+	private string _coal_fan_switch_tag = "CoalFunSwitch";
+	private CameraManager _camara_mgr;
+	private CoalManager _coal_mgr;
+	private CoalFanManager _coal_fan_mgr;
+	private PlayerManager _player_mgr;
+	private PropellerManager _propeller_mgr;
+	private PropellerFanManager _propeller_fan_mgr;
+	private JackManager _jack_mgr;
+	private Operation _operation;
 	//ナビゲーションマーカー
-	GameObject _navi;
+	private GameObject _navi;
 
 	void Awake ( ) {
 		_navi = ( GameObject )Resources.Load( "Prefab/Navi" );
 		_navi = Instantiate( _navi );
-		_operation = GameObject.Find( "Operation" ).GetComponent< Operation >( );
+		_operation = GameObject.Find( "GameManager" ).GetComponent< Operation >( );
 		_player_mgr = GameObject.Find( "Player" ).GetComponent< PlayerManager >( );
 		_camara_mgr = gameObject.GetComponent< CameraManager >( );
 		_coal_mgr = GameObject.Find( "SEKITAN" ).GetComponent< CoalManager >( );
-		_coal_fan_mgr = GameObject.Find( "BigFanSwitch" ).GetComponent< CoalFanManager >( );
+		_coal_fan_mgr = GameObject.Find( "BigFan" ).GetComponent< CoalFanManager >( );
 		_propeller_mgr = GameObject.Find( "Propera" ).GetComponent< PropellerManager >( );
-		_propeller_fan_mgr = GameObject.Find( "FanSwitch" ).GetComponent< PropellerFanManager >( );
+		_propeller_fan_mgr = GameObject.Find( "SmallFan" ).GetComponent< PropellerFanManager >( );
 		_jack_mgr = GameObject.Find( "Jack" ).GetComponent< JackManager >( );
 	}
 
@@ -45,8 +45,8 @@ public class EventManager : MonoBehaviour {
 		if ( tag == _propeller_fan_switch_tag && 
 			 player_touch_tag == _propeller_fan_switch_tag &&
 			 !_propeller_fan_mgr.isActive( ) ){
-			_propeller_fan_mgr.action ( );
 
+			_propeller_fan_mgr.action ( );
 			_camara_mgr.useEventCamera( camera_pos, camera_vie_pos );
 			return;
 		}
@@ -71,7 +71,6 @@ public class EventManager : MonoBehaviour {
 			 !_propeller_mgr.isActive( ) ){
 
 			_propeller_mgr.action( );
-			_camara_mgr.useEventCamera( camera_pos, camera_vie_pos );
 			return;
 		}
 		if ( _coal_fan_mgr.isActive( ) &&
