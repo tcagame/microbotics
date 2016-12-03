@@ -18,12 +18,14 @@ public class CameraManager : MonoBehaviour {
 	private EventCamera _event_camera;
 	private StageViewCamera _stage_view_camera;
 	private CAMERA_MODE _camera_mode; 
+	private GameObject _camera_slider;
 
 	void Awake( ) {
 		_play_camera = new PlayCamera( );
 		_event_camera = new EventCamera( );
 		_stage_view_camera = new StageViewCamera( );
 		_camera_mode = CAMERA_MODE.PLAY;
+		_camera_slider = GameObject.Find( "CameraSlider" );
 	}
 
 	// Use this for initialization
@@ -33,8 +35,10 @@ public class CameraManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//カメラ切替
+		_camera_slider.SetActive( false );
 		switch ( _camera_mode ) {
 		case CAMERA_MODE.PLAY:
+			_camera_slider.SetActive (true);
 			_play_camera.update( );
 			break;
 		case CAMERA_MODE.EVENT:
