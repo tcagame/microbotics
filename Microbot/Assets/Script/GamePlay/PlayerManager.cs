@@ -35,6 +35,7 @@ public class PlayerManager : MonoBehaviour {
 	[SerializeField]private int _animation_time;
 
 	void Awake(){
+		_dust = GameObject.Find ("Dust").gameObject;
 		_animator = gameObject.GetComponent<Animator>( );
 		_point = ( GameObject )Resources.Load( "Prefab/Point" );
 		_point = Instantiate( _point );
@@ -49,7 +50,7 @@ public class PlayerManager : MonoBehaviour {
 		_operation = GameObject.Find( "GameManager" ).GetComponent< Operation >( );
 		_gauge = GAUGE_MAX;
 		_gauge_speed = StandGaugeDrop;
-		_dust = GameObject.Find ("Dust").gameObject;
+		_dust.SetActive (false);
 	}
 
 	// Update is called once per frame
