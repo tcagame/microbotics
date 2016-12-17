@@ -27,6 +27,8 @@ public class PlayerManager : MonoBehaviour {
 	[SerializeField]private string _hit_object_tag;
 	//ポイント
 	GameObject _point;
+	//Dust
+	private GameObject _dust;
 
 	RaycastHit hit;
 	private Animator _animator;
@@ -47,10 +49,16 @@ public class PlayerManager : MonoBehaviour {
 		_operation = GameObject.Find( "GameManager" ).GetComponent< Operation >( );
 		_gauge = GAUGE_MAX;
 		_gauge_speed = StandGaugeDrop;
+		_dust = GameObject.Find ("Dust").gameObject;
 	}
 
 	// Update is called once per frame
 	void Update () {
+		if (_animator.GetBool ("_is_running")) {
+			_dust.SetActive (true);
+		} else {
+			_dust.SetActive (false);
+		}
 		//kaidan nobori
 		if ( _climbing_high_flag) {
 			gameObject.GetComponent<Rigidbody> ().useGravity = false;
