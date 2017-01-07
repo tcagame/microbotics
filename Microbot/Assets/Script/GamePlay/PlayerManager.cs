@@ -55,35 +55,38 @@ public class PlayerManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		Debug.Log (gameObject.GetComponent<Rigidbody> ().useGravity);
 		if (_animator.GetBool ("_is_running")) {
 			_dust.SetActive (true);
 		} else {
 			_dust.SetActive (false);
 		}
 		//kaidan nobori
-		if ( _climbing_high_flag) {
+		if ( _hit_object_tag == "StairNormal" && !_climbing_normal_flag ) {
 			gameObject.GetComponent<Rigidbody> ().useGravity = false;
 			Vector3 pos = transform.position;
-			pos.y += 0.021f;
-			pos.x -= 0.01f;
-			transform.position = pos;
-			if (pos.y > 9.75f) {
-				_climbing_high_flag = false;
-				_animator.SetBool( "_is_climbing_high", _climbing_high_flag );
+			if (pos.y < 6.2f) {
+				_animator.Play( "climb" );
+				pos.y += 0.021f;
+				pos.x -= 0.01f;
+			} else {
 				gameObject.GetComponent<Rigidbody> ().useGravity = true;
 			}
+			transform.position = pos;
 		};
-		if ( _climbing_normal_flag) {
+		if ( _hit_object_tag == "StairHigh" && !_climbing_high_flag) {
+			_animator.SetBool ("_is_running", false);
+			_animator.SetBool( "_is_climbing_high", _climbing_high_flag );
 			gameObject.GetComponent<Rigidbody> ().useGravity = false;
 			Vector3 pos = transform.position;
-			pos.y += 0.01f;
-			pos.z -= 0.01f;
-			transform.position = pos;
-			if (pos.y > 6.2f) {
-				_climbing_normal_flag = false;
-				_animator.SetBool( "_is_climbing_normal", _climbing_normal_flag );
+			if (pos.y < 9.5f) {
+				_animator.Play( "descend_high" );
+				pos.y += 0.03f;
+				pos.x -= 0.005f;
+			} else {
 				gameObject.GetComponent<Rigidbody> ().useGravity = true;
 			}
+			transform.position = pos;
 		};
 		//
 
@@ -152,6 +155,19 @@ public class PlayerManager : MonoBehaviour {
 
 	void OnCollisionEnter( Collision col ) {
 		_hit_object_tag = col.gameObject.tag;
+	}
+
+	void OnCollisionExit( Collision col ) {
+		if (_hit_object_tag == "StairNormal") {
+			col.gameObject.tag = "";
+			_climbing_normal_flag = false;
+			gameObject.GetComponent<Rigidbody> ().useGravity = true;
+		}
+		if (_hit_object_tag == "StairHigh") {
+			col.gameObject.tag = "";
+			_climbing_high_flag = false;
+			gameObject.GetComponent<Rigidbody> ().useGravity = true;
+		}
 	}
 
 	public string getTouchObjectTag( ){

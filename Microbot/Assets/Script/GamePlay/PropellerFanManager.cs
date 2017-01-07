@@ -7,15 +7,14 @@ public class PropellerFanManager : MonoBehaviour {
 	private Animator _animetor;
 	// Use this for initialization
 	void Start () {
-		_animetor = GetComponent< Animator >( );
-		_animetor.Stop ();
+        _animetor = GetComponent< Animator >( );
 		_active = false;
 	}
 
 	// Update is called once per frame
 	public void action( ) {
 		_active = true;
-		_animetor.Play( "Entry" );
+        _animetor.SetBool( "Start", true );
 	}
 
 	public bool isActive( ) {
