@@ -19,8 +19,8 @@ public class PropellerManager : MonoBehaviour {
 	public Vector3 PROPELLER_LOW_POS = new Vector3( -15.0f, 1.8f, 0.0f );
     public Vector3 TARGET_POS = new Vector3 ( -15.0f, 5.18f, -11.36f );
 
-    private bool _flag  =true;
-    private STATE _state = STATE.STATE_UP;
+    private bool _flag = false;
+    private STATE _state;
     public float _z_buffer = 0;
     public float _senter_z = 0;
     public float _before_y = 0;
@@ -34,7 +34,7 @@ public class PropellerManager : MonoBehaviour {
 	// Use this for initialization
 	void Start( ) {
 		_player = GameObject.Find( PlayerName ).gameObject;
-        _state = STATE.STATE_UP;
+        _state = STATE.STATE_NONE;
         Vector3 propeller_pos = _propeller.transform.position;
         _senter_z = ( propeller_pos.z - TARGET_POS.z ) / 2;
         _z_buffer = -_senter_z;
@@ -106,6 +106,7 @@ public class PropellerManager : MonoBehaviour {
         if ( Vector3.Distance( PROPELLER_LOW_POS , propeller_pos ) < 1 ) {
             _state = STATE.STATE_NONE;
             _propeller.transform.position = PROPELLER_LOW_POS;
+            _flag = false;
         }
 	}
 
