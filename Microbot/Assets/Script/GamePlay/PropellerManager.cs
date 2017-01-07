@@ -14,12 +14,16 @@ public class PropellerManager : MonoBehaviour {
 	public string PlayerName;
 
 	public const float FLY_SPEED = 0.1f;
+    public float CURVE = -0.01f;
 
 	public Vector3 PROPELLER_LOW_POS = new Vector3( -15.0f, 1.8f, 0.0f );
-	public Vector3 PROPELLER_HIGH_POS = new Vector3 ( -15.0f, 25.0f, -7.0f );
+    public Vector3 TARGET_POS = new Vector3 ( -15.0f, 5.18f, -11.36f );
 
-	private bool _flag;
-	private STATE _state;
+    private bool _flag  =true;
+    private STATE _state = STATE.STATE_UP;
+    public float _z_buffer = 0;
+    public float _senter_z = 0;
+    public float _before_y = 0;
 
 
 
@@ -30,13 +34,15 @@ public class PropellerManager : MonoBehaviour {
 	// Use this for initialization
 	void Start( ) {
 		_player = GameObject.Find( PlayerName ).gameObject;
-		_state = STATE.STATE_NONE;
+        _state = STATE.STATE_UP;
+        Vector3 propeller_pos = _propeller.transform.position;
+        _senter_z = ( propeller_pos.z - TARGET_POS.z ) / 2;
+        _z_buffer = -_senter_z;
 	}
 	
 	// Update is called once per frame
-	void Update( ) {
+    void Update( ) {
 		if ( _flag ) {
-			
 			//飛ぶ操作
 			flying( );
 
@@ -55,9 +61,8 @@ public class PropellerManager : MonoBehaviour {
 		switch ( _state ) {
 		case STATE.STATE_UP:
 			setPosition ();
-			Vector3 dir = (PROPELLER_HIGH_POS - PROPELLER_LOW_POS);
-			moveOnDir ( dir );
-			switchDir ( PROPELLER_HIGH_POS );
+            flyToCurve ( );
+            switchDir ( TARGET_POS );
 			break;
 		case STATE.STATE_LEAVE:
 			leavePropeller( );
@@ -65,25 +70,44 @@ public class PropellerManager : MonoBehaviour {
 		}
 	}
 
-	private void moveOnDir( Vector3 dir ) {
-		Vector3 propeller_pos = _propeller.transform.position;
-		propeller_pos += dir.normalized * FLY_SPEED;
-		_propeller.transform.position = propeller_pos;
+	private void flyToCurve( ) {
+        Vector3 propeller_pos = _propeller.transform.position;
+        _z_buffer += FLY_SPEED;
+        float y = _z_buffer * _z_buffer * CURVE;
+        if ( _before_y != 0 ) {
+            float diff_y = y - _before_y;
+            propeller_pos.z += -FLY_SPEED;
+            propeller_pos.y += diff_y;
+            _propeller.transform.position = propeller_pos;
+        }
+        _before_y = y;
 	}
 
 	private void switchDir( Vector3 target_pos ) {
 		Vector3 mid_pos = target_pos;
 		Vector3 propeller_pos = _propeller.transform.position;
-		float dist = Vector3.Distance( mid_pos, propeller_pos );
+        float dist = propeller_pos.z - mid_pos.z;
 		if (dist < 3 ) {
 			_state = STATE.STATE_LEAVE;
 		}
 	}
 
 	private void leavePropeller( ) {
-		_propeller.transform.position = PROPELLER_LOW_POS;
-		_player.transform.position = PROPELLER_HIGH_POS;
-		_flag = false;
+        //_player.transform.position = TARGET_POS;
+        Vector3 propeller_pos = _propeller.transform.position;
+        _z_buffer -= FLY_SPEED;
+        float y = _z_buffer * _z_buffer * CURVE;
+        if ( _before_y != 0 ) {
+            float diff_y = y - _before_y;
+            propeller_pos.z -= -FLY_SPEED;
+            propeller_pos.y += diff_y;
+            _propeller.transform.position = propeller_pos;
+        }
+        _before_y = y;
+        if ( Vector3.Distance( PROPELLER_LOW_POS , propeller_pos ) < 1 ) {
+            _state = STATE.STATE_NONE;
+            _propeller.transform.position = PROPELLER_LOW_POS;
+        }
 	}
 
 	//イベントマネージャーから操作
