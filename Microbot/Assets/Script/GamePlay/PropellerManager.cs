@@ -14,7 +14,7 @@ public class PropellerManager : MonoBehaviour {
 	public string PlayerName;
 
 	public const float FLY_SPEED = 0.1f;
-    public float CURVE = -0.01f;
+    public float CURVE = -0.2f;
 
 	public Vector3 PROPELLER_LOW_POS = new Vector3( -15.0f, 1.8f, 0.0f );
     public Vector3 TARGET_POS = new Vector3 ( -15.0f, 5.18f, -11.36f );
@@ -93,7 +93,6 @@ public class PropellerManager : MonoBehaviour {
 	}
 
 	private void leavePropeller( ) {
-        //_player.transform.position = TARGET_POS;
         Vector3 propeller_pos = _propeller.transform.position;
         _z_buffer -= FLY_SPEED;
         float y = _z_buffer * _z_buffer * CURVE;
