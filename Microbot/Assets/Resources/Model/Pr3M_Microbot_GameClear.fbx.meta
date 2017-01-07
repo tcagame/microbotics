@@ -1,0 +1,181 @@
+fileFormatVersion: 2
+guid: e7ebe41b4fb21419a92646a43df51d39
+timeCreated: 1483766450
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Body
+    100002: body
+    100004: Chest
+    100006: Head
+    100008: head
+    100010: huusya
+    100012: Impeller
+    100014: L_Ankle
+    100016: L_Arm1
+    100018: L_Arm2
+    100020: L_Arm3
+    100022: L_Arm4
+    100024: L_Arm5
+    100026: L_Finger1
+    100028: L_Finger2
+    100030: L_Hand
+    100032: L_Knee
+    100034: L_Rucksack_Lid
+    100036: L_Shoulder
+    100038: L_Thigh
+    100040: L_Thumb1
+    100042: L_Thumb2
+    100044: L_Toe
+    100046: leg
+    100048: Microbot
+    100050: //RootNode
+    100052: R_Ankle
+    100054: R_Arm1
+    100056: R_Arm2
+    100058: R_Arm3
+    100060: R_Arm4
+    100062: R_Arm5
+    100064: R_Finger1
+    100066: R_Finger2
+    100068: R_Hand
+    100070: R_Knee
+    100072: R_Rucksack_Lid
+    100074: R_Shoulder
+    100076: R_Thigh
+    100078: R_Thumb1
+    100080: R_Thumb2
+    100082: R_Toe
+    100084: Rucksack
+    100086: rucksack
+    100088: rucksack_L_huta
+    100090: rucksack_R_huta
+    100092: Windmill
+    400000: Body
+    400002: body
+    400004: Chest
+    400006: Head
+    400008: head
+    400010: huusya
+    400012: Impeller
+    400014: L_Ankle
+    400016: L_Arm1
+    400018: L_Arm2
+    400020: L_Arm3
+    400022: L_Arm4
+    400024: L_Arm5
+    400026: L_Finger1
+    400028: L_Finger2
+    400030: L_Hand
+    400032: L_Knee
+    400034: L_Rucksack_Lid
+    400036: L_Shoulder
+    400038: L_Thigh
+    400040: L_Thumb1
+    400042: L_Thumb2
+    400044: L_Toe
+    400046: leg
+    400048: Microbot
+    400050: //RootNode
+    400052: R_Ankle
+    400054: R_Arm1
+    400056: R_Arm2
+    400058: R_Arm3
+    400060: R_Arm4
+    400062: R_Arm5
+    400064: R_Finger1
+    400066: R_Finger2
+    400068: R_Hand
+    400070: R_Knee
+    400072: R_Rucksack_Lid
+    400074: R_Shoulder
+    400076: R_Thigh
+    400078: R_Thumb1
+    400080: R_Thumb2
+    400082: R_Toe
+    400084: Rucksack
+    400086: rucksack
+    400088: rucksack_L_huta
+    400090: rucksack_R_huta
+    400092: Windmill
+    4300000: head
+    4300002: body
+    4300004: leg
+    4300006: rucksack
+    4300008: rucksack_R_huta
+    4300010: rucksack_L_huta
+    4300012: huusya
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: body
+    13700002: head
+    13700004: huusya
+    13700006: leg
+    13700008: rucksack
+    13700010: rucksack_L_huta
+    13700012: rucksack_R_huta
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
