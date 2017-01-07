@@ -20,9 +20,4 @@ public class PropellerFanManager : MonoBehaviour {
 	public bool isActive( ) {
 		return _active;
 	}
-
-    void Update ( ) {
-    
-    
-    }
 }
