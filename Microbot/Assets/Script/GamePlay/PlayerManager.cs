@@ -79,10 +79,10 @@ public class PlayerManager : MonoBehaviour {
 			_animator.SetBool( "_is_climbing_high", _climbing_high_flag );
 			gameObject.GetComponent<Rigidbody> ().useGravity = false;
 			Vector3 pos = transform.position;
-			if (pos.y < 9.7f) {
+			if (pos.y < 9.5f) {
 				_animator.Play( "descend_high" );
-				pos.y += 0.021f;
-				pos.x -= 0.01f;
+				pos.y += 0.03f;
+				pos.x -= 0.005f;
 			} else {
 				gameObject.GetComponent<Rigidbody> ().useGravity = true;
 			}
