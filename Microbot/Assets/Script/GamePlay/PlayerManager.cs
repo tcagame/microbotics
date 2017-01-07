@@ -62,12 +62,11 @@ public class PlayerManager : MonoBehaviour {
 			_dust.SetActive (false);
 		}
 		//kaidan nobori
-		//if ( _climbing_high_flag) {
 		if ( _hit_object_tag == "StairNormal" && !_climbing_normal_flag ) {
-			_animator.SetBool( "_is_climbing_normal", _climbing_normal_flag );
 			gameObject.GetComponent<Rigidbody> ().useGravity = false;
 			Vector3 pos = transform.position;
 			if (pos.y < 6.2f) {
+				_animator.Play( "climb" );
 				pos.y += 0.021f;
 				pos.x -= 0.01f;
 			} else {
@@ -76,10 +75,12 @@ public class PlayerManager : MonoBehaviour {
 			transform.position = pos;
 		};
 		if ( _hit_object_tag == "StairHigh" && !_climbing_high_flag) {
+			_animator.SetBool ("_is_running", false);
 			_animator.SetBool( "_is_climbing_high", _climbing_high_flag );
 			gameObject.GetComponent<Rigidbody> ().useGravity = false;
 			Vector3 pos = transform.position;
-			if (pos.y < 9.75f) {
+			if (pos.y < 9.7f) {
+				_animator.Play( "descend_high" );
 				pos.y += 0.021f;
 				pos.x -= 0.01f;
 			} else {
