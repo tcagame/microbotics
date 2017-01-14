@@ -55,7 +55,6 @@ public class PlayerManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		Debug.Log (gameObject.GetComponent<Rigidbody> ().useGravity);
 		if (_animator.GetBool ("_is_running")) {
 			_dust.SetActive (true);
 		} else {
