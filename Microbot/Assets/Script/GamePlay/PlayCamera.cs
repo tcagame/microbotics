@@ -9,7 +9,7 @@ public class PlayCamera {
 	private Vector3 _vec;
 	private GameObject _mine;
 	private Slider _camera_slider;
-	private float _befor_value = 0.5f;
+	private float _befor_value;
 
 	private float CAMERA_MAX_RANGE = 8.0f;
 	private float CAMERA_MIN_RANGE = 6.5f;
@@ -27,10 +27,18 @@ public class PlayCamera {
 		_vec = _mine.transform.position - _player.transform.position;
 		_pos = _player.transform.position + _vec;
 		_pos = new Vector3( _mine.transform.position.x, _player.transform.position.y + CAMERA_HEIGHT, _mine.transform.position.z );
+		_befor_value = _camera_slider.value;
 	}
 
 	public void update( ) {
 		_mine.transform.position = _pos;
+
+		{//カメラ回転
+			float value = _camera_slider.value - _befor_value;
+			float rotate_angle = 180 * value / 0.5f;
+			_mine.transform.RotateAround( _player.transform.position, _player.transform.up, rotate_angle);
+		}
+
 		{//カメラ移動
 			float camera_min_height = _player.transform.position.y + CAMERA_HEIGHT;
 			Vector3 vec = _player.transform.position - _mine.transform.position;
@@ -63,19 +71,15 @@ public class PlayCamera {
 			if( camera_min_height >= _mine.transform.position.y ) {
 				_mine.transform.position = new Vector3( _mine.transform.position.x, camera_min_height, _mine.transform.position.z );
 			}
+
+			Vector3 befor_dir = _mine.transform.forward;
 			_mine.transform.LookAt (_player.transform.position);
+			if (befor_dir != _mine.transform.forward && _befor_value == _camera_slider.value) {
+				_befor_value = _camera_slider.value = 0.5f;
+			}
 		}
 
-		{//カメラ回転
-			float value = _camera_slider.value - _befor_value;
-			if ( _befor_value == _camera_slider.value ) {
-				_camera_slider.value = 0.5f;
-				_befor_value = 0.5f;
-			}
-			float rotate_angle = 180 * value / 0.5f;
-			_mine.transform.RotateAround( _player.transform.position, _player.transform.up, rotate_angle);
-			_befor_value = _camera_slider.value;
-		}
+		_befor_value = _camera_slider.value;
 		_vec = _mine.transform.position - _player.transform.position;
 		_pos = _mine.transform.position;
 	}
