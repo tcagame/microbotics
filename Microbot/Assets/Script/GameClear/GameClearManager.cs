@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class GameClearManager : MonoBehaviour {	
+public class GameClearManager : MonoBehaviour {
 	void Update( ) {
 		if ( Input.touchCount > 0 ) {
 			SceneManager.LoadScene( "Title" );
