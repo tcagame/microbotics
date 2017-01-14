@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -11,20 +12,13 @@ public class PlayerManager : MonoBehaviour {
 		PLAYER_STATE_DISCHARGE,
 		PLAYER_STATE_CLIMB,
 		PLAYER_STATE_CLIMB_HIGH,
-
 	}
 
 	const float POS_DIFF = 0.6f;
 	public float WalkMaxSpeed = 1.0f;
 
-	private const float GAUGE_MAX = 1000000.0f;
-	private const int CHARING_TIME = 200;
-	private const int DIS_CHARGE_TIME = 200;
+	private const float GAUGE_MAX = 100.0f;
 	private float _gauge;
-	private float _gauge_speed;
-	[SerializeField]private float GaugeChargeSpeed = 100.0f;
-	[SerializeField]private float StandGaugeDrop = 0.0f;
-	[SerializeField]private float WalkGaugeDrop = 0.0f;
 	[SerializeField]private float _move_max_time = 2;
 	//private Touch _touch;
 	private Operation _operation;
@@ -63,12 +57,12 @@ public class PlayerManager : MonoBehaviour {
 		_hit_object_tag = "";
 		_operation = GameObject.Find( "GameManager" ).GetComponent< Operation >( );
 		_gauge = GAUGE_MAX;
-		_gauge_speed = StandGaugeDrop;
 		_dust.SetActive (false);
 	}
 
 	// Update is called once per frame
 	void Update () {
+		updateGauge ();
 		setRunEffect ( );
 		setAnimation ( );
 		checkClimb ( );
@@ -80,10 +74,7 @@ public class PlayerManager : MonoBehaviour {
 		if ( _player_state == PLAYER_STATE.PLAYER_STATE_CLIMB ||
 			_player_state == PLAYER_STATE.PLAYER_STATE_CLIMB_HIGH ) {
 			climb ();
-
 		}
-
-
 	}
 
 	void OnCollisionEnter( Collision col ) {
@@ -91,15 +82,37 @@ public class PlayerManager : MonoBehaviour {
 		_hit_object_tag = col.gameObject.tag;
 	}
 
-	void OnCollisionExit( Collision col ) {
-		/*if (_hit_object_tag == "StairNormal") {
-			col.gameObject.tag = "Untagget";
-			gameObject.GetComponent<Rigidbody> ().useGravity = true;
+	void updateGauge( ) {
+		//GaugeのUpdate
+		switch (_player_state) {
+		case PLAYER_STATE.PLAYER_STATE_STAY:
+			break;
+		case PLAYER_STATE.PLAYER_STATE_RUN:
+			_gauge -= 0.1f;
+			break;
+		case PLAYER_STATE.PLAYER_STATE_CLIMB:
+			_gauge -= 1f;
+			break;
+		case PLAYER_STATE.PLAYER_STATE_CLIMB_HIGH:
+			_gauge -= 1.2f;
+			break;
+		case PLAYER_STATE.PLAYER_STATE_DISCHARGE:
+			_gauge -= 1f;
+			break;
+		case PLAYER_STATE.PLAYER_STATE_CHARGE:
+			_gauge += 1f;
+			break;
 		}
-		if (_hit_object_tag == "StairHigh") {
-			col.gameObject.tag = "Untagget";
-			gameObject.GetComponent<Rigidbody> ().useGravity = true;
-		}*/
+
+		//画像の更新
+		for (float i = 0; i < 5f; i++) {
+			string per_name = "Per" + ( i + 1f ).ToString ();
+			if (_gauge < GAUGE_MAX * i * 0.2f ) {
+				GameObject.Find ( per_name ).gameObject.GetComponent<Image> ().enabled = false;
+			} else {
+				GameObject.Find ( per_name ).gameObject.GetComponent<Image> ().enabled = true;
+			}
+		}
 	}
 
 	private void climb( ) {
@@ -153,13 +166,13 @@ public class PlayerManager : MonoBehaviour {
 			_animator.SetBool ("_is_running", true);
 			break;
 		case PLAYER_STATE.PLAYER_STATE_CLIMB:
-			if ( !_animator.GetBool ("_is_climb_normal")) {
+			if ( !_animator.GetBool ("_is_climbing_normal")) {
 				aniamationReset ();
 			}
 			_animator.SetBool ("_is_climbing_normal", true);
 			break;
 		case PLAYER_STATE.PLAYER_STATE_CLIMB_HIGH:
-			if ( !_animator.GetBool ("_is_climb_high")) {
+			if ( !_animator.GetBool ("_is_climbing_high")) {
 				aniamationReset ();
 			}
 			_animator.SetBool ("_is_climbing_high", true);
