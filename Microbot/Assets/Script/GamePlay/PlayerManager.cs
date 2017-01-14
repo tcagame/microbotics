@@ -4,7 +4,17 @@ using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour {
 
-	const float POS_DIFF = 0.9f;
+	enum PLAYER_STATE {
+		PLAYER_STATE_STAY,
+		PLAYER_STATE_RUN,
+		PLAYER_STATE_CHARGE,
+		PLAYER_STATE_DISCHARGE,
+		PLAYER_STATE_CLIMB,
+		PLAYER_STATE_CLIMB_HIGH,
+
+	}
+
+	const float POS_DIFF = 0.6f;
 	public float WalkMaxSpeed = 1.0f;
 
 	private const float GAUGE_MAX = 1000000.0f;
@@ -22,9 +32,13 @@ public class PlayerManager : MonoBehaviour {
 	private float _walk_speed = 0.0f;
 	private Vector3 _target_pos = new Vector3 ( );
 	private int _check_first_touch = 0;
-	private bool _climbing_normal_flag = false;
-	private bool _climbing_high_flag = false;
+	private PLAYER_STATE _player_state;
+	private bool _climbed_normal;
+	private bool _climbed_high;
+	private Vector3 _last_ground_pos;
 	[SerializeField]private string _hit_object_tag;
+	[SerializeField]private GameObject _hit_object;
+
 	//ポイント
 	GameObject _point;
 	//Dust
@@ -40,8 +54,8 @@ public class PlayerManager : MonoBehaviour {
 		_point = ( GameObject )Resources.Load( "Prefab/Point" );
 		_point = Instantiate( _point );
 		_point.SetActive( false );
-		_climbing_normal_flag = false;
-		_climbing_high_flag = false;
+		_climbed_normal = false;
+
 	}
 
 	// Use this for initialization
@@ -55,55 +69,137 @@ public class PlayerManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (_animator.GetBool ("_is_running")) {
+		setRunEffect ( );
+		setAnimation ( );
+		checkClimb ( );
+		if ( _player_state == PLAYER_STATE.PLAYER_STATE_RUN || 
+			_player_state == PLAYER_STATE.PLAYER_STATE_STAY ) {
+			move ();
+			_last_ground_pos = transform.position;
+		}
+		if ( _player_state == PLAYER_STATE.PLAYER_STATE_CLIMB ||
+			_player_state == PLAYER_STATE.PLAYER_STATE_CLIMB_HIGH ) {
+			climb ();
+
+		}
+
+
+	}
+
+	void OnCollisionEnter( Collision col ) {
+		_hit_object = col.gameObject;
+		_hit_object_tag = col.gameObject.tag;
+	}
+
+	void OnCollisionExit( Collision col ) {
+		/*if (_hit_object_tag == "StairNormal") {
+			col.gameObject.tag = "Untagget";
+			gameObject.GetComponent<Rigidbody> ().useGravity = true;
+		}
+		if (_hit_object_tag == "StairHigh") {
+			col.gameObject.tag = "Untagget";
+			gameObject.GetComponent<Rigidbody> ().useGravity = true;
+		}*/
+	}
+
+	private void climb( ) {
+		if ( transform.position.y > ( _hit_object.transform.position.y +  ( _hit_object.transform.localScale.y ) ) ) {
+			if ( _player_state == PLAYER_STATE.PLAYER_STATE_CLIMB ) {
+				_climbed_normal = true;
+			}
+			if ( _player_state == PLAYER_STATE.PLAYER_STATE_CLIMB_HIGH ) {
+				_climbed_high = true;
+
+			}
+			gameObject.GetComponent<Rigidbody> ().useGravity = true;
+			_player_state = PLAYER_STATE.PLAYER_STATE_STAY;
+
+		}
+		float move_y = ( ( _hit_object.transform.position.y + _hit_object.transform.localScale.y ) - ( _last_ground_pos.y - transform.localScale.y  ) ) / 100;
+		Vector3 pos = _hit_object.transform.position - gameObject.transform.position;
+		pos.Normalize ();
+		pos *= 0.03f;
+		pos.y = move_y;
+		pos += transform.position;
+		transform.position = pos;
+
+
+	}
+	private void checkClimb ( ) {
+		if (_hit_object_tag != "CanClimb") {
+			gameObject.GetComponent<Rigidbody> ().useGravity = true;
+			_climbed_high = false;
+			_climbed_normal = false;
+			return;
+		}
+		if (_hit_object.transform.localScale.y < 2 && !_climbed_normal) {
+			_player_state = PLAYER_STATE.PLAYER_STATE_CLIMB;
+			gameObject.GetComponent<Rigidbody> ().useGravity = false;
+		} else if (_hit_object.transform.localScale.y > 2 && !_climbed_high) {
+			_player_state = PLAYER_STATE.PLAYER_STATE_CLIMB_HIGH;
+			gameObject.GetComponent<Rigidbody> ().useGravity = false;
+		} 
+	}
+
+	private void setAnimation() {
+		switch ( _player_state ) {
+		case PLAYER_STATE.PLAYER_STATE_STAY:
+			aniamationReset ();
+			break;
+		case PLAYER_STATE.PLAYER_STATE_RUN:
+			if ( !_animator.GetBool( "_is_running" ) ) {
+				aniamationReset ( );
+			}
+			_animator.SetBool ("_is_running", true);
+			break;
+		case PLAYER_STATE.PLAYER_STATE_CLIMB:
+			if ( !_animator.GetBool ("_is_climb_normal")) {
+				aniamationReset ();
+			}
+			_animator.SetBool ("_is_climbing_normal", true);
+			break;
+		case PLAYER_STATE.PLAYER_STATE_CLIMB_HIGH:
+			if ( !_animator.GetBool ("_is_climb_high")) {
+				aniamationReset ();
+			}
+			_animator.SetBool ("_is_climbing_high", true);
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void aniamationReset( ) {
+		_animator.SetBool ("_is_running", false);
+		_animator.SetBool ("_is_charging", false);
+		_animator.SetBool ("_is_discharging", false);
+		_animator.SetBool ("_is_climbing_high", false);
+		_animator.SetBool ("_is_climbing_normal", false);
+	}
+
+	private void setRunEffect( ) {
+		if (_player_state == PLAYER_STATE.PLAYER_STATE_RUN) {
 			_dust.SetActive (true);
 		} else {
 			_dust.SetActive (false);
 		}
-		//kaidan nobori
-		if ( _hit_object_tag == "StairNormal" && !_climbing_normal_flag ) {
-			gameObject.GetComponent<Rigidbody> ().useGravity = false;
-			Vector3 pos = transform.position;
-			if (pos.y < 6.2f) {
-				_animator.Play( "climb" );
-				pos.y += 0.021f;
-				pos.x -= 0.01f;
-			} else {
-				gameObject.GetComponent<Rigidbody> ().useGravity = true;
-			}
-			transform.position = pos;
-		};
-		if ( _hit_object_tag == "StairHigh" && !_climbing_high_flag) {
-			_animator.SetBool ("_is_running", false);
-			_animator.SetBool( "_is_climbing_high", _climbing_high_flag );
-			gameObject.GetComponent<Rigidbody> ().useGravity = false;
-			Vector3 pos = transform.position;
-			if (pos.y < 9.5f) {
-				_animator.Play( "descend_high" );
-				pos.y += 0.03f;
-				pos.x -= 0.005f;
-			} else {
-				gameObject.GetComponent<Rigidbody> ().useGravity = true;
-			}
-			transform.position = pos;
-		};
-		//
+	}
+		
 
-		_animation_time -= 1;
-		if ( _animation_time > 0 ) {
-			return;
-		}
-		_animation_time = 0;
-		_animator.SetBool( "_is_discharging", false );
+	public string getTouchObjectTag( ){
+		return _hit_object_tag;
+	}
 
-		if (_gauge > GAUGE_MAX) {
-			_gauge = GAUGE_MAX;
-			_animator.SetBool( "_is_charging", false );
-		}
-		if (_gauge > 0.0f) {
-			_gauge -= Time.deltaTime * _gauge_speed;
-		}
+	public float getGauge( ) {
+		return _gauge;
+	}
 
+	private void moveToTarget ( Vector3 pos, float walk_speed ) {
+		transform.position = Vector3.MoveTowards ( transform.position, pos, walk_speed );
+		transform.LookAt ( pos );
+	}
+
+	private void move( ) {
 		Vector3 rayhit_pos = _operation.getHitRaycastPos( );
 		if ( rayhit_pos != new Vector3( ) ) {
 			_target_pos = new Vector3 ( rayhit_pos.x, transform.position.y, rayhit_pos.z );
@@ -119,14 +215,12 @@ public class PlayerManager : MonoBehaviour {
 			_walk_speed = WalkMaxSpeed;
 		}
 		if ( _target_pos != new Vector3( ) ) {
-			_gauge_speed = WalkGaugeDrop;
-			move ( _target_pos, _walk_speed );
-			_animator.SetBool( "_is_running", true );
+			moveToTarget ( _target_pos, _walk_speed );
+			_player_state = PLAYER_STATE.PLAYER_STATE_RUN;
 			_move_time++;
 			setPoint( _target_pos );
 		} else {
-			_gauge_speed = StandGaugeDrop;
-			_animator.SetBool( "_is_running", false );
+			_player_state = PLAYER_STATE.PLAYER_STATE_STAY;
 			deletePoint( );
 		}
 		Vector3 diff_pos = transform.position - _target_pos;
@@ -135,51 +229,8 @@ public class PlayerManager : MonoBehaviour {
 			_move_time = 0;
 			_operation.resetTargetPos ( );
 			_target_pos = new Vector3( );
-			_animator.SetBool( "_is_running", false );
+			_player_state = PLAYER_STATE.PLAYER_STATE_STAY;
 		}
-	}
-
-	void OnTriggerStay( Collider col ) {
-		if (col.gameObject.tag == "Charger" ) {
-			_gauge += GaugeChargeSpeed;
-			_animator.SetBool( "_is_charging", true );
-		}
-	}
-
-	void OnTriggerEnter( Collider col ) {
-		if (col.gameObject.tag == "Goal") {
-			SceneManager.LoadScene( "GameClear" );
-		}
-	}
-
-	void OnCollisionEnter( Collision col ) {
-		_hit_object_tag = col.gameObject.tag;
-	}
-
-	void OnCollisionExit( Collision col ) {
-		if (_hit_object_tag == "StairNormal") {
-			col.gameObject.tag = "";
-			_climbing_normal_flag = false;
-			gameObject.GetComponent<Rigidbody> ().useGravity = true;
-		}
-		if (_hit_object_tag == "StairHigh") {
-			col.gameObject.tag = "";
-			_climbing_high_flag = false;
-			gameObject.GetComponent<Rigidbody> ().useGravity = true;
-		}
-	}
-
-	public string getTouchObjectTag( ){
-		return _hit_object_tag;
-	}
-
-	public float getGauge( ) {
-		return _gauge;
-	}
-
-	private void move ( Vector3 pos, float walk_speed ) {
-		transform.position = Vector3.MoveTowards ( transform.position, pos, walk_speed );
-		transform.LookAt ( pos );
 	}
 
 	private void setPoint( Vector3 pos ) {
