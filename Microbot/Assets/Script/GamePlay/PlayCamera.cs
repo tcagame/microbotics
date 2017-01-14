@@ -55,8 +55,10 @@ public class PlayCamera {
 					ray.origin = _mine.transform.position;
 					ray.direction = vec.normalized;
 					vec = _player.transform.position - _mine.transform.position;
+					if ( vec.magnitude < CAMERA_MIN_RANGE ) {
+						break;
+					}
 					is_front_wall = Physics.Raycast( ray, vec.magnitude );
-					Debug.Log ("while");
 				}
 			}
 			vec = _player.transform.position - _mine.transform.position;
