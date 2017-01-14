@@ -41,10 +41,14 @@ public class EventManager : MonoBehaviour {
 
 	void Start( ) {
 		_navi.transform.position = _navigate[ _total_object_play_count ].transform.position;
+		_camara_mgr.useStageViewCamera( );
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if ( Time.timeSinceLevelLoad == 0 ) {
+			_camara_mgr.useStageViewCamera ();
+		}
 		if ( _total_object_play_count >= _navigate.Length ) {
 			_total_object_play_count = _navigate.Length - 1;
 		}

@@ -31,18 +31,20 @@ public class StageViewCamera {
 		//リストの設定
 		_target_list = list;
 		_target_key = 0;
-		//カメラ位置の設定
-		_mine.transform.position = start_pos;
-		_mine.transform.LookAt( _target_list [ 0 ] );
-		//移動設定
-		Vector3 vec = _mine.transform.position - _target_list[ _target_key ];
-		_move_vec = vec / MOVE_COUNT;
-		_count = 0;
+		if (list.Count > 0) {
+			//カメラ位置の設定
+			_mine.transform.position = start_pos;
+			_mine.transform.LookAt (_target_list [0]);
+			//移動設定
+			Vector3 vec = _mine.transform.position - _target_list [_target_key];
+			_move_vec = vec / MOVE_COUNT;
+			_count = 0;
+		}
 	}
 
 	public bool isfinish( ) {
 		bool result = false;
-		if (_target_list.Count < _target_key) {
+		if (_target_list.Count <= _target_key) {
 			result = true;
 		}
 		return result;
