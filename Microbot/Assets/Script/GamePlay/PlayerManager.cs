@@ -153,13 +153,13 @@ public class PlayerManager : MonoBehaviour {
 			_animator.SetBool ("_is_running", true);
 			break;
 		case PLAYER_STATE.PLAYER_STATE_CLIMB:
-			if ( !_animator.GetBool ("_is_climb_normal")) {
+			if ( !_animator.GetBool ("_is_climbing_normal")) {
 				aniamationReset ();
 			}
 			_animator.SetBool ("_is_climbing_normal", true);
 			break;
 		case PLAYER_STATE.PLAYER_STATE_CLIMB_HIGH:
-			if ( !_animator.GetBool ("_is_climb_high")) {
+			if ( !_animator.GetBool ("_is_climbing_high")) {
 				aniamationReset ();
 			}
 			_animator.SetBool ("_is_climbing_high", true);
