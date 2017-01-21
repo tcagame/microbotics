@@ -15,11 +15,13 @@ public enum PLAYER_STATE {
 public class PlayerManager : MonoBehaviour {
 
 	const float POS_DIFF = 0.6f;
-	public float WalkMaxSpeed = 1.0f;
+	public float WalkMaxSpeed = 10f;
+	public float WalkMinSpeed = 0.2f;
 
 	private const float GAUGE_MAX = 100.0f;
 	private float _gauge;
-	[SerializeField]private float _move_max_time = 2;
+	[SerializeField]private float _move_max_time = 1
+		;
 	//private Touch _touch;
 	private Operation _operation;
 	private float _move_time = 0;
@@ -241,9 +243,7 @@ public class PlayerManager : MonoBehaviour {
 		Vector3 rayhit_pos = _operation.getHitRaycastPos( );
 		if ( rayhit_pos != new Vector3( ) ) {
 			_target_pos = new Vector3 ( rayhit_pos.x, transform.position.y, rayhit_pos.z );
-			if ( _check_first_touch == 0 ) {
-				_walk_speed = Vector3.Distance( _target_pos, transform.position ) / ( _move_max_time * 60 ) ;	
-			}
+			_walk_speed = Vector3.Distance( _target_pos, transform.position ) / ( _move_max_time * 60 ) ;	
 			_check_first_touch++;
 		} else {
 			_check_first_touch = 0;	
@@ -251,6 +251,9 @@ public class PlayerManager : MonoBehaviour {
 
 		if ( _walk_speed > WalkMaxSpeed ) {
 			_walk_speed = WalkMaxSpeed;
+		}
+		if ( _walk_speed < WalkMinSpeed ) {
+			_walk_speed = WalkMinSpeed;
 		}
 		if ( _target_pos != new Vector3( ) ) {
 			moveToTarget ( _target_pos, _walk_speed );
