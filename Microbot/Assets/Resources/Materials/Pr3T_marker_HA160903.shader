@@ -1,6 +1,5 @@
 ﻿Shader "Custom/Pr3T_marker_HA160903" {
 	Properties {
-		_Color ( "Color", Color ) = ( 1, 1, 1, 1 )
 		_MainTex( "Texture", 2D ) = "white"{}
 		_SubTex( "SubTexture", 2D ) = "white"{}
 		_scrollX( "Scroll X", float ) = 0
@@ -19,7 +18,6 @@
 			float2 uv_MainTex;
 		};
 
-		fixed4 _Color;
 		sampler2D _MainTex;
 		sampler2D _SubTex;
 		float _ScrollX;
