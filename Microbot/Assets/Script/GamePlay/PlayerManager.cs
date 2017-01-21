@@ -3,16 +3,16 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class PlayerManager : MonoBehaviour {
+public enum PLAYER_STATE {
+	PLAYER_STATE_STAY,
+	PLAYER_STATE_RUN,
+	PLAYER_STATE_CHARGE,
+	PLAYER_STATE_DISCHARGE,
+	PLAYER_STATE_CLIMB,
+	PLAYER_STATE_CLIMB_HIGH,
+}
 
-	enum PLAYER_STATE {
-		PLAYER_STATE_STAY,
-		PLAYER_STATE_RUN,
-		PLAYER_STATE_CHARGE,
-		PLAYER_STATE_DISCHARGE,
-		PLAYER_STATE_CLIMB,
-		PLAYER_STATE_CLIMB_HIGH,
-	}
+public class PlayerManager : MonoBehaviour {
 
 	const float POS_DIFF = 0.6f;
 	public float WalkMaxSpeed = 1.0f;
@@ -29,6 +29,7 @@ public class PlayerManager : MonoBehaviour {
 	private PLAYER_STATE _player_state;
 	private bool _climbed_normal;
 	private bool _climbed_high;
+	private bool _discharge;
 	private Vector3 _last_ground_pos;
 	[SerializeField]private string _hit_object_tag;
 	[SerializeField]private GameObject _hit_object;
@@ -66,6 +67,7 @@ public class PlayerManager : MonoBehaviour {
 		setRunEffect ( );
 		setAnimation ( );
 		checkClimb ( );
+
 		if ( _player_state == PLAYER_STATE.PLAYER_STATE_RUN || 
 			_player_state == PLAYER_STATE.PLAYER_STATE_STAY ) {
 			move ();
@@ -83,24 +85,20 @@ public class PlayerManager : MonoBehaviour {
 	}
 
 	void updateGauge( ) {
+		discharge( );
+
 		//GaugeのUpdate
 		switch (_player_state) {
 		case PLAYER_STATE.PLAYER_STATE_STAY:
 			break;
 		case PLAYER_STATE.PLAYER_STATE_RUN:
-			_gauge -= 0.1f;
+			_gauge -= 0.05f;
 			break;
 		case PLAYER_STATE.PLAYER_STATE_CLIMB:
-			_gauge -= 1f;
+			_gauge -= 0.1f;
 			break;
 		case PLAYER_STATE.PLAYER_STATE_CLIMB_HIGH:
-			_gauge -= 1.2f;
-			break;
-		case PLAYER_STATE.PLAYER_STATE_DISCHARGE:
-			_gauge -= 1f;
-			break;
-		case PLAYER_STATE.PLAYER_STATE_CHARGE:
-			_gauge += 1f;
+			_gauge -= 0.15f;
 			break;
 		}
 
@@ -122,7 +120,6 @@ public class PlayerManager : MonoBehaviour {
 			}
 			if ( _player_state == PLAYER_STATE.PLAYER_STATE_CLIMB_HIGH ) {
 				_climbed_high = true;
-
 			}
 			gameObject.GetComponent<Rigidbody> ().useGravity = true;
 			_player_state = PLAYER_STATE.PLAYER_STATE_STAY;
@@ -135,9 +132,33 @@ public class PlayerManager : MonoBehaviour {
 		pos.y = move_y;
 		pos += transform.position;
 		transform.position = pos;
-
-
 	}
+
+	private void discharge ( ) {
+		if ( _hit_object_tag == "Jack" && !_discharge ) {
+			_gauge -= 10f;
+			_discharge = true;
+		}
+		if ( _hit_object_tag == "Propera" && !_discharge ) {
+			_gauge -= 10f;
+			_discharge = true;
+		}
+		if ( _hit_object_tag == "ProperaFunSwitch" && !_discharge ) {
+			_gauge -= 10f;
+			_discharge = true;
+		}
+		if ( _hit_object_tag == "CoalFunSwitch" && !_discharge ) {
+			_gauge -= 10f;
+			_discharge = true;
+		}
+		if ( _hit_object_tag == "Charger" && _gauge < 100f ) {
+			_gauge += 1f;
+		}
+		if ( _hit_object_tag == "Untagged" ) {
+			_discharge = false;
+		}
+	}
+
 	private void checkClimb ( ) {
 		if (_hit_object_tag != "CanClimb") {
 			gameObject.GetComponent<Rigidbody> ().useGravity = true;
@@ -205,6 +226,10 @@ public class PlayerManager : MonoBehaviour {
 
 	public float getGauge( ) {
 		return _gauge;
+	}
+
+	public void setPlayerState( PLAYER_STATE state ) {
+		_player_state = state;
 	}
 
 	private void moveToTarget ( Vector3 pos, float walk_speed ) {
