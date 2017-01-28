@@ -11,6 +11,7 @@ public class PlayCamera {
 	private Slider _camera_slider;
 	private float _befor_value;
 
+
 	private float CAMERA_MAX_RANGE = 8.0f;
 	private float CAMERA_MIN_RANGE = 6.5f;
 	private float CAMERA_HEIGHT = 4;

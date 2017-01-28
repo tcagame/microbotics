@@ -3,7 +3,7 @@
       _MainTex ("Texture", 2D) = "white" {}
       _BumpMap ("Bumpmap", 2D) = "bump" {}
       _RimColor ("Rim Color", Color) = (1,1,1,1)
-      _RimPower ("Rim Power", Range(0.1,8.0)) = 1.0
+      _RimPower ("Rim Power", Range(0.1,20.0)) = 1.0
     }
     SubShader {
       Tags { "RenderType" = "Opaque" }

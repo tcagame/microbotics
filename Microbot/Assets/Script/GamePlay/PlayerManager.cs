@@ -20,8 +20,9 @@ public class PlayerManager : MonoBehaviour {
 	public float WalkMaxSpeed = 10f;
 	public float WalkMinSpeed = 0.2f;
 	public int GAME_WAIT_TIME = 2;
+	public float clim_speed = 0.3f;
 
-	private const float GAUGE_MAX = 100.0f;
+	private const float GAUGE_MAX = 300.0f;
 	private float _gauge;
 	[SerializeField]private float _move_max_time = 1
 		;
@@ -143,6 +144,7 @@ public class PlayerManager : MonoBehaviour {
 
 		}
 		float move_y = ( ( _hit_object.transform.position.y + _hit_object.transform.localScale.y ) - ( _last_ground_pos.y - transform.localScale.y  ) ) / 100;
+		move_y *= clim_speed;
 		Vector3 pos = _hit_object.transform.position - gameObject.transform.position;
 		pos.Normalize ();
 		pos *= 0.03f;

@@ -107,7 +107,7 @@ public class EventManager : MonoBehaviour {
 			_total_object_play_count++;
 			return;
 		}
-		if ( ( Goal.transform.position - _player_mgr.transform.position ).magnitude < 5) {
+		if ( ( Goal.transform.position - _player_mgr.transform.position ).magnitude < 3) {
 			_player_mgr.SetClear( );
 		}
 		if ( _player_mgr.isDeadMotionEnd( ) ) {
@@ -121,15 +121,15 @@ public class EventManager : MonoBehaviour {
 	private void moveNavigate( ) {
 		switch (_total_object_play_count) {
 		case 1:
-			GameObject.Find( "FanSwitch" ).GetComponentInChildren<Renderer>().material.SetColor("_RimColor", new Color (0, 255, 0));
+			GameObject.Find( "FanSwitch" ).GetComponentInChildren<Renderer>().material.SetColor("_RimColor", new Color (0, 1, 0));
 			break;
 		case 2:
 			for (int i = 0; i < _propeller_mgr.Part.Count; i++) {
-				_propeller_mgr.Part[ i ].GetComponent<Renderer>().material.SetColor("_RimColor", new Color (0, 255, 0));
+				_propeller_mgr.Part[ i ].GetComponent<Renderer>().material.SetColor("_RimColor", new Color (0, 1, 0));
 			}
 			break;
 		case 3:
-			GameObject.Find( "BigFanSwitch" ).GetComponentInChildren<Renderer>().material.SetColor("_RimColor", new Color (0, 255, 0));
+			GameObject.Find( "BigFanSwitch" ).GetComponentInChildren<Renderer>().material.SetColor("_RimColor", new Color (0, 1, 0));
 			break;
 		}
 	}
