@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 public class JackManager : MonoBehaviour {
 
-	public float MaxScaleY = 0.5f;
+	public float MaxScaleY = 0.0032f;
+	public float JackSpeed = 0.00035f;
+
 	public List<GameObject> Part;
 	private float _scale_y;
 	private GameObject _set;
@@ -19,7 +21,7 @@ public class JackManager : MonoBehaviour {
 
 	void Update( ) {
 		if ( _flag && _scale_y <= MaxScaleY ) {
-			_scale_y += 0.01f;
+			_scale_y += JackSpeed;
 			playJack ( );
 		}
 	}
@@ -27,7 +29,7 @@ public class JackManager : MonoBehaviour {
 	private void playJack( ) {
 		Vector3 col = GetComponent<BoxCollider>( ).size;
 		Vector3 center = GetComponent<BoxCollider>().center;
-		center.y += _scale_y / 2;
+		center.y += ( _scale_y / 2 ) * ( _scale_y / 2 );
 		col.y += _scale_y / 2;
 		GetComponent<BoxCollider>( ).size = col;
 		GetComponent<BoxCollider>().center = center;
