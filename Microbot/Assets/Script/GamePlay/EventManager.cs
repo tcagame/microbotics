@@ -88,7 +88,6 @@ public class EventManager : MonoBehaviour {
 			 player_touch_tag == _jack_mgr.tag &&
 			 !_jack_mgr.isActive( ) ) {
 			_jack_mgr.action( );
-			_jack_mgr.setLayerToIgnoreRaycast( );
 			_camara_mgr.useEventCamera( camera_pos, camera_vie_pos );
 			_event_camera_move_num++;
 			_total_object_play_count++;
