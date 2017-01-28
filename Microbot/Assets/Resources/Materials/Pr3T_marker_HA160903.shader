@@ -1,9 +1,15 @@
 ﻿Shader "Custom/Pr3T_marker_HA160903" {
 	Properties {
 		_MainTex( "Texture", 2D ) = "white"{}
-		_SubTex( "SubTexture", 2D ) = "white"{}
-		_scrollX( "Scroll X", float ) = 0
-		_ScrollY( "Scroll Y", float ) = 0
+		_EmissionColor( "EmissionColor", Color ) = ( 1.0, 1.0, 1.0, 1.0 )
+		_ScrollTex1( "EmissionTexture1", 2D ) = "white"{}
+		_ScrollTex2( "EmissionTexture2", 2D ) = "white"{}
+		_scrollX1( "Scroll X1", float ) = 0
+		_ScrollY1( "Scroll Y1", float ) = 0
+		_scrollX2( "Scroll X2", float ) = 0
+		_ScrollY2( "Scroll Y2", float ) = 0
+		_Gloss( "Gloss", Range( 0, 1 ) ) = 1
+		_Alpha( "Alpha", Range( 0, 1 ) ) = 1
 	}
 
 	SubShader {
@@ -19,15 +25,25 @@
 		};
 
 		sampler2D _MainTex;
-		sampler2D _SubTex;
-		float _ScrollX;
-		float _ScrollY;
+		half4 _EmissionColor;
+		sampler2D _ScrollTex1;
+		sampler2D _ScrollTex2;
+		float _ScrollX1;
+		float _ScrollY1;
+		float _ScrollX2;
+		float _ScrollY2;
+		fixed _Alpha;
+		fixed _Gloss;
 
 		void surf( Input IN, inout SurfaceOutput o ) {
-			float2 scroll = float2( _ScrollX, _ScrollY ) * _Time.y;
-			fixed4 c = tex2D( _MainTex, IN.uv_MainTex ) * tex2D( _SubTex, IN.uv_MainTex + scroll );
-			o.Alpha = c.a;
+			float2 scroll1 = float2( _ScrollX1, _ScrollY1 ) * _Time.y;
+			float2 scroll2 = float2( _ScrollX2, _ScrollY2 ) * _Time.y;
+			float t = ( ( 2 * _SinTime.w * _CosTime.w ) + 1.0 ) * 0.5;
+			fixed4 c = tex2D( _MainTex, IN.uv_MainTex ) * tex2D( _ScrollTex1, IN.uv_MainTex + scroll1 ) * tex2D( _ScrollTex2, IN.uv_MainTex + scroll2 );
+			o.Alpha = _Alpha;
+			o.Gloss = _Gloss;
 			o.Albedo = c.rgb;
+			o.Emission = _EmissionColor * t;
 		}
 		ENDCG
 	}
