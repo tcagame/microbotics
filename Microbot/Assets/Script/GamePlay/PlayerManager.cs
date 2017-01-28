@@ -10,6 +10,8 @@ public enum PLAYER_STATE {
 	PLAYER_STATE_DISCHARGE,
 	PLAYER_STATE_CLIMB,
 	PLAYER_STATE_CLIMB_HIGH,
+	PLAYER_STATE_CLEAR,
+	PLAYER_STATE_DEAD,
 }
 
 public class PlayerManager : MonoBehaviour {
@@ -17,6 +19,7 @@ public class PlayerManager : MonoBehaviour {
 	const float POS_DIFF = 0.6f;
 	public float WalkMaxSpeed = 10f;
 	public float WalkMinSpeed = 0.2f;
+	public int GAME_WAIT_TIME = 2;
 
 	private const float GAUGE_MAX = 100.0f;
 	private float _gauge;
@@ -32,6 +35,8 @@ public class PlayerManager : MonoBehaviour {
 	private bool _climbed_normal;
 	private bool _climbed_high;
 	private bool _discharge;
+	private bool _clear;
+	private int _game_end_time = 0;
 	private Vector3 _last_ground_pos;
 	[SerializeField]private string _hit_object_tag;
 	[SerializeField]private GameObject _hit_object;
@@ -54,7 +59,7 @@ public class PlayerManager : MonoBehaviour {
 		_point = Instantiate( _point );
 		_point.SetActive( false );
 		_climbed_normal = false;
-
+		_clear = false;
 	}
 
 	// Use this for initialization
@@ -80,6 +85,16 @@ public class PlayerManager : MonoBehaviour {
 		if ( _player_state == PLAYER_STATE.PLAYER_STATE_CLIMB ||
 			_player_state == PLAYER_STATE.PLAYER_STATE_CLIMB_HIGH ) {
 			climb ();
+		}
+		AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo( 0 );
+		if ( _gauge <= 0 ) {
+			_player_state = PLAYER_STATE.PLAYER_STATE_DEAD;
+		}
+		if ( _clear ) {
+			_player_state = PLAYER_STATE.PLAYER_STATE_CLEAR;
+		}
+		if ( _clear || _gauge <= 0 ) {
+			_game_end_time++;
 		}
 	}
 
@@ -203,6 +218,18 @@ public class PlayerManager : MonoBehaviour {
 			}
 			_animator.SetBool ("_is_climbing_high", true);
 			break;
+		case PLAYER_STATE.PLAYER_STATE_CLEAR:
+			if( !_animator.GetBool( "_clear" ) ) {
+				aniamationReset( );
+			}
+			_animator.SetBool( "_clear", true );
+			break;
+		case PLAYER_STATE.PLAYER_STATE_DEAD:
+			if( !_animator.GetBool( "_dead" ) ) {
+				aniamationReset( );
+			}
+			_animator.SetBool( "_dead", true );
+			break;
 		default:
 			break;
 		}
@@ -284,5 +311,18 @@ public class PlayerManager : MonoBehaviour {
 
 	private void deletePoint( ) {
 		_point.SetActive( false );
+	}
+
+	public void SetClear( ) {
+		_clear = true;
+	}
+	public  bool isDead( ) {
+		return _player_state == PLAYER_STATE.PLAYER_STATE_DEAD;
+	}
+	public bool isDeadMotionEnd( ) {
+		return _game_end_time >= ( GAME_WAIT_TIME * 60 ) && _player_state == PLAYER_STATE.PLAYER_STATE_DEAD;
+	}
+	public bool isClearMotionEnd( ) {
+		return _game_end_time >= ( GAME_WAIT_TIME * 60 ) && _player_state == PLAYER_STATE.PLAYER_STATE_CLEAR;
 	}
 }

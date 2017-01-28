@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class EventManager : MonoBehaviour {
 	//ギミックのマネージャーをかく
@@ -13,6 +14,7 @@ public class EventManager : MonoBehaviour {
 	private PropellerFanManager _propeller_fan_mgr;
 	private JackManager _jack_mgr;
 	private Operation _operation;
+	public GameObject Goal;
 	//ナビゲーションマーカー
 	private GameObject _navi;
 	[SerializeField]
@@ -105,6 +107,15 @@ public class EventManager : MonoBehaviour {
 			_event_camera_move_num++;
 			_total_object_play_count++;
 			return;
+		}
+		if ( ( Goal.transform.position - _player_mgr.transform.position ).magnitude < 5) {
+			_player_mgr.SetClear( );
+		}
+		if ( _player_mgr.isDeadMotionEnd( ) ) {
+			SceneManager.LoadScene( "GameOver" );
+		}
+		if ( _player_mgr.isClearMotionEnd( ) ) {
+			SceneManager.LoadScene( "GameClear" );
 		}
 	}
 
