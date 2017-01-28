@@ -1,8 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/GamePlay/PlayCamera.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Editor/ImageEffects/ColorCorrectionLookupEditor.cs">
     <Files>
-      <File FileName="Assets/Script/GamePlay/PlayCamera.cs" Line="88" Column="51" />
+      <File FileName="Assets/Script/GamePlay/JackManager.cs" Line="30" Column="51" />
+      <File FileName="Assets/Script/GamePlay/EventManager.cs" Line="97" Column="29" />
+      <File FileName="Assets/Script/GamePlay/PlayerManager.cs" Line="210" Column="2" />
+      <File FileName="Assets/Script/GamePlay/PlayCamera.cs" Line="27" Column="32" />
+      <File FileName="Assets/Script/GamePlay/Operation.cs" Line="27" Column="19" />
+      <File FileName="Assets/Editor/ImageEffects/ColorCorrectionLookupEditor.cs" Line="62" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
