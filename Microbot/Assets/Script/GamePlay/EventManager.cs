@@ -26,8 +26,6 @@ public class EventManager : MonoBehaviour {
 	private int _event_camera_move_num;
 
 	void Awake ( ) {
-		_navi = ( GameObject )Resources.Load( "Prefab/Navi" );
-		_navi = Instantiate( _navi );
 		_operation = GameObject.Find( "GameManager" ).GetComponent< Operation >( );
 		_player_mgr = GameObject.Find( "Player" ).GetComponent< PlayerManager >( );
 		_camara_mgr = gameObject.GetComponent< CameraManager >( );
@@ -40,7 +38,6 @@ public class EventManager : MonoBehaviour {
 	}
 
 	void Start( ) {
-		_navi.transform.position = _navigate[ _total_object_play_count ].transform.position;
 		_camara_mgr.useStageViewCamera( );
 	}
 	
