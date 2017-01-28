@@ -70,6 +70,7 @@ public class EventManager : MonoBehaviour {
 			_camara_mgr.useEventCamera( camera_pos, camera_vie_pos );
 			_event_camera_move_num++;
 			_total_object_play_count++;
+			GameObject.Find( "FanSwitch" ).GetComponentInChildren<Renderer>().material.SetColor("_RimColor", new Color (0, 0, 0));
 			return;
 		}
 		if ( tag == _coal_fan_switch_tag && 
@@ -79,6 +80,8 @@ public class EventManager : MonoBehaviour {
 			_camara_mgr.useEventCamera( camera_pos, camera_vie_pos );
 			_event_camera_move_num++;
 			_total_object_play_count++;
+			GameObject.Find( "BigFanSwitch" ).GetComponentInChildren<Renderer>().material.SetColor("_RimColor", new Color (0, 0, 0));
+
 			return;
 		}
 		if ( tag == _jack_mgr.tag && 
@@ -108,6 +111,18 @@ public class EventManager : MonoBehaviour {
 	}
 
 	private void moveNavigate( ) {
-		_navi.transform.position = _navigate[ _total_object_play_count ].transform.position;
+		switch (_total_object_play_count) {
+		case 1:
+			GameObject.Find( "FanSwitch" ).GetComponentInChildren<Renderer>().material.SetColor("_RimColor", new Color (0, 255, 0));
+			break;
+		case 2:
+			for (int i = 0; i < _propeller_mgr.Part.Count; i++) {
+				_propeller_mgr.Part[ i ].GetComponent<Renderer>().material.SetColor("_RimColor", new Color (0, 255, 0));
+			}
+			break;
+		case 3:
+			GameObject.Find( "BigFanSwitch" ).GetComponentInChildren<Renderer>().material.SetColor("_RimColor", new Color (0, 255, 0));
+			break;
+		}
 	}
 }

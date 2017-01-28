@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class JackManager : MonoBehaviour {
 
 	public float MaxScaleY = 0.5f;
+	public List<GameObject> Part;
 	private float _scale_y;
 	private GameObject _set;
 	private bool _flag;
@@ -29,7 +31,9 @@ public class JackManager : MonoBehaviour {
 		col.y += _scale_y / 2;
 		GetComponent<BoxCollider>( ).size = col;
 		GetComponent<BoxCollider>().center = center;
-
+		for (int i = 0; i < Part.Count; i++) {
+			Part[ i ].GetComponent<Renderer> ().material.SetColor ("_RimColor", new Color (0, 0, 0));
+		}
 
 		Vector3 s_pos = _set.transform.position;
 		s_pos.y += (Mathf.Abs( _scale_y ) ) / 2;
@@ -41,6 +45,7 @@ public class JackManager : MonoBehaviour {
 	public void action( ) {
 		_flag = true;
 	}
+
 	public bool isActive () {
 		return _flag;
 	}

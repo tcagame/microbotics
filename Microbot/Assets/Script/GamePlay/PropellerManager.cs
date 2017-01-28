@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PropellerManager : MonoBehaviour {
 	private enum STATE {
@@ -7,6 +8,7 @@ public class PropellerManager : MonoBehaviour {
 		STATE_UP,
 		STATE_LEAVE
 	}
+	public List<GameObject> Part;
 
 	private GameObject _propeller;
 	public string PropellerName;
@@ -114,6 +116,9 @@ public class PropellerManager : MonoBehaviour {
 	public void action( ) {
 		_flag = true;
 		_state = STATE.STATE_UP;
+		for (int i = 0; i < Part.Count; i++) {
+			Part[ i ].GetComponent<Renderer>().material.SetColor("_RimColor", new Color (0, 0, 0));
+		}
 	}
 	public bool isActive( ) {
 		return _flag;
