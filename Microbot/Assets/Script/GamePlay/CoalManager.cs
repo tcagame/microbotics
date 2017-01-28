@@ -4,6 +4,7 @@ using System.Collections;
 public class CoalManager : MonoBehaviour {
 
 	bool _action_flag = false;
+	int _time = 0;
 	// Use this for initialization
 	void Start () {
 	
@@ -12,11 +13,13 @@ public class CoalManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if ( !_action_flag ) {
+			_time = 0;
 			return;
 		}
 		//石炭飛ぶ
 		transform.position += Vector3.right;
-		if (transform.position.x > 100) {
+		_time++;
+		if ( _time > 100 ) {
 			Destroy(gameObject);
 		}
 	}
