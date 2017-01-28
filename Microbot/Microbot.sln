@@ -1,7 +1,11 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
+Project("{CB0A25CB-931C-B55E-B9CA-66BDB02A12D9}") = "Microbot", "Assembly-CSharp-firstpass.csproj", "{2F137085-7F3B-EAC8-2453-FD84E4905DEB}"
+EndProject
 Project("{CB0A25CB-931C-B55E-B9CA-66BDB02A12D9}") = "Microbot", "Assembly-CSharp.csproj", "{3C310C36-C005-6CF3-5BC2-86214ADB1654}"
+EndProject
+Project("{CB0A25CB-931C-B55E-B9CA-66BDB02A12D9}") = "Microbot", "Assembly-CSharp-Editor.csproj", "{7BB79A4B-993F-8EB7-92B2-AD10C831D632}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F137085-7F3B-EAC8-2453-FD84E4905DEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F137085-7F3B-EAC8-2453-FD84E4905DEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F137085-7F3B-EAC8-2453-FD84E4905DEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F137085-7F3B-EAC8-2453-FD84E4905DEB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3C310C36-C005-6CF3-5BC2-86214ADB1654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3C310C36-C005-6CF3-5BC2-86214ADB1654}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C310C36-C005-6CF3-5BC2-86214ADB1654}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C310C36-C005-6CF3-5BC2-86214ADB1654}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BB79A4B-993F-8EB7-92B2-AD10C831D632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BB79A4B-993F-8EB7-92B2-AD10C831D632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BB79A4B-993F-8EB7-92B2-AD10C831D632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BB79A4B-993F-8EB7-92B2-AD10C831D632}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
