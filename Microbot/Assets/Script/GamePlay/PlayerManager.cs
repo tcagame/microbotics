@@ -35,11 +35,13 @@ public class PlayerManager : MonoBehaviour {
 	private Vector3 _last_ground_pos;
 	[SerializeField]private string _hit_object_tag;
 	[SerializeField]private GameObject _hit_object;
+	[SerializeField]private float _clim_speed = 0.3f;
+
 
 	//ポイント
 	GameObject _point;
 	//Dust
-	private GameObject _dust;
+	[SerializeField]private GameObject _dust;
 
 	RaycastHit hit;
 	private Animator _animator;
@@ -128,6 +130,7 @@ public class PlayerManager : MonoBehaviour {
 
 		}
 		float move_y = ( ( _hit_object.transform.position.y + _hit_object.transform.localScale.y ) - ( _last_ground_pos.y - transform.localScale.y  ) ) / 100;
+		move_y *= _clim_speed;
 		Vector3 pos = _hit_object.transform.position - gameObject.transform.position;
 		pos.Normalize ();
 		pos *= 0.03f;
