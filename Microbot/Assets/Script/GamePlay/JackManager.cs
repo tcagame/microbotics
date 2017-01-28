@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class JackManager : MonoBehaviour {
 
 	public float MaxScaleY = 0.5f;
-	public float Speed = 0.005f;
-
+	public List<GameObject> Part;
 	private float _scale_y;
 	private GameObject _set;
 	private bool _flag;
@@ -19,7 +19,7 @@ public class JackManager : MonoBehaviour {
 
 	void Update( ) {
 		if ( _flag && _scale_y <= MaxScaleY ) {
-			_scale_y += Speed;
+			_scale_y += 0.01f;
 			playJack ( );
 		}
 	}
@@ -27,26 +27,26 @@ public class JackManager : MonoBehaviour {
 	private void playJack( ) {
 		Vector3 col = GetComponent<BoxCollider>( ).size;
 		Vector3 center = GetComponent<BoxCollider>().center;
-		center.y += ( _scale_y / 2 ) * ( _scale_y / 2 );
+		center.y += _scale_y / 2;
 		col.y += _scale_y / 2;
 		GetComponent<BoxCollider>( ).size = col;
 		GetComponent<BoxCollider>().center = center;
-
+		for (int i = 0; i < Part.Count; i++) {
+			Part[ i ].GetComponent<Renderer> ().material.SetColor ("_RimColor", new Color (0, 0, 0));
+		}
 
 		Vector3 s_pos = _set.transform.position;
 		s_pos.y += (Mathf.Abs( _scale_y ) ) / 2;
 		_set.transform.position = s_pos;
-	
+
 		gameObject.GetComponent<Animator> ().SetTrigger ("_jack_play");
 	}
 
 	public void action( ) {
 		_flag = true;
 	}
+
 	public bool isActive () {
 		return _flag;
-	}
-	public void setLayerToIgnoreRaycast( ) {
-		gameObject.layer = 2;
 	}
 }
