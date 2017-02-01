@@ -1,11 +1,11 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microbot", "Assembly-CSharp-firstpass.csproj", "{2F137085-7F3B-EAC8-2453-FD84E4905DEB}"
+# Visual Studio 2008
+
+Project("{CB0A25CB-931C-B55E-B9CA-66BDB02A12D9}") = "Microbot", "Assembly-CSharp-firstpass.csproj", "{2F137085-7F3B-EAC8-2453-FD84E4905DEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microbot", "Assembly-CSharp.csproj", "{3C310C36-C005-6CF3-5BC2-86214ADB1654}"
+Project("{CB0A25CB-931C-B55E-B9CA-66BDB02A12D9}") = "Microbot", "Assembly-CSharp.csproj", "{3C310C36-C005-6CF3-5BC2-86214ADB1654}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microbot", "Assembly-CSharp-Editor-firstpass.csproj", "{28600C5F-496C-B42E-99A2-1FB37758D574}"
+Project("{CB0A25CB-931C-B55E-B9CA-66BDB02A12D9}") = "Microbot", "Assembly-CSharp-Editor-firstpass.csproj", "{28600C5F-496C-B42E-99A2-1FB37758D574}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
