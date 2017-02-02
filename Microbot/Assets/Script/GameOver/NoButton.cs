@@ -4,6 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class NoButton : MonoBehaviour {
 	public void goToTitle( ) {
-		SceneManager.LoadScene( "Title" );
+		SceneManager.LoadScene( "GameTitle" );
 	}
 }
