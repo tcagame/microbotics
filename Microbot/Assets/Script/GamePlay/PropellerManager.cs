@@ -71,6 +71,11 @@ public class PropellerManager : MonoBehaviour {
 			break;
 		}
 	}
+    private void reset( ) {
+        _flag = false;
+        _z_buffer = -_senter_z;
+        _before_y = 0;
+    }
 
 	private void flyToCurve( ) {
         Vector3 propeller_pos = _propeller.transform.position;
@@ -108,7 +113,7 @@ public class PropellerManager : MonoBehaviour {
         if ( Vector3.Distance( PROPELLER_LOW_POS , propeller_pos ) < 1 ) {
             _state = STATE.STATE_NONE;
             _propeller.transform.position = PROPELLER_LOW_POS;
-            _flag = false;
+            reset( );
         }
 	}
 
