@@ -51,7 +51,9 @@ public class PlayCamera {
 			Ray ray = new Ray( );
 			ray.origin = _mine.transform.position;
 			ray.direction = vec.normalized;
-			bool is_front_wall = Physics.Raycast( ray, vec.magnitude );
+			int layer_mask = 0;//プロペラのレイヤーマスク
+
+			bool is_front_wall = Physics.Raycast( ray, vec.magnitude, layer_mask );
 			if (is_front_wall) {
 				while (is_front_wall) {
 					//ある場合は一番近くまで移動して
@@ -62,32 +64,30 @@ public class PlayCamera {
 					if (vec.magnitude < CAMERA_MIN_RANGE) {
 						break;
 					}
-					is_front_wall = Physics.Raycast (ray, vec.magnitude);
-				}
-			} else {
-				if ( camera_min_height <= _mine.transform.position.y ) {
-					_mine.transform.position -= new Vector3( 0, 0.1f, 0 );
+					is_front_wall = Physics.Raycast (ray, vec.magnitude, layer_mask);
 				}
 			}
-			vec = _player.transform.position - _mine.transform.position;
+
 			//ミンより近づいたら離れる
+			vec = _player.transform.position - _mine.transform.position;
 			if ( vec.magnitude < CAMERA_MIN_RANGE ) {
-				if (camera_min_height <= _mine.transform.position.y) {
+				if (camera_min_height < _mine.transform.position.y) {
 					_mine.transform.position -= new Vector3(0, 0.1f, 0);
-					_mine.transform.position -= _player.transform.forward;
 				} else {
 					_mine.transform.position = _player.transform.position + _vec.normalized * CAMERA_MIN_RANGE;
 				}
 			}
+
 			//マックスより離れたら近く
+			vec = _player.transform.position - _mine.transform.position;
 			if ( vec.magnitude > CAMERA_MAX_RANGE) {
-				if (camera_min_height <= _mine.transform.position.y) {
+				if (camera_min_height < _mine.transform.position.y) {
 					_mine.transform.position -= new Vector3(0, 0.1f, 0);
-					_mine.transform.position -= _player.transform.forward;
 				} else {
 					_mine.transform.position = _player.transform.position + _vec.normalized * CAMERA_MAX_RANGE;
 				}
 			}
+
 			if( camera_min_height >= _mine.transform.position.y ) {
 				_mine.transform.position = new Vector3( _mine.transform.position.x, camera_min_height, _mine.transform.position.z );
 			}
